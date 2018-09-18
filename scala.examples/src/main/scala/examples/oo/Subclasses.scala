@@ -1,4 +1,4 @@
-package info
+package examples.oo
 
 abstract class TopLevel {     // abstract class
   def method1(x: Int): Int   // abstract method

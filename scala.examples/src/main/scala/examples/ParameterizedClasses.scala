@@ -1,4 +1,6 @@
-package info
+package examples
+
+import examples.oo.{Level1, TopLevel}
 
 class MyParamClass[T](arg: T) {
 

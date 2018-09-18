@@ -1,4 +1,4 @@
-import info.PatternMatching
+import examples.PatternMatching
 
 val matcher = new PatternMatching()
 matcher.matchFoo(List(10))

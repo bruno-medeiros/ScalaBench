@@ -1,4 +1,4 @@
-package example
+package basic
 
 class MyClass(x: Int, y: Int) {           // Defines a new type MyClass with a constructor
   require(y > 0, "y must be positive")    // precondition, triggering an IllegalArgumentException if not met  
