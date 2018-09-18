@@ -1,0 +1,13 @@
+From highest to lowest:
+
+
+(all letters)
+|
+^
+&
+< >
+= !
+:
++ -
+* / %
+(all other special characters)
