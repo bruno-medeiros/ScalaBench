@@ -1,6 +1,6 @@
 package examples
 
-import examples.oo.{Level1, TopLevel}
+import examples.oo.{Sub1, TopClass}
 
 class MyParamClass[T](arg: T) {
 
@@ -14,9 +14,9 @@ object MyParamClass {
 
 
   // T must derive from TopLevel or be TopLevel
-  def myFct1[T <: TopLevel](arg: T): T = { ??? }
+  def myFct1[T <: TopClass](arg: T): T = { ??? }
   // T must be a supertype of Level1
-  def myFct2[T >: Level1](arg: T): T = { ??? }
-  def myFct3[T >: Level1 <: TopLevel](arg: T): T = { ??? }
+  def myFct2[T >: Sub1](arg: T): T = { ??? }
+  def myFct3[T >: Sub1 <: TopClass](arg: T): T = { ??? }
 
 }

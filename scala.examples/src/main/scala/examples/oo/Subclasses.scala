@@ -1,11 +1,22 @@
 package examples.oo
 
-abstract class TopLevel {     // abstract class
-  def method1(x: Int): Int   // abstract method
-  def method2(x: Int): Int = { println("In method2"); 123 }
+abstract class TopClass {
+  var x = 10
+
+  def method1(x: Int): Int
+  def method2(x: Int): Int = {
+    println("In method2")
+    123
+  }
+
+  def otherMethod: Int = {
+    print("In otherMethod... ")
+    x += 2
+    x
+  }
 }
 
-class Level1 extends TopLevel {
+class Sub1 extends TopClass {
   def method1(x: Int): Int = {
     println("Method 1")
     11
@@ -15,4 +26,3 @@ class Level1 extends TopLevel {
     22
   }
 }
-
