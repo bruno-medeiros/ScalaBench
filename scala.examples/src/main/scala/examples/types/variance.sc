@@ -7,4 +7,5 @@ val b3 : MyBox[AnyRef] = b;
 val b1x: Int = b.get()
 b3.get()
 
-(new MyBox[Integer](123).asInstanceOf[MyBox[String]]).get()
+// ClassCastException:
+new MyBox[Integer](123).asInstanceOf[MyBox[String]].get()
