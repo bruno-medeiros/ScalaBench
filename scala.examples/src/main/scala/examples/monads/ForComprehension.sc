@@ -10,9 +10,9 @@ for {
 }
   yield (x, y)
 
-(1 to 5)
-  .flatMap(e =>
-    ('a' to 'c').map(e2 => (e, e2)))
+(1 to 5).flatMap(e =>
+  ('a' to 'c')
+    .map(e2 => (e, e2)))
 
 
 for (x <- 1 to 5) yield 'a'
