@@ -1,5 +1,6 @@
 package basic
 
+//noinspection ScalaUnusedSymbol
 class MyClass(x: Int, y: Int) {           // Defines a new type MyClass with a constructor
   require(y > 0, "y must be positive")    // precondition, triggering an IllegalArgumentException if not met  
 
@@ -12,9 +13,13 @@ class MyClass(x: Int, y: Int) {           // Defines a new type MyClass with a c
   def nb2: Int = y
   private def test(a: Int): Int = { a + x + y } // private method
 
-  val nb3 = x + y                         // computed only once
+  val nb3: Int = x + y                         // computed only once
   override def toString: String =                 // overridden method
       x + ", " + y
 }
 
-//new MyClass(1, 2) // creates a new object of type
+object MyClass {
+
+  def xxx(): String = "12"
+
+}
