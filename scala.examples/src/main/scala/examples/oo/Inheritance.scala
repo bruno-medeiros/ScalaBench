@@ -11,10 +11,9 @@ abstract class TopClass(var topParam: String) {
     123
   }
 
-  def otherMethod: Int = {
-    print("In otherMethod... ")
-    x += 2
-    x
+  def otherMethod: String = {
+    print("In TopClass::otherMethod... ")
+    x + ""
   }
 }
 
@@ -29,8 +28,8 @@ class Sub1 extends TopClass("TopParam:Sub1") {
     22
   }
 
-  override def otherMethod: Int = {
-    1000
+  override def otherMethod: String = {
+    "Sub::otherMethod"
   }
 
   // Not allowed:
@@ -44,9 +43,8 @@ class Sub1 extends TopClass("TopParam:Sub1") {
 
 }
 
-object Blah {
+object ClassesApp extends App {
   private val sub1 = new Sub1()
-  private val other: Int = sub1.otherMethod
 
-  println("Other: " + other)
+  println("Other: " + sub1.otherMethod)
 }
