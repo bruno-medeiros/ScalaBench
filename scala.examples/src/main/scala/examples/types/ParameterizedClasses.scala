@@ -1,12 +1,22 @@
-package examples
+package examples.types
 
 import examples.oo.{Sub1, TopClass}
+
+
+class MyBox[+T](obj: T) {
+
+  def get(): T = obj
+
+}
+
+// TODO explore covariance more
 
 class MyParamClass[T](arg: T) {
 
 }
 
 
+//noinspection NotImplementedCode
 object MyParamClass {
 
   new MyParamClass[Int](1)

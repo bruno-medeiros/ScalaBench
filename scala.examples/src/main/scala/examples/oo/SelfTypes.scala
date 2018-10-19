@@ -20,6 +20,7 @@ trait MyApp extends Database {
 // allows a more flexible trait linearization,
 // whereas myApp forces it to be MyApp -> Database
 trait MyAppWithSelfType {
+  // Note: it can also be this: Database
   self: Database =>
 
   def open(): Unit = {
