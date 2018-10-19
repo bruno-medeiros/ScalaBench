@@ -19,6 +19,10 @@ trait MyApp extends Database {
 // I think the difference from MyApp above is that this MyAppWithSelfType
 // allows a more flexible trait linearization,
 // whereas myApp forces it to be MyApp -> Database
+//
+// Addendum: ACTUALLY, self type reference main use is that it allows a
+// reference to a non-concrete type (a type parameter, or abstract type!),
+// whereas extend only allows a concrete type.
 trait MyAppWithSelfType {
   // Note: it can also be this: Database
   self: Database =>
