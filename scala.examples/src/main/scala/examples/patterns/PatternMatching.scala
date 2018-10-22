@@ -7,47 +7,62 @@ object PatternMatching extends App {
   case class NodeBar(id: Int, size: Int) extends Node
   case class NodeOther(misc: Double) extends Node
 
-  private def matchNode(node: Node): Unit = {
+  private def matchNode(node: Node): String = {
     // Note: each case line is a PATTERN (until the "=>")
 
     node match {
-      case NodeFoo("666") => println("Evil NodeFoo!!")
-        // Pattern guard
-      case NodeFoo(name) if name.startsWith("Special") => println("Special NodeFoo!!")
-        // More generic case should be after the more specific ones
-      case NodeFoo(name) => println(name)
+        // Specific match
+      case NodeFoo("Special") => "Special NodeFoo!"
+        // More generic:
+      case NodeFoo(name) => name
 
-      case NodeBar(id, _) if id == 333 => println("Special NodeBar 333!")
+      // Pattern guard
+      case NodeBar(id, _) if id == 333 => "Special NodeBar 333!"
         // generic match for NodeBar:
-      case NodeBar(666, _) => println("Evil NodeBar")
+      case NodeBar(666, _) => "Evil NodeBar"
         // Matching on type only:
-      case nodeBar : NodeBar => println(s"Generic nodeBar: ${nodeBar.id}")
+      case nodeBar : NodeBar => s"Generic nodeBar: ${nodeBar.id}"
     }
   }
 
   // Matching (on case class)
-  matchNode(NodeFoo("MyFoo"))
-  matchNode(NodeFoo("Special"))
-  matchNode(PatternMatching.NodeBar(333, 60))
-  matchNode(PatternMatching.NodeBar(123, 60))
+  assert(matchNode(NodeFoo("MyFoo")) == "MyFoo")
+  assert(matchNode(NodeFoo("Special")) == "Special NodeFoo!")
+  assert(matchNode(PatternMatching.NodeBar(333, 60)) == "Special NodeBar 333!")
+  assert(matchNode(PatternMatching.NodeBar(123, 60)) == "Generic nodeBar: 123")
 
 
-  //noinspection VariablePatternShadow
+  // Sequence matching:
+  List(1, 2, 3) match { case list @ List(1, _*) => println(list) }
+
   // match with back-tick:
-  def matchWithBackTick(foo: Int, bar: String): Unit = {
-    (123, "abc")  match {
-        // `foo` is ref, foo2 is declaration from pattern
-      case (foo2 @ `foo`, bar) =>
-        println(s"Match any, assigning to $foo2 , $bar")
+  {
+    val expected: Integer = new Integer(123)
+
+    new Integer(123) match {
+      // back-tick makes it a ref, so expected is a ref
+      case `expected` => assert(true)
+      case _ => assert(false)
+    }
+
+    // note that this var has to be
+    val expectedNum: Number = expected
+    BigInt(123) match {
+      // Matching `expected` doesn't work because `expected` is typed as Integer
+//      case `expected` => assert(false)
+
+      // But this works because it's typed as Number, which can match BigInt
+      case `expectedNum` => assert(true)
+      case _ => assert(false)
     }
   }
 
-  object PatternMatching_InVarDeclarations extends App {
-
-    // Matching in var declarations:
-    val stationNames = List("Paris", "Geneva", "London")
-    val list @ List(paris, geneva, london, other) = stationNames // error
-
+  {
+    // Pattern binder:
+    ("foo", 123) match {
+      // back-tick makes it a ref, so expected is a ref
+      case redefined @ ("foo", _) => assert(redefined == ("foo", 123))
+      case _ => assert(false)
+    }
   }
 }
-

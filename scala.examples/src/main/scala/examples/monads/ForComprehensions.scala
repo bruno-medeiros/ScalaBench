@@ -1,6 +1,6 @@
 package examples.monads
 
-object ForComprehension {
+object ForComprehensions {
   // For Comprehension:
   for (x <- 1 to 4; y <- 'a' to 'c')
     yield (x, y)
@@ -17,4 +17,7 @@ object ForComprehension {
     ('a' to 'c')
       .map(e2 => (e, e2)))
 
+
+  // TODO: For expression, changing from one collection type to another:
+//  val result: Vector[_] = for (x <- List(1, 2, 3)) yield x
 }

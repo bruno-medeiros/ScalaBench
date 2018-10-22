@@ -1,6 +1,5 @@
 package examples.oo
 
-
 trait Database {
   def url(): String
 }
