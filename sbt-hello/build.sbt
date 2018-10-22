@@ -1,7 +1,10 @@
 //import Dependencies._
 
+// This is "bare-style"
 ThisBuild / scalaVersion := "2.12.7"
 ThisBuild / organization := "com.example"
+ThisBuild / version      := "0.1.0-SNAPSHOT"
+
 
 val scalaTest = "org.scalatest" %% "scalatest" % "3.0.5"
 val gigahorse = "com.eed3si9n" %% "gigahorse-okhttp" % "0.3.1"

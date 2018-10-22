@@ -1,5 +1,5 @@
 import sbt._
 
-object Dependencies {
+object DependenciesRoot {
   lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.0.5"
 }
