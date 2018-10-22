@@ -11,7 +11,7 @@ class MyClass(x: Int, y: Int) {           // Defines a new type MyClass with a c
   }
   def nb1: Int = x                             // public method computed every time it is called
   def nb2: Int = y
-  private def test(a: Int): Int = { a + x + y } // private method
+  def addAll(a: Int): Int = { a + x + y } // private method
 
   val nb3: Int = x + y                         // computed only once
   override def toString: String =                 // overridden method
