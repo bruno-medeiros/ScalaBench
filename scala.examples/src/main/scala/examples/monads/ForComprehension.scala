@@ -7,7 +7,7 @@ object ForComprehension {
 
   // alternative syntax:
   for {
-    x <- 1 to 4
+    x <- 1 to 4  // Each line like this is a GENERATOR
     y <- 'a' to 'c'
   }
     yield (x, y)

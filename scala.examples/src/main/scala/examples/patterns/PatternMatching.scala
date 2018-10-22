@@ -8,6 +8,8 @@ object PatternMatching extends App {
   case class NodeOther(misc: Double) extends Node
 
   private def matchNode(node: Node): Unit = {
+    // Note: each case line is a PATTERN (until the "=>")
+
     node match {
       case NodeFoo("666") => println("Evil NodeFoo!!")
         // Pattern guard

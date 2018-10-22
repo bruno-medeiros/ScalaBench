@@ -11,14 +11,21 @@ object ExtractorObjects extends App {
       }
     }
   }
+  // Alternative syntax, more concise:
+  object MyExtractor2 {
+    def unapply(arg: String): Option[(String, Int)] = arg match {
+      case _ if arg.length > 4 => Some(arg.substring(0, 4), arg.length)
+      case _ => None
+    }
+  }
 
   {
-    val MyExtractor(extracted) = "ABCDEFG"
+    val MyExtractor2(extracted) = "ABCDEFG"
     assert(extracted == ("ABCD", 7))
   }
 
   {
-    val MyExtractor(extractedA, extractedB) = "ABCDEFG"
+    val MyExtractor2(extractedA, extractedB) = "ABCDEFG"
     assert(extractedA == "ABCD" && extractedB == 7)
   }
   println("MyExtractor done")

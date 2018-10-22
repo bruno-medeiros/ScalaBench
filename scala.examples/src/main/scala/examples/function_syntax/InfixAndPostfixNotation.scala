@@ -8,7 +8,13 @@ object InfixAndPostfixNotation extends App {
   val string = List(1, 2, 3) mkString ","
   assert(string == "1,2,3")
 
+
   //Postfix notation:
+  //noinspection LanguageFeature
   println(List(1, 2, 3) length)
 
+  // Postfix discouraged, since compiler might try to compile as infix
+  var what = Seq(1, 2, 3) toList
+    4
+  // Intellij thinks the above is infix, as of this writing, but it is postfix invocation
 }

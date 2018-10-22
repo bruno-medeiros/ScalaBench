@@ -2,23 +2,20 @@ package examples.types
 
 import examples.oo.{Sub1, TopClass}
 
-
-class MyBox[+T](obj: T) {
-
-  def get(): T = obj
-
-}
-
-// TODO explore covariance more
-
-class MyParamClass[T](arg: T) {
-
-}
-
-
 //noinspection NotImplementedCode
-object MyParamClass {
+object ParameterizedClasses {
 
+  class MyBox[+T](obj: T) {
+
+    def get(): T = obj
+
+  }
+
+  // TODO explore covariance more
+
+  class MyParamClass[T](arg: T) {
+
+  }
   new MyParamClass[Int](1)
   new MyParamClass(1)   // the type is being inferred, i.e. determined based on the value arguments
 
