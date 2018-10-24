@@ -1,0 +1,10 @@
+Monad laws:
+
+
+* Associativity
+* Left Unit
+* Right Unit
+
+Notes: Monoids are simpler forms of monads, that only satisfy some properties
+for example integers because they also have associativity
+(x + y) + z = x + (y + z)

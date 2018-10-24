@@ -2,7 +2,7 @@ package examples.types
 
 import scala.language.reflectiveCalls
 
-object StructuralTypes {
+object StructuralTypes extends App {
 
   class MyClass {
     def foo(): String = { "123" }
@@ -10,9 +10,16 @@ object StructuralTypes {
 
   type Fooable = { def foo(): String }
 
-  val structureTypeValue: Fooable = new MyClass
+  var aStructuralType: Fooable = new MyClass
   // This is a reflective call!:
-  structureTypeValue.foo()
+  aStructuralType.foo()
+
+  // Try again, with anonymous type
+  aStructuralType = new {
+    def foo(): String = { "blah"}
+  }
+  // Again, This is a reflective call!:
+  aStructuralType.foo()
 
   // Doesn't work because it's an anonymous type:
 //  x.isInstanceOf[Fooable.type]
