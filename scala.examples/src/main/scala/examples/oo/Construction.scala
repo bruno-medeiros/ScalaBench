@@ -1,17 +1,21 @@
 package examples.oo
 
-// Constructor example, with class parameter and class field
-class SampleClass(var strParam: String) {
-  var strField = "original2"
-}
 
-object SampleClass extends App {
-  private val sample = new SampleClass("blah")
+object Construction extends App {
+
+  // Constructor example, with class parameter and class field
+  class Construction(var strParamField: String, strParam: Int) {
+    var strField = "original2"
+  }
+
+  private val sample = new Construction("blah", 123)
   sample.strField = "modified field"
-  sample.strParam = "modified param"
+  sample.strParamField = "modified param"
+  //sample.strParam is not a field
 
   new MyPrivate(123)
 }
+
 
 // Private constructor:
 class MyPrivate private(strField: String) {

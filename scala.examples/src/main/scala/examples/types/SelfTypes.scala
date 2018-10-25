@@ -1,6 +1,6 @@
 package examples.types
 
-object SelfTypes2 {
+object SelfTypes {
 
   abstract class Graph {
     type Edge

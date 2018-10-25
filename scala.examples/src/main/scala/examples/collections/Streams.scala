@@ -1,5 +1,6 @@
 package examples.collections
 
+//noinspection ScalaUnusedExpression
 object Streams extends App {
 
   // Operations on Streams
@@ -17,4 +18,21 @@ object Streams extends App {
   private val stream: Stream[Int] = (0 to 10).toStream
   assert(stream(5) == 5)
   assert(stream(1) == 1)
+
+  {
+    val streamA = (0 to 4).toStream.map(e => { println(s"First map for $e"); e})
+
+    streamA.head
+    streamA(1)
+    println("Repeat...")
+    streamA(1)
+
+    val streamB = (15 to 19).toStream.map(e => {
+      println(s"Second stream map for $e"); Stream(e)
+    })
+    println("Appending stream...")
+    val streamAB = streamA.append(streamB)
+    println("Appending stream complete.")
+    streamAB(5)
+  }
 }
