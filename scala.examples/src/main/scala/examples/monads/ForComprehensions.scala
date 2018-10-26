@@ -1,6 +1,8 @@
 package examples.monads
 
-object ForComprehensions {
+//noinspection ZeroIndexToHead
+object ForComprehensions extends App {
+
   // For Comprehension:
   for (x <- 1 to 4; y <- 'a' to 'c')
     yield (x, y)
@@ -17,6 +19,11 @@ object ForComprehensions {
     ('a' to 'c')
       .map(e2 => (e, e2)))
 
+  // Shadowing of vars allowed:
+  for {
+    x <- Some(true)
+    x <- Some(false)
+  } yield x
 
   // TODO: For expression, changing from one collection type to another:
 //  val result: Vector[_] = for (x <- List(1, 2, 3)) yield x

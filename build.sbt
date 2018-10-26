@@ -8,8 +8,9 @@ lazy val root = (project in file("."))
 
 lazy val scala_examples = (project in file("scala.examples"))
   .settings(
+//    libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.14.0" % "test"
     // other settings
-  )
+  ) 
 
 lazy val scala_examples2 = (project in file("scala.examples2"))
   .dependsOn(scala_examples % "test -> test")
