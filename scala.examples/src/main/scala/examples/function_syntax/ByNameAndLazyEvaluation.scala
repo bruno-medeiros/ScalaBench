@@ -4,7 +4,6 @@ object ByNameAndLazyEvaluation extends App {
 
   // Evaluation methods other than STRICT evaluation
 
-
   // Call by name parameter
   def callByName(x: => Int): Unit = {
     println(s"$x + $x")
@@ -16,6 +15,11 @@ object ByNameAndLazyEvaluation extends App {
     123
   }
   callByName(sideEffecting)
+
+  def hof(x: () => Int): Unit = {
+    println(s"$x + $x")
+  }
+  hof(() => sideEffecting)
 
   // Call by name parameter
   def callWithLazy(x: Int): Unit = {

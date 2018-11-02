@@ -10,11 +10,13 @@ lazy val scala_examples = (project in file(".")).
 //      version      := "0.1.0-SNAPSHOT"
 //    )),
 
-    libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.14.0" % "test",
     libraryDependencies += scalaTest % Test,
+    libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.14.0" % "test",
 
     name := "scala.examples"
 )
+
+
 
 //libraryDependencies += "junit" % "junit" % "4.10" % Test
 //libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.12.1"
