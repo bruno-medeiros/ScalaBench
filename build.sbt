@@ -3,7 +3,7 @@ ThisBuild / version      := "0.1.0-SNAPSHOT"
 ThisBuild / scalaVersion := "2.12.7"
 
 lazy val root = (project in file("."))
-  .aggregate(scala_examples, scala_examples2)
+  .aggregate()
 
 
 lazy val scala_examples = (project in file("scala.examples"))
