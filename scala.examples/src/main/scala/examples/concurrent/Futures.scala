@@ -1,12 +1,9 @@
 package examples.concurrent
 
-import java.util.concurrent.TimeUnit
-
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent._
-import ExecutionContext.Implicits.global
-import scala.concurrent.duration.Duration
 import scala.concurrent.duration._
-import scala.util.{Failure, Success, Try}
+import scala.util.{Failure, Success}
 
 object Futures extends App {
 
@@ -15,22 +12,34 @@ object Futures extends App {
     42
   }
 
+
   // These are various callback functions that can be defined
   answerToLife onComplete {
     case Success(result) => result
     case Failure(t) => println("An error has occurred: " + t.getMessage)
   }
 
+
   // Await future result (blocking)
-  val awaitable: Awaitable[_] = answerToLife
-  println("Result: " + Await.result(awaitable, Duration(1, TimeUnit.SECONDS)))
+  assert(42 == Await.result(answerToLife, 1 seconds))
 
 
-  // Promises
-  private val p = Promise[String] // defines a promise
-  p.future // returns a future that will complete when p.complete() is called
-  p.failure(new Exception("Fail")) // completes the future
+  private val nfeFuture = Future {
+    throw new NumberFormatException
+  }
+  println("Result2: " + Await.result(nfeFuture, 1 seconds))
 
-  Await.result(p.future, 1.seconds)
 
+  {
+    // Throwing InterruptedException in Future - it doesn't complete the future!
+    // This is consequenece of InterruptedException considered Fatal as in NonFatal unapply
+    val throwingInt = Future {
+      throw new InterruptedException
+    }
+    try Await.result(throwingInt, 3 seconds)
+    catch {
+      case _ : InterruptedException => //ok
+      case _ : Throwable => assert(true)
+    }
+  }
 }
