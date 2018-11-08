@@ -1,7 +1,7 @@
-package basic
+package scala_examples.scala_check
 
-import org.scalacheck.Properties
 import org.scalacheck.Prop.forAll
+import org.scalacheck.Properties
 
 class ScalaCheckExample extends Properties("String") {
 

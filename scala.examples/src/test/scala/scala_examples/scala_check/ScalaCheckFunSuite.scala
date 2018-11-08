@@ -1,10 +1,10 @@
-package basic
+package scala_examples.scala_check
 
+import org.scalacheck.Arbitrary._
+import org.scalacheck.Prop._
+import org.scalacheck.Properties
 import org.scalatest.FunSuite
 import org.scalatest.prop.Checkers
-import org.scalacheck.Arbitrary._
-import org.scalacheck.{Prop, Properties}
-import org.scalacheck.Prop._
 
 
 //@RunWith(classOf[JUnitRunner])
