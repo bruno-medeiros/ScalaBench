@@ -5,11 +5,11 @@ import org.scalatest.tagobjects.Slow
 
 import scala.collection.mutable.Stack
 
-object DbTest extends Tag("com.mycompany.tags.DbTest")
-
 
 //noinspection ScalaUnnecessaryParentheses,ReferenceMustBePrefixed,ScalaDeprecation
 class FlatSpecExample extends FlatSpec with Matchers {
+
+  object DbTest extends Tag("com.mycompany.tags.DbTest")
 
   "A Stack" should "pop values in last-in-first-out order" in {
     val stack = new Stack[Int]

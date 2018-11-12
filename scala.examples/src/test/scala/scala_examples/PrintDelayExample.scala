@@ -2,7 +2,7 @@ package scala_examples
 
 import org.scalatest.{BeforeAndAfterAll, FunSuite, Matchers}
 
-class AsyncExample extends FunSuite with Matchers with BeforeAndAfterAll {
+class PrintDelayExample extends FunSuite with Matchers with BeforeAndAfterAll {
 
   override protected def beforeAll(): Unit = {
     println("in beforeAll")
