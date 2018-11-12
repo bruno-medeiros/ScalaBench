@@ -1,4 +1,4 @@
-package examples.types
+package examples.oo.types
 
 object SelfTypes {
 

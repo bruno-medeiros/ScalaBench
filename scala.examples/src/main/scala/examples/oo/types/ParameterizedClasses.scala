@@ -1,4 +1,4 @@
-package examples.types
+package examples.oo.types
 
 import examples.oo.{Sub1, TopClass}
 
