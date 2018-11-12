@@ -1,8 +1,14 @@
 package scala_examples
 
-import collection.mutable.Stack
-import org.scalatest._
+import org.scalatest.{FlatSpec, _}
+import org.scalatest.tagobjects.Slow
 
+import scala.collection.mutable.Stack
+
+object DbTest extends Tag("com.mycompany.tags.DbTest")
+
+
+//noinspection ScalaUnnecessaryParentheses,ReferenceMustBePrefixed,ScalaDeprecation
 class FlatSpecExample extends FlatSpec with Matchers {
 
   "A Stack" should "pop values in last-in-first-out order" in {
@@ -20,5 +26,16 @@ class FlatSpecExample extends FlatSpec with Matchers {
     a [NoSuchElementException] should be thrownBy {
       emptyStack.pop()
     } 
+  }
+
+
+  "The Scala language" must "add correctly" taggedAs(Slow) in {
+    val sum = 1 + 1
+    assert(sum === 2)
+  }
+
+  it must "subtract correctly" taggedAs(Slow, DbTest) in {
+    val diff = 4 - 1
+    assert(diff === 3)
   }
 }

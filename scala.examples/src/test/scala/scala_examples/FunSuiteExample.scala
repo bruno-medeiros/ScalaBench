@@ -10,6 +10,10 @@ class FunSuiteExample extends FunSuite with Matchers {
     assert(myc.addAll(10) == 13)
   }
 
+  ignore("an ignored test") {
+    assert(123 == 321)
+  }
+
   test("testAddAll (this test should fail)") {
     val myc = new MyClass(1, 2)
     assert(myc.addAll(20) == 13)
