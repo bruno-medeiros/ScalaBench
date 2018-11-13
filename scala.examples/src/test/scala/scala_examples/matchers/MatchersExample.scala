@@ -37,8 +37,6 @@ class MatchersExample extends FunSuite with Matchers {
   test("string matchers") {
     val str = "a string"
     str should startWith("a")
-
-    // TODO
   }
 
   private case class Foo(value: Boolean) {
@@ -91,6 +89,7 @@ class MatchersExample extends FunSuite with Matchers {
     result.value should be ("hi12")
   }
 
+
   test("Pattern matching") {
     new Inside {
 
@@ -105,5 +104,10 @@ class MatchersExample extends FunSuite with Matchers {
       // Same as:
       name should matchPattern { case Name("Sarah", _, _) => }
     }
+  }
+
+  test("Exceptions") {
+    val s = "abc"
+    an [IndexOutOfBoundsException] should be thrownBy s.charAt(-1)
   }
 }

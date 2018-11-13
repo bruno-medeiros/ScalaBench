@@ -38,4 +38,10 @@ class FlatSpecExample extends FlatSpec with Matchers {
     val diff = 4 - 1
     assert(diff === 3)
   }
+
+  behavior of "foo the SUT"
+
+  it should "do the needful" in {
+    println("Needful")
+  }
 }

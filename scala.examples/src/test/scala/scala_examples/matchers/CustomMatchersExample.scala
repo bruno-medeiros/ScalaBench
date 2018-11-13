@@ -1,14 +1,26 @@
 package scala_examples.matchers
 
 import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.matchers.{MatchResult, Matcher}
 
-
-class MatchersExample extends FunSuite with Matchers {
+//noinspection ScalaUnnecessaryParentheses
+class CustomMatchersExample extends FunSuite with Matchers {
 
   val beWithinTolerance = be >= 0 and be <= 10
+
+
+  val beOdd =
+    Matcher { (left: Int) =>
+      MatchResult(
+        left % 2 == 1,
+        left + " was not odd",
+        left + " was odd"
+      )
+    }
 
   test("custom prop? matcher") {
     val result = 5
     result should beWithinTolerance
+    result should beOdd
   }
 }
