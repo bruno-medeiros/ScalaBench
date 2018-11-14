@@ -2,14 +2,14 @@ package akka_examples
 
 import akka.actor.ActorSystem
 import akka.testkit.TestKit
-import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
+import org.scalatest.{AsyncWordSpecLike, BeforeAndAfterAll, Matchers, WordSpecLike}
 
 import scala.language.postfixOps
 
-class AkkaTest(_system: ActorSystem)
+class AkkaAsyncTest(_system: ActorSystem)
   extends TestKit(_system)
   with Matchers
-  with WordSpecLike
+  with AsyncWordSpecLike
   with BeforeAndAfterAll {
 
   def this() = this(ActorSystem("AkkaTest"))

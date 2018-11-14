@@ -9,6 +9,7 @@ class SupervisingActor extends Actor {
 
   override def receive: Receive = {
     case "failChild" ⇒ child ! "fail"
+    case "breakChild" ⇒ child ! "UNKNOWN MESSAGE"
     case "stopChild" ⇒ child ! PoisonPill
   }
 }
@@ -38,5 +39,10 @@ class SuperviseAfterStopExample extends AkkaTest {
     val supervisingActor = system.actorOf(Props[SupervisingActor], "supervising-actor")
     supervisingActor ! "stopChild"
     supervisingActor ! "failChild"
+  }
+
+  "Test after unknown message!" in {
+    val supervisingActor = system.actorOf(Props[SupervisingActor], "supervising-actor2")
+    supervisingActor ! "breakChild"
   }
 }

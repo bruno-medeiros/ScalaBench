@@ -2,29 +2,33 @@ package akka_examples
 
 import akka.actor.{Actor, Props}
 import akka.testkit.TestProbe
-import akka_examples.Timeout.StartSelfShutdown
+import akka_examples.TimeoutExample.Timeout.StartSelfShutdown
 
 import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
 
-object Timeout {
-  case class StartSelfShutdown()
-  case class Reply(msg: String)
-}
+object TimeoutExample {
 
-class Timeout extends Actor {
+  object Timeout {
+    case class StartSelfShutdown()
+    case class Reply(msg: String)
+  }
 
-  import context.dispatcher
+  class Timeout extends Actor {
 
-  override def receive: Receive = {
-    case StartSelfShutdown() =>
-      println("Self Shutdown")
-      sender() ! "blah"
-      context.system.scheduler.scheduleOnce(1.seconds, sender(), "TheEnd")
+    import context.dispatcher
+
+    override def receive: Receive = {
+      case StartSelfShutdown() =>
+        println("Self Shutdown")
+        sender() ! "blah"
+        context.system.scheduler.scheduleOnce(1.seconds, sender(), "TheEnd")
+    }
   }
 }
 
 class TimeoutExample extends AkkaTest {
+  import TimeoutExample._
 
   "Timeout actor should TheEnd" in {
     val probe = TestProbe()
