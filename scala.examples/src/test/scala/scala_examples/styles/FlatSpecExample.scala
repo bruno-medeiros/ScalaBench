@@ -1,7 +1,7 @@
-package scala_examples
+package scala_examples.styles
 
-import org.scalatest.{FlatSpec, _}
 import org.scalatest.tagobjects.Slow
+import org.scalatest.{FlatSpec, _}
 
 import scala.collection.mutable.Stack
 

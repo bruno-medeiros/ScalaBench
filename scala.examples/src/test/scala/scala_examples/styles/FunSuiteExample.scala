@@ -1,13 +1,11 @@
-package scala_examples
+package scala_examples.styles
 
-import basic.MyClass
 import org.scalatest.{FunSuite, Matchers}
 
 class FunSuiteExample extends FunSuite with Matchers {
 
   test("testAddAll 1") {
-    val myc = new MyClass(1, 2)
-    assert(myc.addAll(10) == 13)
+    assert(List(10, 1, 2).sum == 13)
   }
 
   ignore("an ignored test") {
@@ -15,7 +13,6 @@ class FunSuiteExample extends FunSuite with Matchers {
   }
 
   test("testAddAll (this test should fail)") {
-    val myc = new MyClass(1, 2)
-    assert(myc.addAll(20) == 13)
+    assert(List(10).sum == 13)
   }
 }

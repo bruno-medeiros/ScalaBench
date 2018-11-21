@@ -1,7 +1,8 @@
-package scala_examples
+package scala_examples.styles
 
 import org.scalatest._
-import prop._
+import org.scalatest.prop._
+
 import scala.collection.immutable._
 
 class PropSpecExample extends PropSpec with TableDrivenPropertyChecks with Matchers {

@@ -3,6 +3,7 @@ package examples.concurrent
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent._
 import scala.concurrent.duration._
+import scala.language.postfixOps
 import scala.util.{Failure, Success}
 
 object Futures extends App {
@@ -18,6 +19,8 @@ object Futures extends App {
     case Success(result) => result
     case Failure(t) => println("An error has occurred: " + t.getMessage)
   }
+
+  answerToLife.map(num => num + 100)
 
 
   // Await future result (blocking)
