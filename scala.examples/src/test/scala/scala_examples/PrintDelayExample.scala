@@ -1,21 +1,21 @@
 package scala_examples
 
-import org.scalatest.{BeforeAndAfterAll, FunSuite, Matchers}
+import org.scalatest.{BeforeAndAfterAll, FunSuite, Matchers, OneInstancePerTest}
 
-class PrintDelayExample extends FunSuite with Matchers with BeforeAndAfterAll {
-
-  override protected def beforeAll(): Unit = {
-    println("in beforeAll")
-  }
+class PrintDelayExample extends FunSuite
+  with Matchers
+  with OneInstancePerTest
+{
 
   test("Sleep A") {
     println("in SleepA")
-    Thread.sleep(2000)
+//    Thread.sleep(2000)
     println("end SleepA")
+    Console.flush()
   }
 
   test("Sleep B") {
-    println("in SleepB")
+    println("in SleepB !!!")
     Thread.sleep(2000)
     println("end SleepB")
   }

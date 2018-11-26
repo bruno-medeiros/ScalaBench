@@ -19,4 +19,17 @@ object Syntax extends App {
   curryAdd(1) _ // Must use underscore, or:
   val x: Int => Int = curryAdd(1) // explicit type parameter
 
+  // Reference lambda from function def:
+  def foo(a: Int): Int = a * 2
+  // In the absence of target type, then `_` must be used:
+  val fooLambda1 = foo _
+  // If target type is present, `_` is not required:
+  val fooLambda2: Int => Int = foo
+
+  // Interaction with tuples:
+  def bar(a: Int, b: Int): Int = a + b
+  // Use tupled to transform parameter list to a tuple:
+  val barLambda = (bar _).tupled
+  val barLambdaExplicity: ((Int, Int)) => Int = barLambda
+  assert(barLambda((2, 4)) == 6)
 }

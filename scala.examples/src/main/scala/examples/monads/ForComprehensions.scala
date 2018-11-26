@@ -7,7 +7,7 @@ object ForComprehensions extends App {
   for (x <- 1 to 4; y <- 'a' to 'c')
     yield (x, y)
 
-  // alternative syntax:
+  // alternative syntax (does not require semicolon) :
   for {
     x <- 1 to 4  // Each line like this is a GENERATOR
     y <- 'a' to 'c'

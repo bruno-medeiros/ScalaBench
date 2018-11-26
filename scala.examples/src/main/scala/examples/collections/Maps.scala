@@ -38,7 +38,7 @@ object Maps extends App {
       Map("One" -> 101, "Five" -> 105, "Ten" -> 110)
     )
 
-    // mapValues creates a map, with only values changed
+    // transform is similar to mapValues, with only values changed, but has key argument too
     assert(
       myMap.transform { (key, value) => value + key.length * 100 } ==
       Map("One" -> 301, "Five" -> 405, "Ten" -> 310)
