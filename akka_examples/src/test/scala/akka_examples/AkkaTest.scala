@@ -15,6 +15,7 @@ class AkkaTest(_system: ActorSystem)
   def this() = this(ActorSystem("AkkaTest"))
 
   override def afterAll: Unit = {
-    shutdown(system)
+    TestKit.shutdownActorSystem(system)
+//    shutdown(system)
   }
 }

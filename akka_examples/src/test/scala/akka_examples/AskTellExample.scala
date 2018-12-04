@@ -1,6 +1,6 @@
 package akka_examples
 
-import akka.actor.{Actor, Props}
+import akka.actor.{Actor, Props, Status}
 import akka.pattern.ask
 import akka.testkit.TestProbe
 import akka.util.Timeout
@@ -21,11 +21,13 @@ object AskTellExample {
         println(s"Answering question from ${sender()}")
         sender() ! "reply one"
         sender() ! "reply two"
+      case "end_in_failure" =>
+        sender() ! Status.Failure(new Exception("My Error"))
     }
   }
 }
 
-class AskTellExample extends AkkaAsyncTest
+class AskTellExample extends AkkaTest
   with OneInstancePerTest
 {
 
@@ -40,21 +42,16 @@ class AskTellExample extends AkkaAsyncTest
     probe.send(questionActor, "question")
     probe.expectMsg("reply one")
     probe.expectMsg("reply two")
-
-    succeed
   }
 
   "send unknown with probe" in {
     probe.send(questionActor, "UNKNOWN")
     probe.expectNoMessage(500 millis)
-
-    succeed
   }
 
 
   "send from no-actor (deadLetters) " in {
     questionActor ! "question"
-    succeed
   }
 
   "ask from no actor (creates temp actor)" in {
@@ -62,17 +59,25 @@ class AskTellExample extends AkkaAsyncTest
 
     val rawFuture = ask(questionActor, "question")
 
-    val future = rawFuture.map(x => println("Reply: " + x))
-    Await.result(future, 1 seconds)
-    succeed
-  }
-
-  "ask from no actor (creates temp actor) - ASYNC" in {
-    val rawFuture = ask(questionActor, "question")
-
-    rawFuture.map{ x =>
+//    rawFuture.mapTo(TypeTag.)
+    val future = rawFuture.map { x =>
       println("Reply: " + x)
       assert(x == "reply one")
     }
+    Await.result(future, 1 seconds)
+  }
+
+  "ask from no actor (creates temp actor)" in {
+    implicit val ec = scala.concurrent.ExecutionContext.global
+
+    import scala.reflect._
+
+    val rawFuture = ask(questionActor, "question")
+    rawFuture.mapTo(classTag[Int])
+    val future = rawFuture.map { x =>
+      println("Reply: " + x)
+      assert(x == "reply one")
+    }
+    Await.result(future, 1 seconds)
   }
 }
