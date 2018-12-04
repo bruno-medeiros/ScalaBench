@@ -13,5 +13,10 @@ private object Sets {
 
   // TODO: more, check perforamnce characteristics
 
+  {
+    // TODO:
+    var setA = Set(1, 2)
+    setA += 44
+  }
 
 }

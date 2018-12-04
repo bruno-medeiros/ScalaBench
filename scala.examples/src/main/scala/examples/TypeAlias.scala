@@ -1,9 +1,8 @@
 package examples
 
-object TypeAlias {
+object TypeAlias extends App {
 
   type StringJoiner = Seq[String] => String
-
   val myJoiner: StringJoiner = strings => strings.mkString("--")
 
 }

@@ -65,4 +65,16 @@ object PatternMatching extends App {
       case _ => assert(false)
     }
   }
+
+
+  // Matching type PARAMETERS!:
+  {
+    val x = Map[String, Int]()
+    x match  {
+      case m: Map[typeA, typeB] =>
+//        Map[typeB, typeA](1 -> "foo")
+        Map[typeB, typeA]() // TODO: what can be done here?...
+
+    }
+  }
 }
