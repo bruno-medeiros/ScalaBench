@@ -17,6 +17,9 @@ object Sequences extends App {
 
   // Append element:
   assert((List(1, 2, 3) :+ 4) == List(1, 2, 3, 4))
+  assert(1 +: List(2, 3, 4) == List(1, 2, 3, 4))
+
+
   // Append another sequence
   assert((List(1, 2) ++ List(3, 4)) == List(1, 2, 3, 4))
   var list123 = List(1, 2, 3)

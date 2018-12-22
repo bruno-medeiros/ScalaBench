@@ -1,7 +1,6 @@
 package scala_examples.matchers
 
 import org.scalatest.{FunSuite, Matchers}
-import Matchers._
 
 class MatchersExample extends FunSuite with Matchers {
 
@@ -28,30 +27,44 @@ class MatchersExample extends FunSuite with Matchers {
     num should equal("abc")
   }
 
-  test("test throwing") {
-//    a { List().head } should equal(1)
-
-    a [NoSuchElementException] should be thrownBy { List().head }
+  test("Inspectors") {
+    val result = List(1, 2, 3)
+    all(result) should be < 10
+    atLeast(2, result) should be < 3
+    every(result) should be < 5
   }
 
-  test("string matchers") {
-    val str = "a string"
-    str should startWith("a")
-  }
 
-  private case class Foo(value: Boolean) {
-    def foo = true
-    def notValue = !value
-  }
-
-  test("boolean property methods") {
-    val result = Foo(true)
-    result shouldBe 'foo  // UGH, uses reflection
-  }
+  // ---- Containers / collections
 
   test("containers") {
     val result = List(1, 2, 3)
-    result should contain (2, 3)
+
+    result should contain(2)
+
+    result should contain theSameElementsInOrderAs List(1, 2, 3)
+    result should contain inOrder (1, 3)
+    result should contain inOrderOnly (1, 2, 3)
+
+    result.toSet shouldEqual Set(3, 2, 1)
+    result.toSet should equal(Set(3, 2, 1))
+
+    // These do not compile as expected
+    //List(1, 2, 3) should contain (theSameElementsAs(List(1, 2, 3)))
+    //result should contain(theSameElementsAs(xs = List(1, 2, 3)))
+  }
+
+  test("containers - contents FAILURE 0 - no matchers") {
+    val result = List(1, 2, 3)
+    assert(result.toSet == Set(3, 2, 1, 4))
+  }
+  test("containers - contents FAILURE 1") {
+    val result = List(1, 2, 3)
+    result.toSet shouldEqual Set(3, 2, 1, 4)
+  }
+  test("containers - contents FAILURE 3") {
+    val result = List(1, 2, 3)
+    result should contain theSameElementsInOrderAs List(1, 2, 4, 3)
   }
 
   test("contain in iterators - not supported") {
@@ -61,17 +74,17 @@ class MatchersExample extends FunSuite with Matchers {
     assertDoesNotCompile("result.iterator should contain (2)")
   }
 
-  test("Inspectors") {
-    val result = List(1, 2, 3)
-    all(result) should be < 10
-    atLeast(2, result) should be < 3
-    every(result) should be < 5
+  // ------- String
+  test("string matchers") {
+    val str = "foobar"
+    str should startWith("foo")
   }
 
-  import org.scalatest._
-  import LoneElement._
+  // -------
 
   test("Lone element") {
+    import org.scalatest.LoneElement._
+
     val set = Set(42)
     set.loneElement should be(42)
   }
@@ -85,29 +98,51 @@ class MatchersExample extends FunSuite with Matchers {
   }
   test("OptionValues .value") {
     import org.scalatest.OptionValues._
-    val result = None
-    result.value should be ("hi12")
+    val result: Option[_] = Some("hi")
+    result.value should be ("hi")
   }
 
+  // ---- Properties
+
+  private case class Foo(value: Boolean) {
+    def foo = true
+    def notValue = !value
+  }
+
+  test("boolean property methods") {
+    val result = Foo(true)
+    result shouldBe 'foo  // UGH, uses reflection
+  }
+
+  // ----- Pattern matching
 
   test("Pattern matching") {
+    case class Name(first: String, middle: String, last: String)
+    val name = Name("Jane", "Q", "Programmer")
+
+    // basic match
+    name should matchPattern { case Name("Jane", _, _) => }
+
+    // Using inside:
+    import org.scalatest.Inside
+
     new Inside {
-
-      case class Name(first: String, middle: String, last: String)
-
-      val name = Name("Jane", "Q", "Programmer")
-
-      inside(name) { case Name(first, _, _) =>
-        first should startWith("S")
+      inside(name) { case Name(first, "Q", _) =>
+        first should startWith("Ja")
       }
-
-      // Same as:
-      name should matchPattern { case Name("Sarah", _, _) => }
     }
+
   }
 
+  // ----
   test("Exceptions") {
     val s = "abc"
     an [IndexOutOfBoundsException] should be thrownBy s.charAt(-1)
+  }
+
+  test("test throwing") {
+    //    a { List().head } should equal(1)
+
+    a [NoSuchElementException] should be thrownBy { List().head }
   }
 }
