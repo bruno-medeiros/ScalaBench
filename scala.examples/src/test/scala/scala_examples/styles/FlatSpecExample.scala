@@ -3,8 +3,6 @@ package scala_examples.styles
 import org.scalatest.tagobjects.Slow
 import org.scalatest.{FlatSpec, _}
 
-import scala.collection.mutable.Stack
-
 
 //noinspection ScalaUnnecessaryParentheses,ReferenceMustBePrefixed,ScalaDeprecation
 class FlatSpecExample extends FlatSpec with Matchers {
@@ -12,19 +10,16 @@ class FlatSpecExample extends FlatSpec with Matchers {
   object DbTest extends Tag("com.mycompany.tags.DbTest")
 
   "A Stack" should "pop values in last-in-first-out order" in {
-    val stack = new Stack[Int]
-    stack.push(1)
-    stack.push(2)
-    println("DUH")
+    val stack = List[Int]() :+ 1 :+ 2
 
-    stack.pop() should be (2)
-    stack.pop() should be (1)
+    stack.head should be (1)
+    stack.tail.head should be (2)
   }
 
   it should "throw NoSuchElementException if an empty stack is popped" in {
-    val emptyStack = new Stack[Int]
+    val emptyStack = List()
     a [NoSuchElementException] should be thrownBy {
-      emptyStack.pop()
+      emptyStack.head
     } 
   }
 

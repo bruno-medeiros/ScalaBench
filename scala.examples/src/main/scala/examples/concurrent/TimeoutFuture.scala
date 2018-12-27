@@ -1,7 +1,7 @@
 package examples.concurrent
 
 import scala.concurrent._
-import scala.concurrent.duration.{Deadline, Duration, FiniteDuration}
+import scala.concurrent.duration.{Duration, FiniteDuration}
 import scala.util.{Failure, Try}
 
 

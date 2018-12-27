@@ -4,6 +4,9 @@ import org.scalatest.FlatSpec
 
 import scala.collection.mutable.ListBuffer
 
+import scala.language.reflectiveCalls
+
+
 class GetFixtureExample extends FlatSpec {
 
   def fixture =

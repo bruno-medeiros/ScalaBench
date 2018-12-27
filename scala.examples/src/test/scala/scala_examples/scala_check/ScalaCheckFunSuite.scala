@@ -30,7 +30,7 @@ class ScalaCheckFunSuite extends FunSuite with Checkers {
       }
     }
 
-    // Does notncompile, TODO investigate
+    // Does not compile, TODO investigate
 //    check(new QuickCheckHeap2)
   }
 }

@@ -5,7 +5,7 @@ import akka.testkit.TestProbe
 import akka_examples.TimeoutExample.Timeout.StartSelfShutdown
 
 import scala.concurrent.duration.DurationInt
-import scala.language.postfixOps
+//import scala.language.postfixOps
 
 object TimeoutExample {
 

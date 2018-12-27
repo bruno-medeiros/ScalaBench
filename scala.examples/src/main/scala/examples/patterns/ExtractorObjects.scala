@@ -20,8 +20,12 @@ object ExtractorObjects extends App {
   }
 
   {
-    val MyExtractor2(extracted) = "ABCDEFG"
-    assert(extracted == ("ABCD", 7))
+    val MyExtractor2(a, b) = "ABCDEFG"
+    assert((a, b) == ("ABCD", 7))
+
+    // This is deprecated (scala/bug#6675)
+//    val MyExtractor2(extracted) = "ABCDEFG"
+//    assert(extracted == ("ABCD", 7))
   }
 
   {

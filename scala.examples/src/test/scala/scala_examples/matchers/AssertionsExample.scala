@@ -8,7 +8,7 @@ class AssertionsExample extends FunSuite {
     assert(1 == 1)
   }
 
-  test("assertResult (fail)") {
+  test("assertResult FAILURE") {
     assertResult(3, "this is a clue") { 1 + 1 }
   }
 

@@ -1,6 +1,6 @@
 package examples.collections
 
-private object Sets {
+object Sets {
 
   // Immutable sets:
 

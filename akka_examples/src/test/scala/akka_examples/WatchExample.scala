@@ -6,6 +6,7 @@ import akka.testkit.TestProbe
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
+import scala.language.postfixOps
 
 
 class WatcherActor(parent: ActorRef) extends Actor {

@@ -1,5 +1,7 @@
 package examples.function_syntax
 
+import scala.language.postfixOps
+
 object InfixAndPostfixNotation extends App {
 
   // Infix notation
@@ -10,13 +12,11 @@ object InfixAndPostfixNotation extends App {
 
 
   //Postfix notation:
-  //noinspection LanguageFeature
   println(List(1, 2, 3) length)
 
   {
     import scala.concurrent.duration._
 
-    //noinspection LanguageFeature
     println(60 minutes)
     println(60.minutes)
   }

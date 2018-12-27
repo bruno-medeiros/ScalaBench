@@ -1,6 +1,6 @@
 package scala_examples
 
-import org.scalatest.{BeforeAndAfterAll, FunSuite, Matchers, OneInstancePerTest}
+import org.scalatest.{FunSuite, Matchers, OneInstancePerTest}
 
 class PrintDelayExample extends FunSuite
   with Matchers

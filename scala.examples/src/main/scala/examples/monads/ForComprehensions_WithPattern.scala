@@ -3,8 +3,8 @@ package examples.monads
 object ForComprehensions_WithPattern extends App {
 
   object MyExtractor {
-    def unapply(arg: String): Option[(String, Int)] = arg match {
-      case _ if arg.length >= 4 => Some(arg, arg.length)
+    def unapply(arg: String): Option[String] = arg match {
+      case _ if arg.length >= 4 => Some(arg)
       case _ => None
     }
   }
@@ -17,5 +17,5 @@ object ForComprehensions_WithPattern extends App {
   }
     yield a
 
-  assert(x == List(("Mary",4), ("Brian",5)))
+  assert(x == List("Mary", "Brian"))
 }
