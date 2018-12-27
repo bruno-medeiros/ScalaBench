@@ -20,19 +20,18 @@ object Streams extends App {
   assert(stream(1) == 1)
 
   {
-    val streamA = (0 to 4).toStream.map(e => { println(s"First map for $e"); e})
+    val streamA: Stream[Int] = (0 to 4).toStream.map(e => {
+      println(s"First map for $e"); e
+    })
 
     streamA.head
     streamA(1)
     println("Repeat...")
     streamA(1)
 
-    val streamB = (15 to 19).toStream.map(e => {
-      println(s"Second stream map for $e"); Stream(e)
-    })
     println("Appending stream...")
-    val streamAB = streamA.append(streamB)
+    val streamAppended: Stream[Int] = streamA.append((10 to 20).toStream)
     println("Appending stream complete.")
-    streamAB(5)
+    assert(streamAppended(5) == 10)
   }
 }

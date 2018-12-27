@@ -2,17 +2,28 @@ package examples.oo
 
 object AnonymousClasses extends App {
 
-  val anon = new {
-    var foo = 123
-    def incFoo(): Unit = {
-      foo += 1
+  trait FooTrait {
+    def foo(): String
+  }
+
+  val anon = new FooTrait {
+    override def foo(): String = "blah"
+
+    def structuralMember(): Unit = {
+      foo()
     }
   }
 
-  anon.foo = 10
-  anon.incFoo()
+  // Call method of anonymous class
+  println(anon.foo())
 
-  // Note, compare with:
-  StructuralTypes
+  {
+    import scala.language.reflectiveCalls
+
+    // Note: this is reflective access:
+    anon.structuralMember()
+    // Note, compare with:
+    StructuralTypes
+  }
 
 }

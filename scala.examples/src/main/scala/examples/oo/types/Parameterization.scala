@@ -1,7 +1,8 @@
 package examples.oo.types
 
-//noinspection NotImplementedCode
-object Parameterization {
+
+//noinspection NotImplementedCode,ScalaUnusedSymbol
+object Parameterization extends App {
 
   abstract class TopClass(var topParam: String) {}
   class SubClass extends TopClass("Sub1Param")
@@ -17,21 +18,36 @@ object Parameterization {
   val contravariant: WriteBox[SubClass] = WriteBox[TopClass]()
 
 
-  // Bounded types in type parameters:
+  // TODO: explore generic Numeric classes, and implications of primitives as type arguments
 
-  // T must derive from TopLevel or be TopLevel
-  def myFct1[T <: TopClass](arg: T): T = { ??? }
-  // T must be a supertype of Level1
-  def myFct2[T >: SubClass](arg: T): T = { ??? }
-  def myFct3[T >: SubClass <: TopClass](arg: T): T = { ??? }
-
-
-  // TODO: type constraints: <:< =:=
-
-
-  // TODO: explore generic Numeric classes, and implications of primitive as type arguments
-
-  // TODO: ReadBox[_]
   ReadBox[Int](123)
+
+
+  // Simple bounded types in type parameters:
+  {
+    // T must derive from TopLevel or be TopLevel
+    def myFct1[T <: TopClass](arg: T): T = { ??? }
+    // T must be a supertype of Level1
+    def myFct2[T >: SubClass](arg: T): T = { ??? }
+    def myFct3[T >: SubClass <: TopClass](arg: T): T = { ??? }
+
+    myFct3(new SubClass)
+  }
+
+
+  // Wild card parameter:
+  {
+    val rb2: ReadBox[_] = ReadBox[Int](123)
+    val x: Any = rb2.obj
+    assert(x.isInstanceOf[Object])
+  }
+
+
+  // Infix type instantiation
+  {
+    case class MyMap[K, V]()
+
+    val _: MyMap[String, Int] = ReadBox[String MyMap Int](null).get()
+  }
 
 }

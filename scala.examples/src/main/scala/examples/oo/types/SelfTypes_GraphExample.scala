@@ -3,6 +3,8 @@ package examples.oo.types
 object SelfTypes_GraphExample {
 
   abstract class Graph {
+
+    // Abstract type member:
     type Edge
     type Node <: NodeIntf
     abstract class NodeIntf {
