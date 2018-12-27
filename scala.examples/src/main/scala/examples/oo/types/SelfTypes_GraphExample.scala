@@ -1,6 +1,6 @@
 package examples.oo.types
 
-object SelfTypes {
+object SelfTypes_GraphExample {
 
   abstract class Graph {
     type Edge

@@ -2,6 +2,7 @@ package examples.oo.types
 
 import scala.reflect.runtime.universe._
 
+// Provide some reflective/runtime info on type parameters
 object TypeTags extends App {
 
   def paramInfo[T](x: T)(implicit tag: TypeTag[T]): Unit = {

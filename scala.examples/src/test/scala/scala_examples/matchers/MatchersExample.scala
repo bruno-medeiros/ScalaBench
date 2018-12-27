@@ -40,7 +40,8 @@ class MatchersExample extends FunSuite with Matchers {
   test("containers") {
     val result = List(1, 2, 3)
 
-    result should contain(2)
+    result should contain(2) // SINGLE ELEMENT ONLY
+//    result should contain(1, 2) // doesn't work because single element
 
     result should contain theSameElementsInOrderAs List(1, 2, 3)
     result should contain inOrder (1, 3)

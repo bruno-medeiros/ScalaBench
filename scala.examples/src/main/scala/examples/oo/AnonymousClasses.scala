@@ -1,6 +1,6 @@
-package examples.oo.types
+package examples.oo
 
-object AnonymousTypes {
+object AnonymousClasses extends App {
 
   val anon = new {
     var foo = 123
@@ -11,4 +11,8 @@ object AnonymousTypes {
 
   anon.foo = 10
   anon.incFoo()
+
+  // Note, compare with:
+  StructuralTypes
+
 }

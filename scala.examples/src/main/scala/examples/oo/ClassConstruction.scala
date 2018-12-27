@@ -1,7 +1,17 @@
 package examples.oo
 
 
-object Construction extends App {
+object ClassConstruction extends App {
+
+  // Private constructor:
+  class MyPrivate private(strField: String) {
+
+    // with public constructor
+    def this(num: Integer) {
+      this("with number")
+      println("In private constructor")
+    }
+  }
 
   // Constructor example, with class parameter and class field
   class Construction(var strParamField: String, strParam: Int) {
@@ -14,15 +24,4 @@ object Construction extends App {
   //sample.strParam is not a field
 
   new MyPrivate(123)
-}
-
-
-// Private constructor:
-class MyPrivate private(strField: String) {
-
-  // with public constructor
-  def this(num: Integer) {
-    this("with number")
-    println("In private constructor")
-  }
 }

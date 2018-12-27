@@ -1,6 +1,4 @@
-package examples.oo.types
-
-import scala.language.reflectiveCalls
+package examples.oo
 
 object StructuralTypes extends App {
 

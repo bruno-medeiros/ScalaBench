@@ -1,7 +1,7 @@
 package examples.oo.types
 
 //noinspection NotImplementedCode
-object ParameterizedClasses {
+object Parameterization {
 
   abstract class TopClass(var topParam: String) {}
   class SubClass extends TopClass("Sub1Param")
