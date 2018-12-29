@@ -1,22 +1,35 @@
 package examples.collections
 
-object Sets {
+import scala.collection.mutable
 
-  // Immutable sets:
+//noinspection SimplifyBoolean
+object Sets extends App {
 
-  val setA: Set[Char] = Set('a','b')
-  val setA_StringAppended: String = Set + "c" // + plus comes from any2stringadd
+  // Immutable sets: (uses hash trie)
+  // TODO: check performance characteristics
 
-  val setA2: Set[Int] = Set(1, 2) + (3, 4)
+  val setAB: Set[Char] = Set('a','b')
+  assert(setAB('a') == true)
+  assert(setAB('z') == false)
 
-  val setB: Set[Char] = setA ++ Set('c', 'd') // Fails because it becomes a
+  // append:
+  assert(Set(1, 2) + 3 == Set(1, 2, 3))
+  assert(Set(1, 2) + (3, 4) == Set(1, 2, 3, 4))
 
-  // TODO: more, check perforamnce characteristics
+  // append another collection:
+  assert(Set(1, 2) ++ List(3, 4, 3) == Set(1, 2, 3, 4))
+
+  val setA_StringAppended: String = setAB + "c" // + plus comes from any2stringadd
+  assert(setAB + "c" == "Set(a, b)c")
 
   {
-    // TODO:
-    var setA = Set(1, 2)
-    setA += 44
+    val mset = mutable.Set(1, 2)
+    mset + 3 // Note: copying
+    mset += 4 // Note: mutation even though mset is a val
+    assert(mset == Set(1, 2, 4))
+
+    assert(mset.add(1) == false)
+    assert(mset.add(10) == true)
   }
 
 }

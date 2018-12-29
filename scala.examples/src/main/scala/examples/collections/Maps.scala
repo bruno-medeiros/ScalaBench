@@ -1,28 +1,37 @@
 package examples.collections
 
 
-//noinspection OptionEqualsSome,EmptyCheck
 object Maps extends App {
 
   // Create a map
   val myMap = Map("One" -> 1, "Five" -> 5, "Ten" -> 10)
   println(myMap)
+
   assert(myMap("Five") == 5)
-  assert(myMap.get("Two") == None)
-  assert(myMap.get("Ten") == Some(10))
+  assert(myMap.get("XXX").isEmpty)
+  assert(myMap.get("Ten").contains(10))
+
+  assert(myMap.getOrElse("XXX", 123) == 123)
+
+
+  // ----------------------------------
+  // updates
 
   // returns a new map where "V" maps to 15 (entry is updated)
   // if the key ("V" here) does not exist, a new entry is added
   println(myMap.updated("Five", 5555))
 
   {
-    var map2 = Map.empty[String, Integer]
+    var map2 = Map.empty[String, Int]
 
     map2 += "One" -> 1
-    map2 += "Five" -> 5
-    assert(map2.contains("Five"))
+    map2 = map2 + ("Five" -> 5)
+    map2 = map2.updated("One", 11)
+    assert(map2 == Map("One" -> 11, "Five" -> 5))
   }
 
+
+  // ----------------------------------
   // Map HOFs
   {
     // map - the generated output is a list...

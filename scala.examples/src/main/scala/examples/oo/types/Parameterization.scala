@@ -1,5 +1,9 @@
 package examples.oo.types
 
+import examples.collections.ArrayExamples
+
+import scala.language.existentials
+
 
 //noinspection NotImplementedCode,ScalaUnusedSymbol
 object Parameterization extends App {
@@ -18,10 +22,14 @@ object Parameterization extends App {
   val contravariant: WriteBox[SubClass] = WriteBox[TopClass]()
 
 
-  // TODO: explore generic Numeric classes, and implications of primitives as type arguments
+  val intrbox = ReadBox[Int](123)
 
-  ReadBox[Int](123)
+  // Implications of using primitives as type arguments. This works:
+  val intrbox2: ReadBox[AnyVal] = intrbox
+  println(intrbox2.obj)
 
+  // See also:
+  ArrayExamples
 
   // Simple bounded types in type parameters:
   {
@@ -29,19 +37,10 @@ object Parameterization extends App {
     def myFct1[T <: TopClass](arg: T): T = { ??? }
     // T must be a supertype of Level1
     def myFct2[T >: SubClass](arg: T): T = { ??? }
-    def myFct3[T >: SubClass <: TopClass](arg: T): T = { ??? }
+    def myFct3[T >: SubClass <: TopClass](arg: T): T = { arg }
 
     myFct3(new SubClass)
   }
-
-
-  // Wild card parameter:
-  {
-    val rb2: ReadBox[_] = ReadBox[Int](123)
-    val x: Any = rb2.obj
-    assert(x.isInstanceOf[Object])
-  }
-
 
   // Infix type instantiation
   {

@@ -47,8 +47,12 @@ class MatchersExample extends FunSuite with Matchers {
     result should contain inOrder (1, 3)
     result should contain inOrderOnly (1, 2, 3)
 
+
+    // Using equal
     result.toSet shouldEqual Set(3, 2, 1)
     result.toSet should equal(Set(3, 2, 1))
+    //noinspection SameElementsToEquals
+    assert(result.sameElements(Vector(1, 2, 3)))
 
     // These do not compile as expected
     //List(1, 2, 3) should contain (theSameElementsAs(List(1, 2, 3)))

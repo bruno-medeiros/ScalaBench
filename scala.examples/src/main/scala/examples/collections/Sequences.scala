@@ -1,6 +1,7 @@
 package examples.collections
 
 import scala.collection.immutable.NumericRange
+import scala.collection.mutable
 
 //noinspection SimplifiableFoldOrReduce,SimplifyBoolean
 object Sequences extends App {
@@ -10,26 +11,44 @@ object Sequences extends App {
   val oneToTen: Range = 1 until 10
 
 
+  // ----------------------------------
+  // Queries
+
+  private val ints = Vector(1, 2, 3)
+  assert(ints.contains(2) == true)
+  assert(ints.contains(2, 3) == false) // Surprising, but it's because (2, 3) gets transformed to tuple.
+
+  // ----------------------------------
   // "modifications" - element operations
 
   // Prepend elements:
   assert(1 :: List(2, 3) == List(1, 2, 3))
 
-  // Append element:
-  assert((List(1, 2, 3) :+ 4) == List(1, 2, 3, 4))
+  // Appended element:
   assert(1 +: List(2, 3, 4) == List(1, 2, 3, 4))
+  assert(List(1, 2, 3) :+ 4 == List(1, 2, 3, 4))
+  assert("abc" :+ 'd' == "abcd")
+  assert("abc" + 'd' == "abcd")
+  // :+ does not preserve collection type, can widen:
+  assert(List(1, 2) :+ "blah" == List(1, 2, "blah"))
 
-
-  // Append another sequence
+  // Append another sequence (note, can widen element TYPE)
   assert((List(1, 2) ++ List(3, 4)) == List(1, 2, 3, 4))
-  var list123 = List(1, 2, 3)
-  assert({ list123 ++= List(4, 5); list123} == List(1, 2, 3, 4, 5))
+  assert("abc" ++ "def" == "abcdef")
+  assert({
+    var list = List(1, 2, 3)
+    list ++= List(4, 5)
+    list
+  } == List(1, 2, 3, 4, 5))
 
-
-  // Queries
-
-  private val ints = Vector(1, 2, 3)
-  assert(ints.contains(2, 3) == false) // Surprising, but it's because (2, 3) gets transformed to tuple.
+  // mutable append
+  {
+    val buf = mutable.Buffer[Int]()
+    buf.append(1)
+    buf += 2
+    10 +=: buf
+    assert(buf == List(10, 1, 2))
+  }
 
 
   // ----------------------------------
@@ -49,17 +68,24 @@ object Sequences extends App {
     == Map(1 -> 101, 2 -> 102, 4 -> 104))
 
 
+  // Collection builder type is maintained even if concrete type is upcast
+  // This is called Uniform Return Type Principle
+  val upcastList: Traversable[Int] = List(1, 2, 3)
+  assert(upcastList.map{ _ + 10}.isInstanceOf[List[_]])
+
+
   // ----------------------------------
   // HOFs - Accessors (create single value):
 
   // Folding and reduce:
-  List(1, 2, 10, 20).foldLeft(0)((a, b) => {
-    a + b
-  })
-  List(1, 2, 10, 20).foldLeft(0)(_ + _ + 0)
+  {
+    val list = List(1, 2, 10, 20)
+    assert(list.reduce((a, b) => a + b) == 33)
 
-  List(1, 2, 10, 20).reduce((a, b) => a + b)
-  List(1).reduce((a, b) => a + b)
+    assert(list.foldLeft(0)((a, b) => a + b) == 33)
+    assert(list.foldLeft(0)(_ + _) == 33)
+    assert(list.foldLeft("")(_ + _) == "121020")
+  }
 
   // .aggregate (can work in parallell
   assert(List("foo", "bar", "xpto").aggregate(0)((acc, s) => acc + s.length, _ + _) == 10)
@@ -82,4 +108,5 @@ object Sequences extends App {
     .groupBy(_.charAt(0)) // The collection type from new value is taken from original collection
     .apply('t')
   println(res.getClass)
+
 }
