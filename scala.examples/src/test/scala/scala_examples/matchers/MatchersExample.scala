@@ -1,8 +1,9 @@
 package scala_examples.matchers
 
+import org.scalatest.prop.TableDrivenPropertyChecks
 import org.scalatest.{FunSuite, Matchers}
 
-class MatchersExample extends FunSuite with Matchers {
+class MatchersExample extends FunSuite with Matchers with TableDrivenPropertyChecks {
 
   test("test the should") {
     val result = 3
@@ -27,11 +28,38 @@ class MatchersExample extends FunSuite with Matchers {
     num should equal("abc")
   }
 
+  //
+
   test("Inspectors") {
     val result = List(1, 2, 3)
     all(result) should be < 10
     atLeast(2, result) should be < 3
     every(result) should be < 5
+  }
+
+  // --- Containers - Option
+
+  test("Options") {
+    val option = Some("hi")
+    option shouldEqual Some("hi")
+    option shouldBe Some("hi")
+    option should === (Some("hi"))
+  }
+  test("Options FAILURE - ===") {
+    //noinspection OptionEqualsSome
+    assert(Some(List(1, 2, 3)) === Some(List(1, 2)))
+  }
+  test("Options FAILURE - .contains") {
+    assert(Some(List(1, 2, 3)).contains(List(1, 2)))
+  }
+  test("Options FAILURE - should contain") {
+    Some(List(1, 2, 3)) should contain (List(1, 2))
+  }
+
+  test("OptionValues .value") {
+    import org.scalatest.OptionValues._
+    val result: Option[_] = Some("hi")
+    result.value should be ("hi")
   }
 
 
@@ -59,15 +87,28 @@ class MatchersExample extends FunSuite with Matchers {
     //result should contain(theSameElementsAs(xs = List(1, 2, 3)))
   }
 
-  test("containers - contents FAILURE 0 - no matchers") {
-    val result = List(1, 2, 3)
-    assert(result.toSet == Set(3, 2, 1, 4))
+  test("containers FAILURE - Set ==") {
+    val result = Set(1, 2, 3)
+    assert(result == Set(3, 2, 1, 4))
   }
-  test("containers - contents FAILURE 1") {
-    val result = List(1, 2, 3)
-    result.toSet shouldEqual Set(3, 2, 1, 4)
+  test("containers FAILURE - Set shouldEqual") {
+    val result = Set(1, 2, 3)
+    result shouldEqual Set(3, 2, 1, 4)
   }
-  test("containers - contents FAILURE 3") {
+  test("containers FAILURE - Set contain theSameElementsAs") {
+    val result = Set(1, 2, 3)
+    result should contain theSameElementsAs Set(1, 2, 4, 3)
+  }
+
+  test("containers FAILURE - List ==") {
+    val result = List(1, 2, 3)
+    assert(result == List(3, 2, 1, 4))
+  }
+  test("containers FAILURE - List shouldEqual") {
+    val result = List(1, 2, 3)
+    result shouldEqual List(3, 2, 1, 4)
+  }
+  test("containers FAILURE - List contain theSameElementsInOrderAs") {
     val result = List(1, 2, 3)
     result should contain theSameElementsInOrderAs List(1, 2, 4, 3)
   }
@@ -94,18 +135,6 @@ class MatchersExample extends FunSuite with Matchers {
     set.loneElement should be(42)
   }
 
-
-  test("Options") {
-    val option = Some("hi")
-    option shouldEqual Some("hi")
-    option shouldBe Some("hi")
-    option should === (Some("hi"))
-  }
-  test("OptionValues .value") {
-    import org.scalatest.OptionValues._
-    val result: Option[_] = Some("hi")
-    result.value should be ("hi")
-  }
 
   // ---- Properties
 
@@ -146,8 +175,6 @@ class MatchersExample extends FunSuite with Matchers {
   }
 
   test("test throwing") {
-    //    a { List().head } should equal(1)
-
     a [NoSuchElementException] should be thrownBy { List().head }
   }
 }
