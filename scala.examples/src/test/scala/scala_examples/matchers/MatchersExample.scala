@@ -1,9 +1,8 @@
 package scala_examples.matchers
 
-import org.scalatest.prop.TableDrivenPropertyChecks
 import org.scalatest.{FunSuite, Matchers}
 
-class MatchersExample extends FunSuite with Matchers with TableDrivenPropertyChecks {
+class MatchersExample extends FunSuite with Matchers {
 
   test("test the should") {
     val result = 3
@@ -114,10 +113,10 @@ class MatchersExample extends FunSuite with Matchers with TableDrivenPropertyChe
   }
 
   test("contain in iterators - not supported") {
-    //noinspection ScalaUnusedSymbol
     val result = List(1, 2, 3)
     assertCompiles("result should contain (2)")
     assertDoesNotCompile("result.iterator should contain (2)")
+    result.getClass // avoid not-used warning
   }
 
   // ------- String

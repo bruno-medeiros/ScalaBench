@@ -24,4 +24,6 @@ object ClassConstruction extends App {
   //sample.strParam is not a field
 
   new MyPrivate(123)
+
+  // TODO Review this some more
 }
