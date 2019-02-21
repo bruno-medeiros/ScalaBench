@@ -1,14 +1,17 @@
 package akka_examples
 
 import akka.actor.{Actor, Props, Status}
+import akka.event.LoggingReceive
 import akka.pattern.ask
 import akka.testkit.TestProbe
 import akka.util.Timeout
+import akka_examples.common.AkkaTest
 import org.scalatest.OneInstancePerTest
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
 import scala.language.postfixOps
+import scala.reflect.ClassTag
 
 object AskTellExample {
 
@@ -16,7 +19,7 @@ object AskTellExample {
 
     println(getClass.getSimpleName + " created")
 
-    override def receive: Receive = {
+    override def receive: Receive = LoggingReceive {
       case "question" =>
         println(s"Answering question from ${sender()}")
         sender() ! "reply one"
@@ -59,10 +62,9 @@ class AskTellExample extends AkkaTest
 
     val rawFuture = ask(questionActor, "question")
 
-//    rawFuture.mapTo(TypeTag.)
     val future = rawFuture.map { x =>
       println("Reply: " + x)
-      assert(x == "reply one")
+      assert(x === "reply one")
     }
     Await.result(future, 1 seconds)
   }
@@ -70,13 +72,10 @@ class AskTellExample extends AkkaTest
   "ask from no actor (creates temp actor)" in {
     implicit val ec = scala.concurrent.ExecutionContext.global
 
-    import scala.reflect._
-
     val rawFuture = ask(questionActor, "question")
-    rawFuture.mapTo(classTag[Int])
     val future = rawFuture.map { x =>
       println("Reply: " + x)
-      assert(x == "reply one")
+      assert(x === "reply one")
     }
     Await.result(future, 1 seconds)
   }

@@ -1,20 +1,28 @@
 package akka_examples
 
-import akka.actor.{Actor, Props}
+import akka.actor.{Actor, InvalidActorNameException, Props}
+import akka_examples.common.AkkaTest
 
-class FooActor extends Actor {
-  override def receive: Receive = {
-    case "Secret" =>
+object NamingExample {
+  class FooActor extends Actor {
+    override def receive: Receive = {
+      case "Secret" =>
+    }
   }
 }
 
 class NamingExample extends AkkaTest {
+  import NamingExample._
 
   "Test Actor Naming" in {
     val actor = system.actorOf(Props[FooActor])
     println(s"Actor1: $actor")
 
-    val actor2 = system.actorOf(Props[FooActor], "actor2")
-    val actor2b = system.actorOf(Props[FooActor], "actor2")
+    system.actorOf(Props[FooActor], "actor2")
+
+    intercept[InvalidActorNameException] {
+      system.actorOf(Props[FooActor], "actor2")
+    }
+
   }
 }

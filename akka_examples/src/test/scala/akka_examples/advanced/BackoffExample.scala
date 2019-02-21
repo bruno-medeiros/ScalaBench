@@ -1,8 +1,9 @@
-package akka_examples
+package akka_examples.advanced
 
 import akka.actor.Props
 import akka.pattern.{Backoff, BackoffSupervisor}
 import akka.testkit.TestActors.EchoActor
+import akka_examples.common.AkkaTest
 
 import scala.concurrent.duration.DurationInt
 
@@ -25,5 +26,6 @@ class BackoffExample extends AkkaTest {
 
     val spActor = system.actorOf(supervisor, name = "echoSupervisor")
 
+    spActor ! "hello"
   }
 }

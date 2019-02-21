@@ -1,5 +1,6 @@
 package akka_examples
 
+import akka_examples.common.AkkaTest
 import com.typesafe.config.{Config, ConfigFactory}
 //import akka_examples.SuperviseExample.system
 

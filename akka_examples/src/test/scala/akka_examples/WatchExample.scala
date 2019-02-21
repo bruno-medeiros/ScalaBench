@@ -3,8 +3,9 @@ package akka_examples
 import akka.actor.{Actor, ActorRef, PoisonPill, Props, Terminated}
 import akka.pattern.gracefulStop
 import akka.testkit.TestProbe
+import akka_examples.common.AkkaTest
 
-import scala.concurrent.Await
+import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
@@ -53,7 +54,7 @@ class WatchExample extends AkkaTest
 
     system.actorOf(Props(new WatcherActor(probe.ref)), "watcher2")
 
-    val eventual = gracefulStop(probe.ref, 1 seconds, PoisonPill)
+    val eventual: Future[Boolean] = gracefulStop(probe.ref, 1 seconds, PoisonPill)
     val result = Await.result(eventual, 1 seconds)
     assert(result)
   }

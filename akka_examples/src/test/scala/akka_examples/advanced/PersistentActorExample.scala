@@ -1,8 +1,11 @@
-package akka_examples
+package akka_examples.advanced
 
 import akka.actor.Props
 import akka.persistence.PersistentActor
 import akka.testkit.TestProbe
+import akka_examples.common.AkkaTest
+
+// TODO: REVIEW
 
 object CounterActor {
 

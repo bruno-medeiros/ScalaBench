@@ -1,8 +1,8 @@
-package akka_examples
+package akka_examples.advanced
 
 import akka.actor.{Actor, ActorRef, Props}
 import akka.routing.{FromConfig, RoundRobinGroup}
-import akka_examples.RoutingExample.MyWorker
+import akka_examples.common.AkkaTest
 
 object RoutingExample {
   class MyWorker extends Actor {
@@ -13,6 +13,7 @@ object RoutingExample {
 }
 
 class RoutingExample extends AkkaTest {
+  import RoutingExample.MyWorker
 
   "Example Router with children" in {
     val router1: ActorRef =

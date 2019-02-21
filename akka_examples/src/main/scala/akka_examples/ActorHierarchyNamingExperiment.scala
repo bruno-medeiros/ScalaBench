@@ -18,7 +18,5 @@ object ActorHierarchyExperiments extends App {
   println(s"First: $firstRef")
   firstRef ! "printit"
 
-  println(">>> Press ENTER to exit <<<")
-  try StdIn.readLine()
-  finally system.terminate()
+  AkkaCounterApp.awaitEnterPressAndTerminate(system)
 }
