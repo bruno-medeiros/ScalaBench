@@ -4,6 +4,8 @@ import scala.util.Try
 import scala.util.control.Exception._
 import java.net._
 
+import scala.util.control.NonFatal
+
 object ExceptionsAndTryCatch extends App {
 
   try {
@@ -19,4 +21,17 @@ object ExceptionsAndTryCatch extends App {
 
   assert(result.failed.get.getMessage.contains("no protocol: blah"))
 
+
+  // NonFatal
+  {
+    def matchesNonFatal(exception: Exception) = {
+      exception match {
+        case NonFatal(_) => true
+        case _ => false
+      }
+    }
+
+    assert(matchesNonFatal(new Exception))
+    assert(!matchesNonFatal(new InterruptedException))
+  }
 }

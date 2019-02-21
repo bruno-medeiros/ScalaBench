@@ -167,13 +167,14 @@ class MatchersExample extends FunSuite with Matchers {
 
   }
 
-  // ----
-  test("Exceptions") {
-    val s = "abc"
-    an [IndexOutOfBoundsException] should be thrownBy s.charAt(-1)
+  // ---- Exceptions
+  test("Exceptions - intercept") {
+    intercept[IllegalArgumentException] {
+      throw new IllegalArgumentException
+    }
   }
 
-  test("test throwing") {
+  test("Exceptions - should be thrownBy") {
     a [NoSuchElementException] should be thrownBy { List().head }
   }
 }

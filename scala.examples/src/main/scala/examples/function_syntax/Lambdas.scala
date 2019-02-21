@@ -20,4 +20,16 @@ object Lambdas extends App {
   }
   foo({ println("(foo arg evaluated)"); "ARG" })
 
+
+  // Closure - return of local var
+  {
+    def foo(): Int => String = {
+      var local = 10
+      val result = (inc: Int) => (local + inc).toString
+      local = 100
+      result
+    }
+    // Local var is correctly captured
+    assert(foo()(23) == "123")
+  }
 }

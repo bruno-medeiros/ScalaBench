@@ -47,6 +47,23 @@ object Futures extends App {
   }
 
 
+  // completed futures
+  {
+    val f1 = Future.failed(new NoSuchElementException)
+    assert(Await.result(f1.failed, 1 seconds).isInstanceOf[NoSuchElementException])
+    assert(Await.result(f1.recover { case _: NoSuchElementException => 123 }, 1 seconds) == 123)
+  }
+  {
+    // This will box InterruptedException in an ExecutionException ಠ_ಠ'
+    val f2 = Future.failed(new InterruptedException)
+    assert(Await.result(f2.recover { case _: ExecutionException => 123 }, 1 seconds) == 123)
+    assert(Await.result(f2.failed, 1 seconds).isInstanceOf[ExecutionException])
+    assert(Await.ready(f2, 1 seconds).value.get.failed.get.isInstanceOf[ExecutionException])
+    // Should be fixed in future:
+    // https://github.com/scala/bug/issues/9554
+  }
+
+
   // blocking
   {
     val blockFuture = Future {
