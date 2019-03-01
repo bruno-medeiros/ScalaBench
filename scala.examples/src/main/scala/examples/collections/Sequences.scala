@@ -31,6 +31,8 @@ object Sequences extends App {
   assert("abc" + 'd' == "abcd")
   // :+ does not preserve collection type, can widen:
   assert(List(1, 2) :+ "blah" == List(1, 2, "blah"))
+  // Append for Vector:
+  assert(Vector(1, 2, 3) :+ 4 == Vector(1, 2, 3, 4))
 
   // Append another sequence (note, can widen element TYPE)
   assert((List(1, 2) ++ List(3, 4)) == List(1, 2, 3, 4))

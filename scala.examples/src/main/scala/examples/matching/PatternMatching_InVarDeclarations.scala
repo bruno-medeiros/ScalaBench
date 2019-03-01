@@ -1,4 +1,4 @@
-package examples.patterns
+package examples.matching
 
 object PatternMatching_InVarDeclarations extends App {
 

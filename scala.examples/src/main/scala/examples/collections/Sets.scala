@@ -6,7 +6,6 @@ import scala.collection.mutable
 object Sets extends App {
 
   // Immutable sets: (uses hash trie)
-  // TODO: check performance characteristics
 
   val setAB: Set[Char] = Set('a','b')
   assert(setAB('a') == true)

@@ -1,4 +1,4 @@
-package examples.patterns
+package examples.matching
 
 object ExtractorObjects extends App {
 
