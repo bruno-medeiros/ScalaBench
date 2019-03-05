@@ -4,7 +4,7 @@ import scala.collection.mutable.ArrayBuffer
 import scala.language.existentials
 
 
-//noinspection NotImplementedCode,ScalaUnusedSymbol
+// Note: these are planned to be removed in Scala 3
 object ExistentialTypes extends App {
 
   import Parameterization.ReadBox
@@ -21,7 +21,7 @@ object ExistentialTypes extends App {
 
   def bar2(obj: ArrayBuffer[A forSome {type A <: Number}]): Unit = {
     // obj is equivalent to this:
-    val obj2: ArrayBuffer[Number] = obj
+    val _: ArrayBuffer[Number] = obj
     // As such this works:
     obj(0) = BigInt(123)
     obj(1) = new Integer(123)
@@ -35,7 +35,7 @@ object ExistentialTypes extends App {
   // Wild card parameter:
   {
     val rb: ReadBox[_] = ReadBox[Int](123)
-    val rb2: ReadBox[A forSome {type A}] = rb
+    val _: ReadBox[A forSome {type A}] = rb
     val x: Any = rb.obj
     assert(x.isInstanceOf[Object])
   }

@@ -1,11 +1,9 @@
 package examples.function_syntax
 
 import org.scalatest.FunSuite
-import scala.reflect.runtime.universe
-import universe.TypeTag
-import universe.typeTag
 
 class FunctionTypes extends FunSuite {
+  import examples.MiscUtil.getTypeTag
 
   case class Dummy()
 
@@ -14,7 +12,7 @@ class FunctionTypes extends FunSuite {
   def fooImplicit(implicit b: String): Unit = { val _ = b; () }
 
   val fnVal = (_: Dummy) => { 123d }
-  val fnValImplicit: Dummy => Double = { implicit opt: Dummy => val _ = opt; 123d }
+  val fnValImplicit: Dummy => Double = { implicit opt: Dummy => opt.toString; 123d }
 
 
   test("type of function") {
@@ -33,6 +31,5 @@ class FunctionTypes extends FunSuite {
   }
 
 
-  def getTypeTag[T: TypeTag](obj: T) = { typeTag[T].tpe }
-
 }
+
