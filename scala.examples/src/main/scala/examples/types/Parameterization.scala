@@ -5,7 +5,6 @@ import examples.collections.ArrayExamples
 import scala.language.existentials
 
 
-//noinspection NotImplementedCode,ScalaUnusedSymbol
 object Parameterization extends App {
 
   abstract class TopClass(var topParam: String) {}
@@ -33,10 +32,11 @@ object Parameterization extends App {
 
   // Simple bounded types in type parameters:
   {
-    // T must derive from TopLevel or be TopLevel
+    // T must be a subtype of TopClass
     def myFct1[T <: TopClass](arg: T): T = { ??? }
-    // T must be a supertype of Level1
+    // T must be a supertype of SubClass
     def myFct2[T >: SubClass](arg: T): T = { ??? }
+    // T must be both of the above
     def myFct3[T >: SubClass <: TopClass](arg: T): T = { arg }
 
     myFct3(new SubClass)

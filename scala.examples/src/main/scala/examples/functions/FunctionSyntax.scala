@@ -1,7 +1,7 @@
-package examples.function_syntax
+package examples.functions
 
 //noinspection SimplifyBoolean
-object Syntax extends App {
+object FunctionSyntax extends App {
 
   // Basic Syntax:
   def someFoo(a: String): Int = a.length

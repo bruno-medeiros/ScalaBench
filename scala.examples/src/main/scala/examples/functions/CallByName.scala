@@ -1,4 +1,4 @@
-package examples.function_syntax
+package examples.functions
 
 import examples.LazyVariables
 
