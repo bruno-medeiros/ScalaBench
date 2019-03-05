@@ -20,7 +20,7 @@ lazy val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.14.0"
 
 
 
-lazy val scala_examples = (project in file("scala.examples"))
+lazy val scala_examples = (project in file("scala_examples"))
   .settings(
     libraryDependencies += scalaTest
   )
