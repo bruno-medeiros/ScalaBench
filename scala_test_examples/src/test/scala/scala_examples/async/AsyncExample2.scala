@@ -1,7 +1,10 @@
 package scala_examples.async
 
 import java.io.File
+
 import org.scalatest._
+import scala_examples.FailureExamples
+
 import scala.concurrent.Future
 
 class AsyncExample2 extends AsyncFlatSpec {
@@ -21,7 +24,7 @@ class AsyncExample2 extends AsyncFlatSpec {
     addSoon(1, 1) map { sum => assert(sum == 2) }
   }
 
-  it should "fail" in {
+  it should "fail" taggedAs FailureExamples in {
     addSoon(1, 1) map { sum => assert(sum == 3) }
   }
 }

@@ -3,6 +3,7 @@ package scala_examples.scala_check
 import org.scalacheck.Prop.{BooleanOperators, forAll, _}
 import org.scalatest.FunSuite
 import org.scalatest.prop.Checkers
+import scala_examples.FailureExamples
 
 /**
   * Checkers is ScalaCheck style property-based testing
@@ -10,7 +11,7 @@ import org.scalatest.prop.Checkers
   */
 class ScalaCheckStyle extends FunSuite with Checkers {
 
-  test("ScalaCheck style") {
+  test("ScalaCheck style", FailureExamples) {
     check((a: List[Int], b: List[Int]) => a.size + b.size == a.size)
   }
 

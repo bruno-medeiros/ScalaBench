@@ -15,25 +15,42 @@ ThisBuild / scalacOptions ++= Seq(
   "-Ypartial-unification" // allow the compiler to unify type constructors of different arities
 )
 
+lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.0.5"
+lazy val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.14.0"
+
+
 
 lazy val scala_examples = (project in file("scala.examples"))
   .settings(
-    // other settings
+    libraryDependencies += scalaTest
   )
+
+lazy val scala_test_examples = (project in file("scala_test_examples"))
+  .settings(
+    libraryDependencies += scalaTest % Test,
+    libraryDependencies += scalaCheck % Test
+  )
+
 
 lazy val akkaVersion = "2.5.16"
 
 lazy val akka_examples = (project in file("akka_examples"))
   .settings(
+    libraryDependencies += scalaTest % Test,
+    libraryDependencies += scalaCheck % Test,
     libraryDependencies ++= Seq(
       "com.typesafe.akka" %% "akka-actor" % akkaVersion,
-
-      "org.scalatest" %% "scalatest" % "3.0.5",
       "com.typesafe.akka" %% "akka-testkit" % akkaVersion
     ),
     libraryDependencies += "com.typesafe.akka" %% "akka-persistence" % akkaVersion
 )
 
 lazy val root = (project in file("."))
-  .aggregate(scala_examples, akka_examples)
+  .aggregate(
+    scala_examples,
+    scala_test_examples,
+    akka_examples
+  )
+
+
 

@@ -1,6 +1,7 @@
 package scala_examples.styles
 
 import org.scalatest.{FunSuite, Matchers}
+import scala_examples.FailureExamples
 
 class FunSuiteExample extends FunSuite with Matchers {
 
@@ -12,7 +13,7 @@ class FunSuiteExample extends FunSuite with Matchers {
     assert(123 == 321)
   }
 
-  test("testAddAll (this test should fail)") {
+  test("testAddAll (FAILURE)", FailureExamples) {
     assert(List(10).sum == 13)
   }
 }

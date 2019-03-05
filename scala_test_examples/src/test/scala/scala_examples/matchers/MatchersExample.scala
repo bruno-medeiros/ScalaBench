@@ -1,10 +1,11 @@
 package scala_examples.matchers
 
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.{FunSuite, Matchers, Tag}
+import scala_examples.FailureExamples
 
 class MatchersExample extends FunSuite with Matchers {
 
-  test("test the should") {
+  test("should") {
     val result = 3
 
     result should equal (3) // can customize equality
@@ -17,12 +18,12 @@ class MatchersExample extends FunSuite with Matchers {
     result shouldNot equal("abc")
   }
 
-  test("shouldEqual - FAILS") {
+  test("shouldEqual - FAILURE", FailureExamples) {
     val num = 1
     num shouldEqual 2
   }
 
-  test("should equal() - FAILS") {
+  test("should equal() - FAILURE", FailureExamples) {
     val num = 1
     num should equal("abc")
   }
@@ -44,14 +45,14 @@ class MatchersExample extends FunSuite with Matchers {
     option shouldBe Some("hi")
     option should === (Some("hi"))
   }
-  test("Options FAILURE - ===") {
+  test("Options FAILURE - ===", FailureExamples) {
     //noinspection OptionEqualsSome
     assert(Some(List(1, 2, 3)) === Some(List(1, 2)))
   }
-  test("Options FAILURE - .contains") {
+  test("Options FAILURE - .contains", FailureExamples) {
     assert(Some(List(1, 2, 3)).contains(List(1, 2)))
   }
-  test("Options FAILURE - should contain") {
+  test("Options FAILURE - should contain", FailureExamples) {
     Some(List(1, 2, 3)) should contain (List(1, 2))
   }
 
@@ -86,28 +87,28 @@ class MatchersExample extends FunSuite with Matchers {
     //result should contain(theSameElementsAs(xs = List(1, 2, 3)))
   }
 
-  test("containers FAILURE - Set ==") {
+  test("containers FAILURE - Set ==", FailureExamples) {
     val result = Set(1, 2, 3)
     assert(result == Set(3, 2, 1, 4))
   }
-  test("containers FAILURE - Set shouldEqual") {
+  test("containers FAILURE - Set shouldEqual", FailureExamples) {
     val result = Set(1, 2, 3)
     result shouldEqual Set(3, 2, 1, 4)
   }
-  test("containers FAILURE - Set contain theSameElementsAs") {
+  test("containers FAILURE - Set contain theSameElementsAs", FailureExamples) {
     val result = Set(1, 2, 3)
     result should contain theSameElementsAs Set(1, 2, 4, 3)
   }
 
-  test("containers FAILURE - List ==") {
+  test("containers FAILURE - List ==", FailureExamples) {
     val result = List(1, 2, 3)
     assert(result == List(3, 2, 1, 4))
   }
-  test("containers FAILURE - List shouldEqual") {
+  test("containers FAILURE - List shouldEqual", FailureExamples) {
     val result = List(1, 2, 3)
     result shouldEqual List(3, 2, 1, 4)
   }
-  test("containers FAILURE - List contain theSameElementsInOrderAs") {
+  test("containers FAILURE - List contain theSameElementsInOrderAs", FailureExamples) {
     val result = List(1, 2, 3)
     result should contain theSameElementsInOrderAs List(1, 2, 4, 3)
   }

@@ -1,6 +1,7 @@
 package scala_examples.styles
 
 import org.scalatest.{FunSpec, path}
+import scala_examples.FailureExamples
 
 class FunSpecExample extends FunSpec {
 
@@ -10,7 +11,7 @@ class FunSpecExample extends FunSpec {
         assert(Set.empty.isEmpty)
       }
 
-      it("cannot register after ready phase") {
+      it("cannot register after ready phase", FailureExamples) {
         it("register fails") { } // Couldn't use describe either
       }
 

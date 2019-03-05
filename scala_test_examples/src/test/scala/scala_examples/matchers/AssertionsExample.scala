@@ -1,6 +1,7 @@
 package scala_examples.matchers
 
 import org.scalatest.FunSuite
+import scala_examples.FailureExamples
 
 class AssertionsExample extends FunSuite {
 
@@ -8,7 +9,7 @@ class AssertionsExample extends FunSuite {
     assert(1 == 1)
   }
 
-  test("assertResult FAILURE") {
+  test("assertResult FAILURE", FailureExamples) {
     assertResult(3, "this is a clue") { 1 + 1 }
   }
 

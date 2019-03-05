@@ -1,6 +1,7 @@
 package scala_examples.styles
 
 import org.scalatest.FreeSpec
+import scala_examples.FailureExamples
 
 class FreeSpecExample extends FreeSpec {
 
@@ -20,7 +21,7 @@ class FreeSpecExample extends FreeSpec {
 
     "when size 1" - {
 
-      "should have size 1" in {
+      "should have size 1" taggedAs FailureExamples in {
         assert(Set.empty.size == 1)
       }
 

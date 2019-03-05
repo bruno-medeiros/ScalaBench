@@ -3,6 +3,7 @@ package scala_examples.fixture
 import java.io.File
 
 import org.scalatest.{Failed, FlatSpec}
+import scala_examples.FailureExamples
 
 class WithFixtureExample extends FlatSpec {
 
@@ -22,7 +23,7 @@ class WithFixtureExample extends FlatSpec {
     assert(1 + 1 === 2)
   }
 
-  it should "fail" in {
+  it should "fail" taggedAs FailureExamples in {
     assert(1 + 1 === 3)
   }
 }

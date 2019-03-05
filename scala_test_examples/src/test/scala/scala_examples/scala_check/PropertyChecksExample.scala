@@ -3,6 +3,7 @@ package scala_examples.scala_check
 import org.scalacheck.Gen
 import org.scalatest.{FunSuite, Matchers}
 import org.scalatest.prop.PropertyChecks
+import scala_examples.FailureExamples
 
 /**
   * GeneratorDrivenPropertyChecks is ScalaTest style property-based testing
@@ -15,7 +16,7 @@ class PropertyChecksExample extends FunSuite with PropertyChecks with Matchers {
     }
   }
 
-  test("startsWith - FAILURE") {
+  test("startsWith - FAILURE", FailureExamples) {
     forAll { (a: String, b: String) =>
       (a + b) should startWith("a")
     }
@@ -46,7 +47,7 @@ class PropertyChecksExample extends FunSuite with PropertyChecks with Matchers {
     }
   }
 
-  test("with generators - FAIL") {
+  test("with generators - FAILURE", FailureExamples) {
     forAll (myGen) {
       a: (Int, Int) => a._1 should be > a._2
     }
