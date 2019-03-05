@@ -12,11 +12,11 @@ object CallByName extends App {
   }
 
   var c = 0
-  def sideEffecting = {
+  def sideEffecting() = {
     println(s"Side effect! ${c += 10}")
     c
   }
-  callByName_evalTwice(sideEffecting)
+  callByName_evalTwice(sideEffecting())
   // sideEffecting is evaluated twice
   assert(c == 20)
 

@@ -18,6 +18,11 @@ object Sets extends App {
   // append another collection:
   assert(Set(1, 2) ++ List(3, 4, 3) == Set(1, 2, 3, 4))
 
+  // Remove
+  assert(Set(1, 2) - 2 == Set(1))
+  assert(Set(1, 2, 3) - (1, 3) == Set(2))
+
+
   val setA_StringAppended: String = setAB + "c" // + plus comes from any2stringadd
   assert(setAB + "c" == "Set(a, b)c")
 

@@ -74,6 +74,4 @@ object Futures extends App {
     Await.result(blockFuture, 3 seconds)
   }
 
-
-  // TODO: monix / cancelable future
 }
