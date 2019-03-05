@@ -10,7 +10,7 @@ class AkkaTest(_system: ActorSystem)
   with WordSpecLike
   with BeforeAndAfterAll {
 
-  def this() = this(ActorSystem(getClass.getSimpleName.replace("$", "")))
+  def this() = this(ActorSystem("AkkaTest"))
 
   override def afterAll: Unit = {
     // Invokes TestKit.shutdownActorSystem with dilated duration

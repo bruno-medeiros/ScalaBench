@@ -4,6 +4,7 @@ import akka.actor.{Actor, ActorRef, PoisonPill, Props, Terminated}
 import akka.pattern.gracefulStop
 import akka.testkit.TestProbe
 import akka_examples.common.AkkaTest
+import org.scalatest.OneInstancePerTest
 
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
@@ -38,7 +39,7 @@ class ChildActor extends Actor {
 
 
 class WatchExample extends AkkaTest
-//  with OneInstancePerTest
+  with OneInstancePerTest
 {
 
   "watch example" in {
@@ -57,5 +58,21 @@ class WatchExample extends AkkaTest
     val eventual: Future[Boolean] = gracefulStop(probe.ref, 1 seconds, PoisonPill)
     val result = Await.result(eventual, 1 seconds)
     assert(result)
+  }
+
+  "death pact" in {
+    val probe: TestProbe = TestProbe()
+
+    class WatcherActor2 extends WatcherActor(probe.ref) {
+      // A child will be created, and stopped, but Terminated will not be handled
+      // causing watcher to terminate as well
+      override def receive: Receive = {
+        case "dummy" =>
+      }
+    }
+
+    val watcher2 = system.actorOf(Props(new WatcherActor2), "watcher")
+    probe.watch(watcher2)
+    probe.expectTerminated(watcher2)
   }
 }
