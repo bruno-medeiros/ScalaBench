@@ -1,4 +1,4 @@
-package examples.oo.types
+package examples.types
 
 import examples.collections.ArrayExamples
 

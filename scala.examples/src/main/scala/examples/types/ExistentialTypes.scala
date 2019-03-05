@@ -1,4 +1,4 @@
-package examples.oo.types
+package examples.types
 
 import scala.collection.mutable.ArrayBuffer
 import scala.language.existentials

@@ -1,4 +1,4 @@
-package examples.oo.types
+package examples.types
 
 object SelfTypes2 extends App {
 

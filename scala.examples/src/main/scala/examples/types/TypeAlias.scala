@@ -1,4 +1,4 @@
-package examples
+package examples.types
 
 object TypeAlias extends App {
 
