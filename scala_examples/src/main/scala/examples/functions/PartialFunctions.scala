@@ -1,15 +1,27 @@
 package examples.functions
 
-object PartialFunctions extends App {
+import org.scalatest.Matchers
+
+object PartialFunctions extends App with Matchers {
 
   // Partial functions
   var partialFn: PartialFunction[Int, String] = { case 1 => "one"}
   assert(partialFn.isDefinedAt(1))
   assert(!partialFn.isDefinedAt(2))
 
-  var partialFn_upcast: Int => String = { case 1 => "one" }
 
+  // upcast partial function to regular function
+  var partialFn_upcast: Int => String = partialFn
   partialFn_upcast.apply(1)
+
+  intercept[MatchError] {
+    partialFn_upcast.apply(20)
+  }
+
+
+  // andThen ...
+  assert(partialFn.andThen(s => (s, " added!")).apply(1) === ("one", " added!"))
+
 
 
   // Using partial function syntax as a shorthand to unpack a tuple

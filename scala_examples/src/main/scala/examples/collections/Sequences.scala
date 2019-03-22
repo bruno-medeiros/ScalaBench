@@ -1,10 +1,12 @@
 package examples.collections
 
+import org.scalatest.Matchers
+
 import scala.collection.immutable.NumericRange
 import scala.collection.mutable
 
 //noinspection SimplifiableFoldOrReduce,SimplifyBoolean
-object Sequences extends App {
+object Sequences extends App with Matchers {
 
   // Ranges:
   val atoz: NumericRange[_] = 'a' to 'z'
@@ -27,8 +29,21 @@ object Sequences extends App {
   // Appended element:
   assert(1 +: List(2, 3, 4) == List(1, 2, 3, 4))
   assert(List(1, 2, 3) :+ 4 == List(1, 2, 3, 4))
-  assert("abc" :+ 'd' == "abcd")
-  assert("abc" + 'd' == "abcd")
+
+  // Appending strings
+  {
+    val appendedStringA: String = "abc" :+ '1'
+    assert(appendedStringA === "abc1")
+    val appendedStringB: String = "abc" + '2'
+    assert(appendedStringB === "abc2")
+    val appendedStringC: String = "abc" ++ "3x"
+    assert(appendedStringC === "abc3x")
+
+    // WEIRD one, it would be be better if this didn't even compile:
+    val appendedWeird: IndexedSeq[Any] = "abc" :+ "3x"
+    assert(appendedWeird === Seq('a', 'b', 'c', "3x"))
+  }
+
   // :+ does not preserve collection type, can widen:
   assert(List(1, 2) :+ "blah" == List(1, 2, "blah"))
   // Append for Vector:

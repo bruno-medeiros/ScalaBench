@@ -5,19 +5,20 @@ import org.scalatest.FunSuite
 class Options extends FunSuite {
 
   // Just an option
-  val opt: Option[Int] = Some(123)
+  val opt: Option[(String, Int)] = Some("abc", 123)
 
   test("patterns - operation on Option contents") {
-    // One way of running in contents
+    // One way running operation on contents
     // (note: type annotation not required, it's only for clarity)
-    opt.foreach((opt: Int) => {
-      print("here:" + opt)
+    opt.foreach((elem: (String, Int)) => {
+      val (name, age) = elem
+      println(name + " " + age)
     })
 
-    // another way:
+    // another way, this is preferable since it can unwrap tuples directly:
     // (note: type annotation not required, it's only for clarity)
-    for (opt: Int <- opt) {
-      print("here:" + opt)
+    for ((name: String, age: Int) <- opt) {
+      println(name + " " + age)
     }
   }
 }

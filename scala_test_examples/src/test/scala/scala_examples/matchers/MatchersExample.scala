@@ -1,6 +1,6 @@
 package scala_examples.matchers
 
-import org.scalatest.{FunSuite, Matchers, Tag}
+import org.scalatest.{FunSuite, Matchers}
 import scala_examples.FailureExamples
 
 class MatchersExample extends FunSuite with Matchers {
@@ -170,12 +170,19 @@ class MatchersExample extends FunSuite with Matchers {
 
   // ---- Exceptions
   test("Exceptions - intercept") {
-    intercept[IllegalArgumentException] {
+    val thrown = intercept[IllegalArgumentException] {
       throw new IllegalArgumentException
     }
+    assert(thrown.getMessage eq null)
   }
 
   test("Exceptions - should be thrownBy") {
     a [NoSuchElementException] should be thrownBy { List().head }
   }
+
+  test("Exceptions - thrownBy should ...") {
+    val thrown = the [IllegalStateException] thrownBy { throw new IllegalStateException("foo bar xxx") }
+    thrown.getMessage should include("xxx")
+  }
+
 }
