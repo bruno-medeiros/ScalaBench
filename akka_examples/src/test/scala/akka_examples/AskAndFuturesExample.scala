@@ -5,14 +5,14 @@ import akka.actor.Status.Failure
 import akka.pattern.ask
 import akka.testkit.TestProbe
 import akka.util.Timeout
-import akka_examples.common.{AkkaTest, QuestionReplyActor}
+import akka_examples.common.{AkkaExample, QuestionReplyActor}
 import org.scalatest.OneInstancePerTest
 
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
 
-class AskAndFuturesExample extends AkkaTest
+class AskAndFuturesExample extends AkkaExample
   with OneInstancePerTest
 {
 

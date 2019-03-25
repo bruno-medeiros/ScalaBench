@@ -2,12 +2,12 @@ package akka_examples
 
 import akka.actor.{Actor, ActorRef, Props}
 import akka.testkit.TestProbe
-import akka_examples.common.AkkaTest
+import akka_examples.common.AkkaExample
 
 import scala.concurrent.duration._
 
 
-class SchedulerExample extends AkkaTest {
+class SchedulerExample extends AkkaExample {
 
   class SchedulePongActor(opponent: ActorRef) extends Actor {
 

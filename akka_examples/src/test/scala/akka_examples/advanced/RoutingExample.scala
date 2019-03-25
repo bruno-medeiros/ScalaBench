@@ -2,7 +2,7 @@ package akka_examples.advanced
 
 import akka.actor.{Actor, ActorRef, Props}
 import akka.routing.{FromConfig, RoundRobinGroup}
-import akka_examples.common.AkkaTest
+import akka_examples.common.AkkaExample
 
 object RoutingExample {
   class MyWorker extends Actor {
@@ -12,7 +12,7 @@ object RoutingExample {
   }
 }
 
-class RoutingExample extends AkkaTest {
+class RoutingExample extends AkkaExample {
   import RoutingExample.MyWorker
 
   "Example Router with children" in {

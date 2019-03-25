@@ -1,7 +1,7 @@
 package akka_examples
 
 import akka.actor.{Actor, Props}
-import akka_examples.common.AkkaTest
+import akka_examples.common.AkkaExample
 
 private class StdoutEchoActor extends Actor {
   override def receive: PartialFunction[Any, Unit] = {
@@ -26,7 +26,7 @@ private class OtherActor extends Actor {
   }
 }
 
-class ActorSelectionExample extends AkkaTest {
+class ActorSelectionExample extends AkkaExample {
 
   "Test Actor Supervising" in {
     val echoActor = system.actorOf(Props[StdoutEchoActor], "echo-actor")

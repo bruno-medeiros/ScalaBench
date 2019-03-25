@@ -3,7 +3,7 @@ package akka_examples
 import akka.actor.SupervisorStrategy.{Restart, Stop}
 import akka.actor.{Actor, ActorKilledException, ActorLogging, Kill, OneForOneStrategy, PoisonPill, Props, SupervisorStrategy}
 import akka.testkit.TestProbe
-import akka_examples.common.AkkaTest
+import akka_examples.common.AkkaExample
 import org.scalatest.OneInstancePerTest
 
 import scala.concurrent.duration._
@@ -59,7 +59,7 @@ class SupervisedChild extends Actor with ActorLogging {
   }
 }
 
-class SuperviseExample extends AkkaTest
+class SuperviseExample extends AkkaExample
   with OneInstancePerTest
 {
 

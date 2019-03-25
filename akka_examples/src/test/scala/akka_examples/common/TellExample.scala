@@ -29,7 +29,7 @@ class QuestionReplyActor extends Actor with ActorLogging {
   }
 }
 
-class TellExample extends AkkaTest
+class TellExample extends AkkaExample
   with OneInstancePerTest
 {
 

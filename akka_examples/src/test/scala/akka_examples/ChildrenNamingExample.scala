@@ -1,9 +1,9 @@
 package akka_examples
 
-import akka.actor.SupervisorStrategy.{Restart, Stop}
-import akka.actor.{Actor, ActorKilledException, ActorLogging, InvalidActorNameException, OneForOneStrategy, PoisonPill, Props, SupervisorStrategy, Terminated}
+import akka.actor.SupervisorStrategy.Stop
+import akka.actor.{Actor, ActorLogging, InvalidActorNameException, OneForOneStrategy, Props, Terminated}
 import akka.testkit.TestProbe
-import akka_examples.common.AkkaTest
+import akka_examples.common.AkkaExample
 
 object ChildrenNamingExample {
 
@@ -55,7 +55,7 @@ object ChildrenNamingExample {
   }
 }
 
-class ChildrenNamingExample extends AkkaTest {
+class ChildrenNamingExample extends AkkaExample {
   import ChildrenNamingExample._
 
   "Actor naming in system" in {

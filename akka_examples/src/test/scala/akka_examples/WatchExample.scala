@@ -3,7 +3,7 @@ package akka_examples
 import akka.actor.{Actor, ActorRef, PoisonPill, Props, Terminated}
 import akka.pattern.gracefulStop
 import akka.testkit.TestProbe
-import akka_examples.common.AkkaTest
+import akka_examples.common.AkkaExample
 import org.scalatest.OneInstancePerTest
 
 import scala.concurrent.{Await, Future}
@@ -39,7 +39,7 @@ class ChildActor extends Actor {
 }
 
 
-class WatchExample extends AkkaTest
+class WatchExample extends AkkaExample
   with OneInstancePerTest
 {
 

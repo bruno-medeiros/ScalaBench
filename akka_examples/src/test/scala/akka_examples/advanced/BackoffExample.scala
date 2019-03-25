@@ -3,12 +3,12 @@ package akka_examples.advanced
 import akka.actor.Props
 import akka.pattern.{Backoff, BackoffSupervisor}
 import akka.testkit.TestActors.EchoActor
-import akka_examples.common.AkkaTest
+import akka_examples.common.AkkaExample
 
 import scala.concurrent.duration.DurationInt
 
 
-class BackoffExample extends AkkaTest {
+class BackoffExample extends AkkaExample {
 
   "Backoff Example" in {
 

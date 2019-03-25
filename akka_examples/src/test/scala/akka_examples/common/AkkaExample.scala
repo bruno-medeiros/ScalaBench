@@ -9,7 +9,7 @@ import scala.concurrent.{Await, Future}
 import scala.language.postfixOps
 
 
-abstract class AkkaTest(_system: ActorSystem)
+abstract class AkkaExample(_system: ActorSystem)
   extends TestKit(_system)
   with Matchers
   with WordSpecLike

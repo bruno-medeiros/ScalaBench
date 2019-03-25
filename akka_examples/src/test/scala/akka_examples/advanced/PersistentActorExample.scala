@@ -3,7 +3,7 @@ package akka_examples.advanced
 import akka.actor.Props
 import akka.persistence.PersistentActor
 import akka.testkit.TestProbe
-import akka_examples.common.AkkaTest
+import akka_examples.common.AkkaExample
 
 // TODO: REVIEW
 
@@ -49,7 +49,7 @@ class CounterActor extends PersistentActor {
 }
 
 
-class PersistentActorExample extends AkkaTest {
+class PersistentActorExample extends AkkaExample {
   import CounterActor._
 
   "Counter Actor" in {
