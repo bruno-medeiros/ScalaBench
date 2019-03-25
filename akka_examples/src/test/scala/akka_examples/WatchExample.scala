@@ -20,6 +20,7 @@ class WatcherActor(parent: ActorRef) extends Actor {
   }
 
   override def receive: Receive = {
+    // No more messages received from subject
     case Terminated(subject) =>
       println(s"Watcher received Terminated: $subject" )
       parent ! s"TERMINATED: ${subject.path}"

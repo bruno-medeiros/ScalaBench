@@ -16,13 +16,14 @@ class RoutingExample extends AkkaTest {
   import RoutingExample.MyWorker
 
   "Example Router with children" in {
-    val router1: ActorRef =
+    val _: ActorRef =
       system.actorOf(FromConfig.props(Props[MyWorker]), "router1")
+
   }
 
   "Example Router with actor selection" in {
     val paths = List("/user/workers/w1", "/user/workers/w2", "/user/workers/w3")
-    val router4: ActorRef =
+    val _: ActorRef =
       system.actorOf(RoundRobinGroup(paths).props(), "router4")
   }
 }
