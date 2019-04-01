@@ -2,8 +2,6 @@ package scala_examples.scala_check
 
 import org.scalacheck.Prop._
 import org.scalacheck.Properties
-import org.scalatest.FunSuite
-import org.scalatest.prop.Checkers
 
 // This is a main actually
 object ScalaCheckMainExample extends Properties("Heap") {

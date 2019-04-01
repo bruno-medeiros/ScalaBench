@@ -24,6 +24,8 @@ object AkkaCounterApp extends App {
 
   counterActor ! "print"
 
+
+
   // ---
 
   def awaitEnterPressAndTerminate(system: ActorSystem): Unit = {

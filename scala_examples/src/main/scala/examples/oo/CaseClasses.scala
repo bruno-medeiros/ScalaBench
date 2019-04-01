@@ -16,8 +16,13 @@ object CaseClasses extends App {
     override def abstractMethod: String = ???
   }
 
-  // TODO: need to review this further and see if there is additional syntax
-  // This is not allowed actually
-  //case class FooExt(size: Double, override val id: Int) extends Foo(id, "FooExtName") {}
+
+  case class Bar(num: Int, name: String) {
+    // Secondary constructor example (is secondary right name?)
+    def this(num: Int) = this(123, "default")
+  }
+
+  // Copying of case class
+  Bar(123, "foo").copy(name = "other")
 
 }

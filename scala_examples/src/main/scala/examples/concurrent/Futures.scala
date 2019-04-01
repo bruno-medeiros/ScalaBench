@@ -20,7 +20,15 @@ object Futures extends App {
     case Failure(t) => println("An error has occurred: " + t.getMessage)
   }
 
+  // Mapping
   answerToLife.map(num => num + 100)
+
+  // combine (zipWith)
+  {
+    val f2 = Future { "The answer:" }
+    answerToLife.zipWith(f2)((a, b) => b + a.toString).onComplete(println(_))
+  }
+
 
 
   // Await future result (blocking)

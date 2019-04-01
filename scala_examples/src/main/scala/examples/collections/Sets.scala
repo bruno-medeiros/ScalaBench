@@ -31,6 +31,16 @@ object Sets extends App with Matchers {
   val setA_StringAppended: String = setAB + "c" // + plus comes from any2stringadd
   assert(setAB + "c" === "Set(a, b)c")
 
+
+  // mutable var
+  {
+    var set = Set[Int]()
+    set = set + 4
+    set += 2
+    assert(set === Set(2, 4))
+  }
+
+  // Mutable set
   {
     val mset = mutable.Set(1, 2)
     mset + 3 // Note: copying

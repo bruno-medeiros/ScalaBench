@@ -1,7 +1,6 @@
 package akka_examples
 
-import akka.actor.{ Actor, Props, ActorSystem }
-import scala.io.StdIn
+import akka.actor.{Actor, ActorSystem, Props}
 
 class PrintMyActorRefActor extends Actor {
   override def receive: Receive = {

@@ -37,9 +37,9 @@ object PatternMatching extends App {
 
   // match with back-tick:
   {
-    val expected: Integer = new Integer(123)
+    val expected: Integer = Integer.valueOf(123)
 
-    new Integer(123) match {
+    Integer.valueOf(123) match {
       // back-tick makes it a ref, so expected is a ref
       case `expected` => assert(true)
       case _ => assert(false)
@@ -61,7 +61,7 @@ object PatternMatching extends App {
     // Pattern binder:
     ("foo", 123) match {
       // back-tick makes it a ref, so expected is a ref
-      case redefined @ ("foo", _) => assert(redefined == ("foo", 123))
+      case redefined @ ("foo", _) => assert(redefined == (("foo", 123)))
       case _ => assert(false)
     }
   }
@@ -75,6 +75,21 @@ object PatternMatching extends App {
 //        Map[typeB, typeA](1 -> "foo")
         Map[typeB, typeA]() // TODO: what can be done here?...
 
+    }
+
+    case class Foo[T](a: T, fn: T => Unit)
+
+    val fooSample: Object = Foo[Int](123, x => print(x))
+
+    // IntelliJ is not as smart to bind the type parameters correctly.
+    fooSample match {
+      case Foo(a, fn) if a == 1 =>
+        val a2 = a
+        fn(a2)
+
+      case foo: Foo[typeT] =>
+        val a2: typeT = foo.a
+        foo.fn(a2)
     }
   }
 }

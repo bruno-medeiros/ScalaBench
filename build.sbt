@@ -32,7 +32,7 @@ lazy val scala_test_examples = (project in file("scala_test_examples"))
   )
 
 
-lazy val akkaVersion = "2.5.16"
+lazy val akkaVersion = "2.5.21"
 
 lazy val akka_examples = (project in file("akka_examples"))
   .settings(
@@ -40,7 +40,9 @@ lazy val akka_examples = (project in file("akka_examples"))
     libraryDependencies += scalaCheck % Test,
     libraryDependencies ++= Seq(
       "com.typesafe.akka" %% "akka-actor" % akkaVersion,
-      "com.typesafe.akka" %% "akka-testkit" % akkaVersion
+      "com.typesafe.akka" %% "akka-testkit" % akkaVersion,
+      "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion,
+      "com.typesafe.akka" %% "akka-stream" % akkaVersion
     ),
     libraryDependencies += "com.typesafe.akka" %% "akka-persistence" % akkaVersion
 )
@@ -51,6 +53,3 @@ lazy val root = (project in file("."))
     scala_test_examples,
     akka_examples
   )
-
-
-

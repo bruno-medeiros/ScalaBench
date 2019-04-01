@@ -24,7 +24,7 @@ object ExistentialTypes extends App {
     val _: ArrayBuffer[Number] = obj
     // As such this works:
     obj(0) = BigInt(123)
-    obj(1) = new Integer(123)
+    obj(1) = Integer.valueOf(123)
   }
   // This works:
   bar2(ArrayBuffer[Number](1, 2))
