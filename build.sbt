@@ -15,9 +15,9 @@ ThisBuild / scalacOptions ++= Seq(
   "-Ypartial-unification" // allow the compiler to unify type constructors of different arities
 )
 
+
 lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.0.5"
 lazy val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.14.0"
-
 
 
 lazy val scala_examples = (project in file("scala_examples"))
@@ -32,7 +32,7 @@ lazy val scala_test_examples = (project in file("scala_test_examples"))
   )
 
 
-lazy val akkaVersion = "2.5.21"
+lazy val akkaVersion = "2.6.0-M1"
 
 lazy val akka_examples = (project in file("akka_examples"))
   .settings(
@@ -40,16 +40,34 @@ lazy val akka_examples = (project in file("akka_examples"))
     libraryDependencies += scalaCheck % Test,
     libraryDependencies ++= Seq(
       "com.typesafe.akka" %% "akka-actor" % akkaVersion,
-      "com.typesafe.akka" %% "akka-testkit" % akkaVersion,
       "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion,
-      "com.typesafe.akka" %% "akka-stream" % akkaVersion
+      "com.typesafe.akka" %% "akka-stream" % akkaVersion, 
+      "com.typesafe.akka" %% "akka-testkit" % akkaVersion % Test,
     ),
     libraryDependencies += "com.typesafe.akka" %% "akka-persistence" % akkaVersion
-)
+  )
 
-lazy val root = (project in file("."))
+
+lazy val akkaHttpVersion = "10.1.8"
+
+lazy val demo_app = (project in file("demo-app"))
+  .settings(
+    name := "demo-app",
+    libraryDependencies += scalaTest % Test,
+    libraryDependencies += scalaCheck % Test,
+    libraryDependencies ++= Seq(
+      "com.typesafe.akka" %% "akka-http"            % akkaHttpVersion,
+//      "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion,
+      "com.typesafe.akka" %% "akka-stream"          % akkaVersion,
+      "com.typesafe.akka" %% "akka-actor-typed"     % akkaVersion
+    )
+  )
+
+
+lazy val scala_bench = (project in file("."))
   .aggregate(
     scala_examples,
     scala_test_examples,
-    akka_examples
+    akka_examples,
+    demo_app
   )

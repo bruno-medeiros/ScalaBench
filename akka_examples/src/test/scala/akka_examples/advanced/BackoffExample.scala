@@ -1,7 +1,8 @@
 package akka_examples.advanced
 
 import akka.actor.Props
-import akka.pattern.{Backoff, BackoffSupervisor}
+import akka.pattern.BackoffOpts
+import akka.pattern.BackoffSupervisor
 import akka.testkit.TestActors.EchoActor
 import akka_examples.common.AkkaExample
 
@@ -15,7 +16,7 @@ class BackoffExample extends AkkaExample {
     val childProps = Props(classOf[EchoActor])
 
     val supervisor = BackoffSupervisor.props(
-      Backoff.onStop(
+      BackoffOpts.onStop(
         childProps = childProps,
         childName = "myEcho",
         minBackoff = 3.seconds,
