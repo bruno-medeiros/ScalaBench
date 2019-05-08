@@ -56,10 +56,13 @@ lazy val demo_app = (project in file("demo-app"))
     libraryDependencies += scalaTest % Test,
     libraryDependencies += scalaCheck % Test,
     libraryDependencies ++= Seq(
-      "com.typesafe.akka" %% "akka-http"            % akkaHttpVersion,
-//      "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion,
       "com.typesafe.akka" %% "akka-stream"          % akkaVersion,
-      "com.typesafe.akka" %% "akka-actor-typed"     % akkaVersion
+      "com.typesafe.akka" %% "akka-actor-typed"     % akkaVersion,
+
+      "com.typesafe.akka" %% "akka-http"            % akkaHttpVersion,
+      //      "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion,
+
+      "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test,
     )
   )
 
