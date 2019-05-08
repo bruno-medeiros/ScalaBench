@@ -35,10 +35,18 @@ object Futures extends App {
   assert(42 == Await.result(answerToLife, 1 seconds))
 
 
-  private val nfeFuture = Future {
-    throw new NumberFormatException
+
+  {
+    // Failed future:
+    val nfeFuture = Future[String] {
+      throw new NumberFormatException
+    }
+
+    // ... to Try:
+    Await.ready(nfeFuture, 1 seconds)
+    val value: Try[String] = nfeFuture.value.get
+    assert(value.failed.get.getClass == classOf[NumberFormatException])
   }
-  println("Result2: " + Try{ Await.result(nfeFuture, 1 seconds) })
 
 
   // Throwing InterruptedException in Future - it doesn't complete the future!
