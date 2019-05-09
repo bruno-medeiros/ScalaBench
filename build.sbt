@@ -3,7 +3,7 @@ import sbt.Keys.libraryDependencies
 ThisBuild / organization := "com.github.bruno-medeiros"
 ThisBuild / version      := "0.1.0-SNAPSHOT"
 
-ThisBuild / scalaVersion := "2.12.7"
+ThisBuild / scalaVersion := "2.12.8"
 ThisBuild / scalacOptions ++= Seq(
   "-encoding", "UTF-8",   // source files are in UTF-8
   "-deprecation",         // warn about use of deprecated APIs
@@ -58,11 +58,11 @@ lazy val demo_app = (project in file("demo-app"))
     libraryDependencies ++= Seq(
       "com.typesafe.akka" %% "akka-stream"          % akkaVersion,
       "com.typesafe.akka" %% "akka-actor-typed"     % akkaVersion,
+      "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test,
 
       "com.typesafe.akka" %% "akka-http"            % akkaHttpVersion,
-      //      "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion,
-
-      "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test,
+      "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion,
+      "com.typesafe.akka" %% "akka-http-testkit"    % akkaHttpVersion % Test,
     )
   )
 
@@ -72,5 +72,5 @@ lazy val scala_bench = (project in file("."))
     scala_examples,
     scala_test_examples,
     akka_examples,
-    demo_app
+    demo_app,
   )

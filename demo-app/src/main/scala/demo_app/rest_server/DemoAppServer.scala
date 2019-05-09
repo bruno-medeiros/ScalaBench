@@ -17,7 +17,7 @@ import scala.concurrent.Future
 import scala.util.Failure
 import scala.util.Success
 
-class DemoAppServer extends App {
+object DemoAppServer extends App {
 
   implicit val system: ActorSystem = ActorSystem("demo-app")
   implicit val executor: ExecutionContext = system.dispatcher

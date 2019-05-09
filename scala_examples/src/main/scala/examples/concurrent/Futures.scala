@@ -1,12 +1,13 @@
 package examples.concurrent
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent._
 import scala.concurrent.duration._
 import scala.language.postfixOps
 import scala.util.{Failure, Success, Try}
 
 object Futures extends App {
+
+  implicit val executor = ExecutionContext.Implicits.global
 
   // The function to be run asynchronously
   val answerToLife: Future[Int] = Future {
@@ -48,6 +49,16 @@ object Futures extends App {
     assert(value.failed.get.getClass == classOf[NumberFormatException])
   }
 
+
+  // Flatten Futures
+  {
+    val futureOfTry = Future[Try[String]] {
+      Failure(new Exception("Failed!"))
+    }
+
+    val f2 = futureOfTry.transform(f => f.flatten)(executor)
+    val f3 = futureOfTry.transform[String]((f: Try[Try[String]]) => f.flatten)(executor)
+  }
 
   // Throwing InterruptedException in Future - it doesn't complete the future!
   // This is consequenece of InterruptedException considered Fatal as in NonFatal.unapply
