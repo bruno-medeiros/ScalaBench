@@ -56,8 +56,9 @@ object Futures extends App {
       Failure(new Exception("Failed!"))
     }
 
-    val f2 = futureOfTry.transform(f => f.flatten)(executor)
-    val f3 = futureOfTry.transform[String]((f: Try[Try[String]]) => f.flatten)(executor)
+    val f1 = futureOfTry.transform(f => f.flatten)(executor)
+    val f2 = futureOfTry.transform[String]((f: Try[Try[String]]) => f.flatten)(executor)
+    f1.toString; f2.toString
   }
 
   // Throwing InterruptedException in Future - it doesn't complete the future!
