@@ -19,19 +19,12 @@ ThisBuild / scalacOptions ++= Seq(
 lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.0.5"
 lazy val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.14.0"
 
-
 lazy val scala_examples = (project in file("scala_examples"))
   .settings(
     libraryDependencies += scalaTest,
-    scalacOptions += "-Ywarn-unused:-implicits,-locals,-privates",
-  )
-
-lazy val scala_test_examples = (project in file("scala_test_examples"))
-  .settings(
-    libraryDependencies += scalaTest % Test,
     libraryDependencies += scalaCheck % Test,
     scalacOptions += "-Ywarn-unused:-implicits,-locals,-privates",
-    testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-l", "FailureExamples")
+    testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-l", "FailureExamples"),
   )
 
 
@@ -107,7 +100,6 @@ lazy val demo_app = (project in file("demo-app"))
 lazy val scala_bench = (project in file("."))
   .aggregate(
     scala_examples,
-    scala_test_examples,
     akka_examples,
     demo_app,
   )
