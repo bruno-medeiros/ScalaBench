@@ -13,13 +13,15 @@ object RoutingExample {
 }
 
 class RoutingExample extends AkkaExample {
-  import RoutingExample.MyWorker
+  // TODO: proper example
 
-  "Example Router with children" in {
-    val _: ActorRef =
-      system.actorOf(FromConfig.props(Props[MyWorker]), "router1")
-
-  }
+//  import RoutingExample.MyWorker
+//
+//  "Example Router with children" in {
+//    val _: ActorRef =
+//      system.actorOf(FromConfig.props(Props[MyWorker]), "router1")
+//
+//  }
 
   "Example Router with actor selection" in {
     val paths = List("/user/workers/w1", "/user/workers/w2", "/user/workers/w3")

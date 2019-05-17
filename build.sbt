@@ -31,6 +31,7 @@ lazy val scala_test_examples = (project in file("scala_test_examples"))
     libraryDependencies += scalaTest % Test,
     libraryDependencies += scalaCheck % Test,
     scalacOptions += "-Ywarn-unused:-implicits,-locals,-privates",
+    testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-l", "FailureExamples")
   )
 
 
