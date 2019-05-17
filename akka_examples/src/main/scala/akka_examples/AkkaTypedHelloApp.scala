@@ -7,9 +7,11 @@ import akka.actor.typed.scaladsl.adapter._
 
 case class Msg(str: String)
 
-object AkkaTypedCounterApp extends App {
+object AkkaTypedHelloApp extends App {
 
   val root = Behaviors.receive[Msg] { case (ctx, msg) =>
+    if (msg.str.contains("ERROR"))
+      throw new Exception(msg.str)
     ctx.log.info("Hello " + msg.str)
     Behaviors.empty
   }

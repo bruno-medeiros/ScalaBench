@@ -48,7 +48,45 @@ lazy val akka_examples = (project in file("akka_examples"))
   )
 
 
-lazy val akkaHttpVersion = "10.1.8"
+val circeVersion = "0.10.0"
+val circeLibs = Seq(
+  "io.circe" %% "circe-core",
+  "io.circe" %% "circe-generic",
+  "io.circe" %% "circe-parser"
+).map(_ % circeVersion)
+
+
+lazy val demo_app_model_dtos = (project in file("demo-app.model.dtos"))
+  .settings(
+    name := "demo-app.model.dtos",
+    libraryDependencies += scalaTest % Test,
+    libraryDependencies += scalaCheck % Test,
+    libraryDependencies ++= circeLibs,
+  )
+
+
+val akkaHttpVersion = "10.1.8"
+val akkaDeps = Seq(
+  "com.typesafe.akka" %% "akka-stream"          % akkaVersion,
+  "com.typesafe.akka" %% "akka-actor-typed"     % akkaVersion,
+  "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test,
+
+  "com.typesafe.akka" %% "akka-http"            % akkaHttpVersion,
+  "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion,
+  "com.typesafe.akka" %% "akka-http-testkit"    % akkaHttpVersion % Test,
+)
+
+
+lazy val demo_app_model = (project in file("demo-app.model"))
+  .settings(
+    name := "demo-app.model",
+    libraryDependencies += scalaTest % Test,
+    libraryDependencies += scalaCheck % Test,
+    libraryDependencies ++= akkaDeps
+  )
+  .dependsOn(demo_app_model_dtos)
+
+
 
 lazy val demo_app = (project in file("demo-app"))
   .settings(
@@ -56,15 +94,11 @@ lazy val demo_app = (project in file("demo-app"))
     libraryDependencies += scalaTest % Test,
     libraryDependencies += scalaCheck % Test,
     libraryDependencies ++= Seq(
-      "com.typesafe.akka" %% "akka-stream"          % akkaVersion,
-      "com.typesafe.akka" %% "akka-actor-typed"     % akkaVersion,
       "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test,
-
-      "com.typesafe.akka" %% "akka-http"            % akkaHttpVersion,
-      "com.typesafe.akka" %% "akka-http-spray-json" % akkaHttpVersion,
       "com.typesafe.akka" %% "akka-http-testkit"    % akkaHttpVersion % Test,
     )
   )
+  .dependsOn(demo_app_model)
 
 
 lazy val scala_bench = (project in file("."))
