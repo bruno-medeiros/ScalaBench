@@ -9,10 +9,10 @@ ThisBuild / scalacOptions ++= Seq(
   "-deprecation",         // warn about use of deprecated APIs
   "-unchecked",           // warn about unchecked type parameters
   "-feature",             // warn about misused language features
-  "-Xlint",               // enable handy linter warnings
-//  "-language:higherKinds",// allow higher kinded types without `import scala.language.higherKinds`
+  "-Xlint:_,-adapted-args",               // enable handy linter warnings
 //  "-Xfatal-warnings",     // turn compiler warnings into errors
-  "-Ypartial-unification" // allow the compiler to unify type constructors of different arities
+//  "-language:higherKinds",// allow higher kinded types without `import scala.language.higherKinds`
+//  "-Ypartial-unification", // allow the compiler to unify type constructors of different arities
 )
 
 
@@ -22,13 +22,15 @@ lazy val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.14.0"
 
 lazy val scala_examples = (project in file("scala_examples"))
   .settings(
-    libraryDependencies += scalaTest
+    libraryDependencies += scalaTest,
+    scalacOptions += "-Ywarn-unused:-implicits,-locals,-privates",
   )
 
 lazy val scala_test_examples = (project in file("scala_test_examples"))
   .settings(
     libraryDependencies += scalaTest % Test,
-    libraryDependencies += scalaCheck % Test
+    libraryDependencies += scalaCheck % Test,
+    scalacOptions += "-Ywarn-unused:-implicits,-locals,-privates",
   )
 
 

@@ -2,8 +2,6 @@ package examples.types
 
 import org.scalatest.Assertions
 
-import scala.language.implicitConversions
-
 object ImplicitsConversion_TypeClasses extends App with Assertions {
 
   // This is called a type class

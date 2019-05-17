@@ -23,13 +23,11 @@ object ImplicitsExamples extends App with Assertions {
   // Request implict type directly
   implicitly[Xpto].foo("Hello")
 
-  {
-    @implicitNotFound(msg = "oh crap!!! ${T1} and ${T2}")
-    implicit class SomeOps[T1, T2 <: Exception](string: String) {}
 
-    // Uncomment to show errorMessage:
-    //implicitly[SomeOps[String, Exception]]
-  }
+  // Uncomment last line to show errorMessage:
+  @implicitNotFound(msg = "oh crap!!! ${T1} and ${T2}")
+  implicit class SomeOps[T1, T2 <: Exception](string: String) {}
+  //implicitly[SomeOps[String, Exception]]
 
 
   trait Ziltoid[T] {

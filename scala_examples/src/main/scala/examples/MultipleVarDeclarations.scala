@@ -10,4 +10,8 @@ object MultipleVarDeclarations extends App {
   }
   assert(counter == 3)
 
+
+  // Tuples (have to use extra parenthesis on right side to avoid warning
+  assert(("abc", 123) == ("abc", 123))
+
 }

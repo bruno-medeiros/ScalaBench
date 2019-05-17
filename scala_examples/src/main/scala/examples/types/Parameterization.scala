@@ -2,8 +2,6 @@ package examples.types
 
 import examples.collections.ArrayExamples
 
-import scala.language.existentials
-
 
 object Parameterization extends App {
 

@@ -3,7 +3,7 @@ package examples.monads
 import scala.concurrent.{Await, Future}
 import scala.util.Try
 
-//noinspection ComparingUnrelatedTypes,OptionEqualsSome
+//noinspection OptionEqualsSome
 object NestedMonads extends App {
 
   import scala.concurrent.ExecutionContext.Implicits.global
@@ -69,6 +69,7 @@ object NestedMonads extends App {
 
     // Other ways that don't quite work: (TODO review)
 
+    import scala.language.reflectiveCalls
 
     val x = new {
       val f1 = Future { Thread.sleep(100); "Foo" }
