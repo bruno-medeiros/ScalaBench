@@ -12,7 +12,7 @@ class ConfigExample extends AkkaExample {
 
     val config: Config = ConfigFactory.load()
 
-    println(s"${config.root().render()}")
+//    println(s"${config.root().render()}")
 
   }
 }
