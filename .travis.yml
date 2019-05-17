@@ -1,0 +1,25 @@
+language: scala
+
+#jdk:
+#  - oraclejdk8
+
+scala:
+  - 2.11.11
+  - 2.12.2
+
+cache:
+  directories:
+    - $HOME/.m2/repository
+    - $HOME/.sbt
+    - $HOME/.ivy2
+
+# From circe:
+#cache:
+#  directories:
+#    - $HOME/.ivy2/cache
+#    - $HOME/.sbt/boot
+
+
+script:
+  - sbt ++$TRAVIS_SCALA_VERSION compile test:compile
+  - sbt ++$TRAVIS_SCALA_VERSION -Dakka.test.timefactor=1.5 test
