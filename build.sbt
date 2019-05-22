@@ -1,4 +1,3 @@
-import sbt.Keys.libraryDependencies
 
 ThisBuild / organization := "com.github.bruno-medeiros"
 ThisBuild / version      := "0.1.0-SNAPSHOT"
@@ -44,6 +43,8 @@ lazy val akka_examples = (project in file("akka_examples"))
   )
 
 
+// -------------------- Demo App
+
 val circeVersion = "0.10.0"
 val circeLibs = Seq(
   "io.circe" %% "circe-core",
@@ -85,6 +86,7 @@ lazy val demo_app_model = (project in file("demo-app.model"))
 
 
 lazy val demo_app = (project in file("demo-app"))
+  .enablePlugins(JavaAppPackaging, AshScriptPlugin)
   .settings(
     name := "demo-app",
     libraryDependencies += scalaTest % Test,
@@ -92,7 +94,11 @@ lazy val demo_app = (project in file("demo-app"))
     libraryDependencies ++= Seq(
       "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test,
       "com.typesafe.akka" %% "akka-http-testkit"    % akkaHttpVersion % Test,
-    )
+    ),
+    mainClass in Compile := Some("demo_app.rest_server.DemoAppMain"),
+    packageName in Docker := "dockerised-demo-app",
+    dockerBaseImage := "openjdk:8-jre-alpine",
+    dockerExposedPorts ++= Seq(9000, 9000),
   )
   .dependsOn(demo_app_model)
 
