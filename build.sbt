@@ -8,8 +8,9 @@ ThisBuild / scalacOptions ++= Seq(
   "-deprecation",         // warn about use of deprecated APIs
   "-unchecked",           // warn about unchecked type parameters
   "-feature",             // warn about misused language features
-  "-Xlint:_,-adapted-args",               // enable handy linter warnings
-//  "-Xfatal-warnings",     // turn compiler warnings into errors
+  "-language:postfixOps",
+  "-Xlint:_,-adapted-args",    // enable handy linter warnings
+  "-Xfatal-warnings",     // turn compiler warnings into errors
 //  "-language:higherKinds",// allow higher kinded types without `import scala.language.higherKinds`
 //  "-Ypartial-unification", // allow the compiler to unify type constructors of different arities
 )
@@ -22,7 +23,11 @@ lazy val scala_examples = (project in file("scala_examples"))
   .settings(
     libraryDependencies += scalaTest,
     libraryDependencies += scalaCheck % Test,
-    scalacOptions += "-Ywarn-unused:-implicits,-locals,-privates",
+    libraryDependencies += "org.typelevel" %% "cats-effect" % "1.3.0",
+    scalacOptions := scalacOptions.value
+      .filterNot(_ == "-Xfatal-warnings") 
+      ++ Seq("-Ywarn-unused:-implicits,-locals,-privates")
+    ,
     testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-l", "FailureExamples"),
   )
 
@@ -39,7 +44,10 @@ lazy val akka_examples = (project in file("akka_examples"))
       "com.typesafe.akka" %% "akka-stream" % akkaVersion, 
       "com.typesafe.akka" %% "akka-testkit" % akkaVersion % Test,
     ),
-    libraryDependencies += "com.typesafe.akka" %% "akka-persistence" % akkaVersion
+    libraryDependencies += "com.typesafe.akka" %% "akka-persistence" % akkaVersion,
+    scalacOptions := scalacOptions.value
+      .filterNot(_ == "-Xfatal-warnings")
+    ,
   )
 
 

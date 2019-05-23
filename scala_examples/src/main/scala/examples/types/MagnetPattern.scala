@@ -2,8 +2,6 @@ package examples.types
 
 import org.scalatest.Assertions
 
-import scala.language.implicitConversions
-
 object MagnetPattern extends App with Assertions {
 
   sealed trait Magnet {
