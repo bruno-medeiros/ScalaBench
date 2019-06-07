@@ -19,29 +19,21 @@ import scala.util.Success
 
 object DemoAppMain extends App {
 
-  implicit val system: ActorSystem = ActorSystem("demo-app")
-  implicit val executor: ExecutionContext = system.dispatcher
-  implicit val materializer: ActorMaterializer = ActorMaterializer()(system)
-
-
-  private val workspaceRegistry: ActorRef[WorkspaceRegistry.Msg] = system.spawn(new WorkspaceRegistry, "registry")
-
-
-  val handler: Flow[HttpRequest, HttpResponse, NotUsed] = new DemoAppRoutes(system, workspaceRegistry).routes
-
   val host = "0.0.0.0"
   val port = 9000
 
-  val httpExt: HttpExt = Http()(system)
-  val serverBinding: Future[Http.ServerBinding] = httpExt.bindAndHandle(handler, host, port)
+  implicit val system: ActorSystem = ActorSystem("demo-app")
+  implicit val materializer: ActorMaterializer = ActorMaterializer()(system)
 
-  serverBinding.onComplete {
-    case Success(bound) =>
-      println(s"Server online at http://${bound.localAddress.getHostString}:${bound.localAddress.getPort}/")
+  private val server = new DemoAppServer(host, port)
+
+  implicit val executor: ExecutionContext = system.dispatcher
+
+  server.serverBinding.onComplete {
+    case Success(_) =>
     case Failure(e) =>
       Console.err.println(s"Server could not start!")
       e.printStackTrace()
       system.terminate()
   }
-
 }

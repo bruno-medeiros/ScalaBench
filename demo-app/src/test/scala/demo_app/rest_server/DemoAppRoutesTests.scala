@@ -6,6 +6,7 @@ import akka.http.scaladsl.model.ContentTypes
 import akka.http.scaladsl.model.HttpRequest
 import akka.http.scaladsl.model.MessageEntity
 import akka.http.scaladsl.model.StatusCodes
+import akka.http.scaladsl.testkit.RouteTest
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import demo_app.workspaces.WorkspaceRegistry
 import demo_app.workspaces.WorkspaceRegistry.CreateWorkspaceInfo
@@ -15,21 +16,17 @@ import org.scalatest.OneInstancePerTest
 import org.scalatest.concurrent.ScalaFutures
 
 
-class DemoAppRoutesTests extends FunSuite
+trait DemoAppRoutesHelper extends RouteTest
   with Matchers with ScalaFutures with DemoAppJsonSupport
-  with ScalatestRouteTest
-  with OneInstancePerTest
+  with DemoAppApi
 {
+  this: ScalatestRouteTest =>
 
   val workspaceRegistry = new WorkspaceRegistry
   val behavior = system.spawn(workspaceRegistry, "wks")
   val routes = new DemoAppRoutes(system, behavior).routes
 
-  test("list no elements") {
-    listElements("""[]""")
-  }
-
-  private def listElements(expectedEntity: String) = {
+  override def listElements(expectedEntity: String) = {
     val request = HttpRequest(uri = "/workspaces")
 
     request ~> routes ~> check {
@@ -40,12 +37,7 @@ class DemoAppRoutesTests extends FunSuite
     }
   }
 
-  test("create element") {
-    createElement(CreateWorkspaceInfo(nameId = "Alex", other = 31))
-    createElement(CreateWorkspaceInfo(nameId = "Jamie", other = 123))
-  }
-
-  private def createElement(createReq: WorkspaceRegistry.CreateWorkspaceInfo) = {
+  override def createElement(createReq: WorkspaceRegistry.CreateWorkspaceInfo) = {
     val entity = Marshal(createReq).to[MessageEntity].futureValue
 
     val request = Post("/workspaces").withEntity(entity)
@@ -59,16 +51,7 @@ class DemoAppRoutesTests extends FunSuite
     }
   }
 
-  test("delete element") {
-    createElement(CreateWorkspaceInfo(nameId = "Alex", other = 31))
-
-    createElement(CreateWorkspaceInfo(nameId = "Jamie", other = 123))
-
-    deleteWorkspace("Alex")
-    deleteWorkspace("Jamie")
-  }
-
-  private def deleteWorkspace(nameId: String): Any = {
+  override def deleteWorkspace(nameId: String): Any = {
     val request = Delete("/workspaces/" + nameId)
 
     request ~> routes ~> check {
@@ -78,6 +61,44 @@ class DemoAppRoutesTests extends FunSuite
       entityAs[String] should ===("Success")
       workspaceRegistry.workspaces.get(nameId).isDefined shouldBe false
     }
+  }
+
+  override def getElement(nameId: String): Any = {
+    workspaceRegistry.workspaces.get(nameId).isDefined shouldBe true
+
+    val request = Get("/workspaces/" + nameId)
+
+    request ~> routes ~> check {
+      status should ===(StatusCodes.OK)
+      contentType should ===(ContentTypes.`text/plain(UTF-8)`)
+
+      entityAs[String] should ===(s"GetWorkspace result: $nameId")
+    }
+  }
+
+}
+
+
+trait DemoAppRoutesTestsBase extends FunSuite
+  with DemoAppApi with OneInstancePerTest
+{
+
+  test("list no elements") {
+    listElements("""[]""")
+  }
+
+  test("create element") {
+    createElement(CreateWorkspaceInfo(nameId = "Alex", other = 31))
+    createElement(CreateWorkspaceInfo(nameId = "Jamie", other = 123))
+  }
+
+  test("delete element") {
+    createElement(CreateWorkspaceInfo(nameId = "Alex", other = 31))
+
+    createElement(CreateWorkspaceInfo(nameId = "Jamie", other = 123))
+
+    deleteWorkspace("Alex")
+    deleteWorkspace("Jamie")
   }
 
   test("list elements") {
@@ -98,17 +119,8 @@ class DemoAppRoutesTests extends FunSuite
     getElement("Alex")
   }
 
-  private def getElement(nameId: String): Any = {
-    workspaceRegistry.workspaces.get(nameId).isDefined shouldBe true
+}
 
-    val request = Get("/workspaces/" + nameId)
-
-    request ~> routes ~> check {
-      status should ===(StatusCodes.OK)
-      contentType should ===(ContentTypes.`text/plain(UTF-8)`)
-
-      entityAs[String] should ===(s"GetWorkspace result: $nameId")
-    }
-  }
-
+class DemoAppRoutesTests extends DemoAppRoutesTestsBase
+  with DemoAppRoutesHelper with ScalatestRouteTest with OneInstancePerTest {
 }
