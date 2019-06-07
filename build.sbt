@@ -9,9 +9,9 @@ ThisBuild / scalacOptions ++= Seq(
   "-unchecked",           // warn about unchecked type parameters
   "-feature",             // warn about misused language features
   "-language:postfixOps",
+  "-language:higherKinds",// allow higher kinded types without `import scala.language.higherKinds`
   "-Xlint:_,-adapted-args",    // enable handy linter warnings
-  "-Xfatal-warnings",     // turn compiler warnings into errors
-//  "-language:higherKinds",// allow higher kinded types without `import scala.language.higherKinds`
+//  "-Xfatal-warnings",     // turn compiler warnings into errors
 //  "-Ypartial-unification", // allow the compiler to unify type constructors of different arities
 )
 

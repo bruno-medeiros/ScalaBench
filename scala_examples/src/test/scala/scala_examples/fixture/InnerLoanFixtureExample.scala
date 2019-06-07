@@ -3,7 +3,8 @@ package scala_examples.fixture
 
 import java.util.concurrent.ConcurrentHashMap
 
-object LoanFixtureExample {
+// Fixture example using HOFs wihout test framework interaction
+object InnerLoanFixtureExample {
 
   object DbServer { // Simulating a database server
   type Db = StringBuffer
@@ -21,11 +22,11 @@ object LoanFixtureExample {
 }
 
 import org.scalatest.FlatSpec
-import LoanFixtureExample.DbServer._
+import InnerLoanFixtureExample.DbServer._
 import java.util.UUID.randomUUID
 import java.io._
 
-class LoanFixtureExample extends FlatSpec {
+class InnerLoanFixtureExample extends FlatSpec {
 
   def withDatabase(testCode: Db => Any) {
     val dbName = randomUUID.toString

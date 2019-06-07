@@ -30,6 +30,9 @@ object Sequences extends App with Matchers {
   assert(1 +: List(2, 3, 4) == List(1, 2, 3, 4))
   assert(List(1, 2, 3) :+ 4 == List(1, 2, 3, 4))
 
+  assert(1 +: Vector(2, 3, 4) == Vector(1, 2, 3, 4))
+  assert(Vector(1, 2, 3) :+ 4 == Vector(1, 2, 3, 4))
+
   // Appending strings
   {
     val appendedStringA: String = "abc" :+ '1'
