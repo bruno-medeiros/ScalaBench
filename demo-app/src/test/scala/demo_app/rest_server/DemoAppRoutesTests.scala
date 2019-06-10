@@ -10,11 +10,74 @@ import akka.http.scaladsl.testkit.RouteTest
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import demo_app.workspaces.WorkspaceRegistry
 import demo_app.workspaces.WorkspaceRegistry.CreateWorkspaceInfo
-import org.scalatest.FunSuite
 import org.scalatest.Matchers
 import org.scalatest.OneInstancePerTest
+import org.scalatest.Outcome
 import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.fixture
 
+
+
+trait DemoAppApiBaseTests extends Object
+  with fixture.FunSuiteLike
+  with OneInstancePerTest
+{
+
+  override type FixtureParam = DemoAppApi
+
+  test("list no elements") { api =>
+    api.listElements("""[]""")
+  }
+
+  test("create element") { api =>
+    import api._
+    createElement(CreateWorkspaceInfo(nameId = "Alex", other = 31))
+    createElement(CreateWorkspaceInfo(nameId = "Jamie", other = 123))
+  }
+
+  test("delete element") { api =>
+    import api._
+    createElement(CreateWorkspaceInfo(nameId = "Alex", other = 31))
+
+    createElement(CreateWorkspaceInfo(nameId = "Jamie", other = 123))
+
+    deleteWorkspace("Alex")
+    deleteWorkspace("Jamie")
+  }
+
+  test("list elements") { api =>
+    import api._
+    createElement(CreateWorkspaceInfo(nameId = "Alex", other = 31))
+    listElements("[Alex]")
+
+    createElement(CreateWorkspaceInfo(nameId = "Jamie", other = 100))
+    listElements("[Alex,Jamie]")
+
+    deleteWorkspace("Alex")
+    listElements("[Jamie]")
+    deleteWorkspace("Jamie")
+    listElements("[]")
+  }
+
+  test("get element") { api =>
+    import api._
+    createElement(CreateWorkspaceInfo(nameId = "Alex", other = 31))
+    getElement("Alex")
+  }
+
+}
+
+class DemoAppRoutesTests extends DemoAppApiBaseTests
+  with DemoAppRoutesHelper with ScalatestRouteTest with OneInstancePerTest
+{
+
+  override protected def withFixture(test: OneArgTest): Outcome = {
+    try {
+      withFixture(test.toNoArgTest(this))
+    } finally {
+    }
+  }
+}
 
 trait DemoAppRoutesHelper extends RouteTest
   with Matchers with ScalaFutures with DemoAppJsonSupport
@@ -76,51 +139,4 @@ trait DemoAppRoutesHelper extends RouteTest
     }
   }
 
-}
-
-
-trait DemoAppRoutesTestsBase extends FunSuite
-  with DemoAppApi with OneInstancePerTest
-{
-
-  test("list no elements") {
-    listElements("""[]""")
-  }
-
-  test("create element") {
-    createElement(CreateWorkspaceInfo(nameId = "Alex", other = 31))
-    createElement(CreateWorkspaceInfo(nameId = "Jamie", other = 123))
-  }
-
-  test("delete element") {
-    createElement(CreateWorkspaceInfo(nameId = "Alex", other = 31))
-
-    createElement(CreateWorkspaceInfo(nameId = "Jamie", other = 123))
-
-    deleteWorkspace("Alex")
-    deleteWorkspace("Jamie")
-  }
-
-  test("list elements") {
-    createElement(CreateWorkspaceInfo(nameId = "Alex", other = 31))
-    listElements("[Alex]")
-
-    createElement(CreateWorkspaceInfo(nameId = "Jamie", other = 100))
-    listElements("[Alex,Jamie]")
-
-    deleteWorkspace("Alex")
-    listElements("[Jamie]")
-    deleteWorkspace("Jamie")
-    listElements("[]")
-  }
-
-  test("get element") {
-    createElement(CreateWorkspaceInfo(nameId = "Alex", other = 31))
-    getElement("Alex")
-  }
-
-}
-
-class DemoAppRoutesTests extends DemoAppRoutesTestsBase
-  with DemoAppRoutesHelper with ScalatestRouteTest with OneInstancePerTest {
 }

@@ -25,6 +25,8 @@ class DemoAppServer(val host: String, port: Int)(implicit val system: ActorSyste
 
   val handler: Flow[HttpRequest, HttpResponse, NotUsed] = new DemoAppRoutes(system, workspaceRegistry).routes
   val httpExt: HttpExt = Http()(system)
+
+  println(s"Starting server at $host:$port")
   val serverBinding: Future[Http.ServerBinding] = httpExt.bindAndHandle(handler, host, port)
 
 
