@@ -5,6 +5,12 @@ import scala.reflect.runtime.universe._
 // Provide some reflective/runtime info on type parameters
 object TypeTags extends App {
 
+  // Is there nothing in stdlib's universe that provides this already?
+  def typeOfExp[T](v: T)(implicit tag: TypeTag[T]): TypeTag[T] = tag
+  println(typeOfExp(List[Int](1, 2, 3)))
+  println(typeOfExp(new { def foo() {} }))
+
+
   def paramInfo[T](x: T)(implicit tag: TypeTag[T]): Unit = {
     assert(tag eq tag)
     val targs = tag.tpe match { case TypeRef(_, _, args) => args }
