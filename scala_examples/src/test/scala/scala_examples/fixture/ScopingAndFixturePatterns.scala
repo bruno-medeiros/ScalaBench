@@ -1,11 +1,9 @@
 package scala_examples.fixture
 
-import org.scalactic.source
 import org.scalatest.BeforeAndAfter
 import org.scalatest.FunSuite
 import org.scalatest.OneInstancePerTest
 import org.scalatest.Outcome
-import org.scalatest.Tag
 import org.scalatest.fixture
 import scala_examples.common.Composable
 import scala_examples.common.SingletonResource

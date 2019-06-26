@@ -92,6 +92,7 @@ lazy val demo_app_model = (project in file("demo-app.model"))
   .dependsOn(demo_app_model_dtos)
 
 
+// See: https://www.codemunity.io/tutorials/dockerising-akka-http/
 
 lazy val demo_app = (project in file("demo-app"))
   .enablePlugins(JavaAppPackaging, AshScriptPlugin)
