@@ -28,7 +28,7 @@ object Parameterization extends App {
   // See also:
   ArrayExamples
 
-  // Simple bounded types in type parameters:
+  // Simple type constraints in type parameters (upper and lower type bounds):
   {
     // T must be a subtype of TopClass
     def myFct1[T <: TopClass](arg: T): T = { ??? }

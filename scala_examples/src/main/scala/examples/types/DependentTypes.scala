@@ -1,49 +1,41 @@
 package examples.types
 
-import examples.MiscUtil
-import org.scalatest.FunSuite
+import examples.MiscUtil.getTypeTag
+import org.scalatest.Assertions
 
-object DependentTypes {
-  class Box(opt: Option[Int]) {
-    class HasSome
 
-    def hasSome: Option[HasSome] = {
-      if (opt.isEmpty) None else Some(new HasSome)
-    }
+object PathDependentTypes extends App with Assertions {
 
-    def strictGet(hasSome: HasSome): Int = {
-      opt.get
-    }
+  class Foo {
+    class Bar{}
+
+    def foo(bar: Bar): Unit = {}
+    def foo_alt(bar: Foo#Bar): Unit = {}
   }
+
+  val f1 = new Foo
+  val f2 = new Foo
+
+  f1.foo(new f1.Bar)
+  println("Path dependent type: " + getTypeTag(new f1.Bar))
+
+  // Does not work, needs f1
+//  f2.foo(new f1.Bar)
+  assertDoesNotCompile("f2.foo(new f1.Bar)")
+
+  // But this works (foo_alt):
+  f2.foo_alt(new f1.Bar)
 }
 
 
-class DependentTypes extends FunSuite {
-  import DependentTypes.Box
+// TODO: find correct name for this (path-dependent methods?)
+object SpecialPathDependentTypesExample extends App {
 
-  // Just an option
-  val opt: Option[Int] = Some(123)
+  // Notice return type, it's path-dependant
+  def identity(obj: Object): obj.type = obj
 
-  test("dependent types using Box") {
+  // Path-dependent type:
+  val x1: String = identity("abc")
+  val x2: Integer = identity(Integer.valueOf(123))
 
-    val box = new Box(Some(123))
-    val hasSome = new box.HasSome
-
-    println("typeTag of box: " + MiscUtil.getTypeTag(box))
-    println("typeTag of hasSome: " + MiscUtil.getTypeTag(hasSome))
-
-    // This is not a very meaningful example of dependent types
-    val contents: Int = box.strictGet(hasSome)
-    assert(contents === 123)
-
-    // Note: following doesnt work, because hasSome is type dependent on box instance
-    {
-      assertDoesNotCompile(
-"""
-        val box2 = new Box(Some(123))
-        box2.strictGet(hasSome)
-"""
-      )
-    }
-  }
 }

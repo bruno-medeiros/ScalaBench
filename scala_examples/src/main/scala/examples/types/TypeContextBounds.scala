@@ -21,7 +21,7 @@ object TypeContextBounds extends App {
   foo2()
 
 
-  // TODO: type constraints: <:< =:=
+  // TODO: generalized type constraints: <:< =:=
 
   // Type witness =:=
 

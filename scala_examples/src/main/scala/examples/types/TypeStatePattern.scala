@@ -5,6 +5,7 @@ import org.scalatest.Assertions._
 object TypeStatePattern extends App {
 
   // This would be called Phantom Types
+  // Note: dotty will add syntax for this
   sealed trait State
   trait Playing extends State
   trait Stopped extends State

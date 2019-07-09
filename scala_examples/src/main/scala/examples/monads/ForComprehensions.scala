@@ -14,9 +14,9 @@ object ForComprehensions extends App {
   } yield (x, y)
 
   // is transformed to
-  (1 to 5).flatMap(e =>
+  (1 to 5).flatMap(x =>
     ('a' to 'c')
-      .map(e2 => (e, e2)))
+      .map(y => (x, y)))
 
   // Shadowing of vars allowed:
   for {

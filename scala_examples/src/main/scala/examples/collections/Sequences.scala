@@ -9,7 +9,7 @@ import scala.collection.mutable
 object Sequences extends App with Matchers {
 
   // Ranges:
-  val atoz: NumericRange[_] = 'a' to 'z'
+  val atoz: NumericRange[Char] = 'a' to 'z'
   val oneToTen: Range = 1 until 10
 
 

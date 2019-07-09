@@ -14,8 +14,14 @@ object TypeTags extends App {
   // Alternative definition without context bound sugar
   //def typeOfExp[T](v: T)(implicit tag: TypeTag[T]): TypeTag[T] = tag
 
-  println(typeOfExp(List[Int](1, 2, 3)))
-  println(typeOfExp(new { def foo() {} }))
+  {
+    println(typeOfExp(List[Int](1, 2, 3)))
+    val anon = new {
+      val m = 123
+      def foo() {}
+    }
+    println(typeOfExp(anon)) // TypeTag[AnyRef{val m: Int; def foo(): Unit}]
+  }
 
 
   // Example of using typeTag to match (runtime reflection
