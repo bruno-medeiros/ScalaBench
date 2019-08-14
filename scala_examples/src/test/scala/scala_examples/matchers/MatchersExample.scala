@@ -145,7 +145,7 @@ class MatchersExample extends FunSuite with Matchers {
 
   test("boolean property methods") {
     val result = Foo(true)
-    result shouldBe 'foo  // UGH, uses reflection
+    result shouldBe Symbol("foo")  // UGH, uses reflection
   }
 
   // ----- Pattern matching

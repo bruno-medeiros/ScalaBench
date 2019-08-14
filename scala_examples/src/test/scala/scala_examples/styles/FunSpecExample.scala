@@ -56,7 +56,7 @@ class ExampleSpec extends path.FunSpec with Matchers {
       // This test sees:
       //   val buf = ListBuffer.empty[Int]
       // So buf is: ListBuffer()
-      buf should be ('empty)
+      buf should be (Symbol("empty"))
     }
 
     it("should have size 0 when created") {
@@ -78,7 +78,7 @@ class ExampleSpec extends path.FunSpec with Matchers {
         // So buf is: ListBuffer(1)
 
         buf.remove(0) should equal (1)
-        buf should be ('empty)
+        buf should be (Symbol("empty"))
       }
 
       describe("when 2 is appended") {
@@ -95,7 +95,7 @@ class ExampleSpec extends path.FunSpec with Matchers {
 
           buf.remove(0) should equal (1)
           buf.remove(0) should equal (2)
-          buf should be ('empty)
+          buf should be (Symbol("empty"))
         }
 
       }

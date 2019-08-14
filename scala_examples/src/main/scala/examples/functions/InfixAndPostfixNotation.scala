@@ -1,6 +1,6 @@
 package examples.functions
 
-import scala.language.postfixOps
+//import scala.language.postfixOps
 
 object InfixAndPostfixNotation extends App {
 

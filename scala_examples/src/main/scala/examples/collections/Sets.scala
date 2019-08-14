@@ -15,14 +15,17 @@ object Sets extends App with Matchers {
 
   // Append:
   assert(Set(1, 2) + 3 === Set(1, 2, 3))
-  assert(Set(1, 2) + (3, 4) === Set(1, 2, 3, 4))
+//  assert(Set(1, 2) + (3, 4) === Set(1, 2, 3, 4))
+  assert((Set(1, 2) & Set(3, 4)) === Set(1, 2, 3, 4))
+  Set(1, 2) & Set(3, 4) shouldBe Set(1, 2, 3, 4)
 
   // Append another collection:
   assert(Set(1, 2) ++ List(3, 4, 3) === Set(1, 2, 3, 4))
 
   // Remove
   assert(Set(1, 2) - 2 === Set(1))
-  assert(Set(1, 2, 3) - (1, 3) === Set(2))
+//  assert(Set(1, 2, 3) - (1, 3) === Set(2))
+  assert((Set(1, 2, 3) &~ Set(1, 3)) === Set(2))
 
   // Remove another collection:
   assert(Set(1, 2, 3) -- Set(2, 3, 4) === Set(1))
@@ -43,7 +46,7 @@ object Sets extends App with Matchers {
   // Mutable set
   {
     val mset = mutable.Set(1, 2)
-    mset + 3 // Note: copying
+//    mset + 3 // Note: copying
     mset += 4 // Note: mutation even though mset is a val
     assert(mset === Set(1, 2, 4))
 

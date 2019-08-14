@@ -35,7 +35,7 @@ object ExistentialTypes extends App {
   // Wild card parameter:
   {
     val rb: ReadBox[_] = ReadBox[Int](123)
-    val _: ReadBox[A forSome {type A}] = rb
+    val rb2: ReadBox[A forSome {type A}] = rb
     val x: Any = rb.obj
     assert(x.isInstanceOf[Object])
   }

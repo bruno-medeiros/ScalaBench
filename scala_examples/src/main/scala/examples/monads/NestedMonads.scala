@@ -32,7 +32,7 @@ object NestedMonads extends App {
   {
     val optNumber = Some(123)
     def numberToDigit(value: Int): Option[Seq[Int]] =
-      Some(value.toString.split("").flatMap(s => Try(s.toInt).toOption))
+      Some(value.toString.split("").toSeq.flatMap(s => Try(s.toInt).toOption))
 
     for {
       number <- optNumber
@@ -42,7 +42,7 @@ object NestedMonads extends App {
 
     for {
       number <- optNumber
-    } yield number.toString.split("").flatMap(s => Try(s.toInt).toOption)
+    } yield number.toString.split("").toSeq.flatMap(s => Try(s.toInt).toOption)
 
   }
 

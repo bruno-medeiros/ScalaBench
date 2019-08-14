@@ -8,7 +8,6 @@ import org.scalatest.OneInstancePerTest
 
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
-import scala.language.postfixOps
 
 
 class WatcherActor(parent: ActorRef) extends Actor {

@@ -7,7 +7,6 @@ import akka.testkit.TestProbe
 import org.scalatest.OneInstancePerTest
 
 import scala.concurrent.duration._
-import scala.language.postfixOps
 
 class QuestionReplyActor extends Actor with ActorLogging {
 

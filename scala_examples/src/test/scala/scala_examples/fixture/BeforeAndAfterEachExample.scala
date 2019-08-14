@@ -11,12 +11,12 @@ object BeforeAndAfterEachExample {
 
     val builder = new StringBuilder
 
-    override def beforeEach() {
+    override def beforeEach() = {
       builder.append("ScalaTest is ")
       super.beforeEach() // To be stackable, must call super.beforeEach
     }
 
-    override def afterEach() {
+    override def afterEach() = {
       try {
         super.afterEach() // To be stackable, must call super.afterEach
       }
@@ -31,7 +31,7 @@ object BeforeAndAfterEachExample {
 
     val buffer = new ListBuffer[String]
 
-    override def afterEach() {
+    override def afterEach() = {
       try {
         super.afterEach() // To be stackable, must call super.afterEach
       }

@@ -67,26 +67,26 @@ class DemoAppHttpServerTests extends DemoAppApiBaseTests
       byteString.utf8String
     }
 
-    override def listElements(expectedEntity: String) {
+    override def listElements(expectedEntity: String) = {
       val entity = HttpEntity("")
       val bodyString = requestAndAwaitResponse(HttpMethods.GET, "workspaces", entity)
       bodyString.shouldBe(expectedEntity)
     }
 
-    override def createElement(createReq: WorkspaceRegistry.CreateWorkspaceInfo) {
+    override def createElement(createReq: WorkspaceRegistry.CreateWorkspaceInfo) = {
       val entity = Marshal(createReq).to[MessageEntity].futureValue
 
       val bodyString = requestAndAwaitResponse(HttpMethods.POST, "workspaces", entity)
       bodyString should include(createReq.nameId)
     }
 
-    override def deleteWorkspace(nameId: String) {
+    override def deleteWorkspace(nameId: String) = {
       val entity = HttpEntity("")
       val bodyString = requestAndAwaitResponse(HttpMethods.DELETE, "workspaces/" + nameId, entity)
       bodyString.nonEmpty.shouldBe(true)
     }
 
-    override def getElement(nameId: String) {
+    override def getElement(nameId: String) = {
       val entity = HttpEntity(nameId)
 
       val bodyString = requestAndAwaitResponse(HttpMethods.GET, "workspaces", entity)

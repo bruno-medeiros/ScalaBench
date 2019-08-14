@@ -8,7 +8,7 @@ object FunctionSyntax extends App {
   def f1 = (a: String) => a.length
   val f1b: String => Int = a => a.length
   // Shorthand for def returning Unit
-  def unitReturnFunc(a: String) { println(a) }
+  def unitReturnFunc(a: String) = { println(a) }
 
 
   // Empty parens:
@@ -21,7 +21,7 @@ object FunctionSyntax extends App {
 
   // Currying:
   def curryAdd(x: Int)(y: Int): Int = x + y
-  curryAdd(1) _ // Must use underscore, or:
+  val _ = curryAdd(1) _ // Must use underscore, or:
   val x: Int => Int = curryAdd(1) // explicit type parameter
 
 

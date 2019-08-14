@@ -44,7 +44,7 @@ class PathFreeSpecExample extends path.FreeSpec with Matchers {
       // This test sees:
       //   val buf = ListBuffer.empty[Int]
       // So buf is: ListBuffer()
-      buf should be ('empty)
+      buf should be (Symbol("empty"))
     }
 
     "should have size 0 when created" in {
@@ -65,7 +65,7 @@ class PathFreeSpecExample extends path.FreeSpec with Matchers {
         // So buf is: ListBuffer(1)
 
         buf.remove(0) should equal (1)
-        buf should be ('empty)
+        buf should be (Symbol("empty"))
       }
     }
   }

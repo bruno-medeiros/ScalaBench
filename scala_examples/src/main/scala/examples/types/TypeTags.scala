@@ -18,7 +18,7 @@ object TypeTags extends App {
     println(typeOfExp(List[Int](1, 2, 3)))
     val anon = new {
       val m = 123
-      def foo() {}
+      def foo() = {}
     }
     println(typeOfExp(anon)) // TypeTag[AnyRef{val m: Int; def foo(): Unit}]
   }

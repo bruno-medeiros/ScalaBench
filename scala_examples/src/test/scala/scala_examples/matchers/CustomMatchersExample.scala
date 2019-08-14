@@ -13,8 +13,8 @@ class CustomMatchersExample extends FunSuite with Matchers {
     Matcher { (left: Int) =>
       MatchResult(
         left % 2 == 1,
-        left + " was not odd",
-        left + " was odd"
+        s"$left was not odd",
+        s"$left was odd"
       )
     }
 

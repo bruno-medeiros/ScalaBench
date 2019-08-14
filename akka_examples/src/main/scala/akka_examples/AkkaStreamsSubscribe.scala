@@ -14,10 +14,10 @@ object AkkaStreamsSubscribe extends App {
   implicit val system = ActorSystem("StreamsHello")
   implicit val materializer = ActorMaterializer()
 
-  val sink: Sink[Int, Future[Done]] = Sink.foreach(i ⇒ println(i))
+  val sink: Sink[Int, Future[Done]] = Sink.foreach(i => println(i))
   val done: Future[Done] = source.runWith(sink)
 
   implicit val ec = system.dispatcher
-  done.onComplete(_ ⇒ system.terminate())
+  done.onComplete(_ => system.terminate())
 }
 

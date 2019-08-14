@@ -76,7 +76,7 @@ class ChildrenNamingExample extends AkkaExample {
     val probe: TestProbe = TestProbe()
 
     val strategy = OneForOneStrategy(maxNrOfRetries = 10) {
-      case e ⇒
+      case e =>
         println(s"==> SupervisorStrategy: $e")
         Stop
     }

@@ -1,10 +1,12 @@
 package examples.collections
 
+import scala.collection.SeqMap
+
 
 object Maps extends App {
 
   // Create a map
-  val myMap = Map("One" -> 1, "Five" -> 5, "Ten" -> 10)
+  val myMap = SeqMap("One" -> 1, "Five" -> 5, "Ten" -> 10)
   println(myMap)
 
   assert(myMap("Five") == 5)
@@ -17,9 +19,11 @@ object Maps extends App {
   // ----------------------------------
   // updates
 
-  // returns a new map where "V" maps to 15 (entry is updated)
+  // returns a new map where "Five" maps to 500 (entry is updated)
   // if the key ("V" here) does not exist, a new entry is added
-  println(myMap.updated("Five", 5555))
+  assert(myMap.updated("Five", 500) == myMap + ("Five" -> 500))
+
+  assert(myMap.updatedWith("Five")(value => value.map(_ + 100)) == myMap + ("Five" -> 105))
 
   {
     var map2 = Map.empty[String, Int]
@@ -35,17 +39,16 @@ object Maps extends App {
   // Map HOFs
   {
     // map - the generated output is a list...
+    // note: map must be a SeqMap
     assert(
-      myMap.map { entry => entry._2 + 100 } ==
-      List(101, 105, 110)
+      myMap.map[Int] { entry => entry._2 + 100 } == List(101, 105, 110)
     )
-    // Note List order might be different, TODO
 
-    // mapValues creates a map, with only values changed
-    assert(
-      myMap.mapValues { entry => entry + 100} ==
-      Map("One" -> 101, "Five" -> 105, "Ten" -> 110)
-    )
+    // mapValues creates a map, with only values changed (only available in view)
+    {
+      val mappedMap = myMap.view.mapValues { value => value + 100 }
+      assert(mappedMap.toMap == Map("One" -> 101, "Five" -> 105, "Ten" -> 110))
+    }
 
     // transform is similar to mapValues, with only values changed, but has key argument too
     assert(

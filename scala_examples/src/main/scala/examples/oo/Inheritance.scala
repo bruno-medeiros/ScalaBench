@@ -15,7 +15,7 @@ object Inheritance extends App {
 
     def otherMethod: String = {
       print("In TopClass::otherMethod... ")
-      x + ""
+      s"$x"
     }
   }
 

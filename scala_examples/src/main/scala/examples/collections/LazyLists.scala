@@ -1,11 +1,11 @@
 package examples.collections
 
 //noinspection ScalaUnusedExpression
-object Streams extends App {
+object LazyLists extends App {
 
   // Operations on Streams
-  val xs = Stream(1, 2, 3)
-  val xs2 = Stream.cons(1, Stream.cons(2, Stream.cons(3, Stream.empty))) // same as above
+  val xs = LazyList(1, 2, 3)
+  val xs2 = LazyList.cons(1, LazyList.cons(2, LazyList.cons(3, LazyList.empty))) // same as above
 
   val x = 1
   x #:: xs // Same as Stream.cons(x, xs)
@@ -15,12 +15,12 @@ object Streams extends App {
   // Note that x::xs always produces a List
 //  val list: List[_] = 1 :: Stream(1, 2)
 
-  private val stream: Stream[Int] = (0 to 10).toStream
+  private val stream: LazyList[Int] = (0 to 10).to(LazyList)
   assert(stream(5) == 5)
   assert(stream(1) == 1)
 
   {
-    val streamA: Stream[Int] = (0 to 4).toStream.map(e => {
+    val streamA: LazyList[Int] = (0 to 4).to(LazyList).map(e => {
       println(s"First map for $e"); e
     })
 
@@ -30,7 +30,7 @@ object Streams extends App {
     streamA(1)
 
     println("Appending stream...")
-    val streamAppended: Stream[Int] = streamA.append((10 to 20).toStream)
+    val streamAppended: LazyList[Int] = streamA.lazyAppendedAll(10 to 20)
     println("Appending stream complete.")
     assert(streamAppended(5) == 10)
   }

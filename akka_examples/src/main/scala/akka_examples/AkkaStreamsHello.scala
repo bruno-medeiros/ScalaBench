@@ -26,10 +26,10 @@ object AkkaStreamsHello extends App {
   implicit val system = ActorSystem("StreamsHello")
   implicit val materializer = ActorMaterializer()
 
-  val done: Future[Done] = source.runForeach(i ⇒ println(i))(materializer)
+  val done: Future[Done] = source.runForeach(i => println(i))(materializer)
 
   implicit val ec = system.dispatcher
-  done.onComplete(_ ⇒ system.terminate())
+  done.onComplete(_ => system.terminate())
 }
 
 object AkkaStreamsFactorialApp extends App {
@@ -41,17 +41,17 @@ object AkkaStreamsFactorialApp extends App {
   implicit val system = ActorSystem("StreamsHello")
   implicit val materializer = ActorMaterializer()
 
-  val printSourceFt: Future[Done] = source.runForeach(i ⇒ println(i))(materializer)
+  val printSourceFt: Future[Done] = source.runForeach(i => println(i))(materializer)
 
-  val factorials = source.scan(BigInt(1))((acc, next) ⇒ acc * next)
+  val factorials = source.scan(BigInt(1))((acc, next) => acc * next)
 
   val factorialsFileWriteFt: Future[IOResult] =
     factorials
-      .map(num ⇒ ByteString(s"$num\n"))
+      .map(num => ByteString(s"$num\n"))
       .runWith(FileIO.toPath(Paths.get("factorials.txt")))
 
   implicit val ec = system.dispatcher
-  printSourceFt.zipWith(factorialsFileWriteFt)((_, _)).onComplete(_ ⇒ system.terminate())
+  printSourceFt.zipWith(factorialsFileWriteFt)((_, _)).onComplete(_ => system.terminate())
 
 }
 
@@ -62,7 +62,7 @@ object Misc {
     val sink: Sink[ByteString, Future[IOResult]] = FileIO.toPath(Paths.get(filename))
     val flow: Flow[String, String, NotUsed] = Flow[String]
     flow
-      .map(s ⇒ ByteString(s + "\n"))
+      .map(s => ByteString(s + "\n"))
       .toMat(sink)(Keep.right)
   }
 }

@@ -7,7 +7,6 @@ import akka_examples.common.AkkaExample
 import org.scalatest.OneInstancePerTest
 
 import scala.concurrent.duration._
-import scala.language.postfixOps
 
 
 class SupervisingActor extends Actor with ActorLogging {
@@ -17,21 +16,21 @@ class SupervisingActor extends Actor with ActorLogging {
 
   override val supervisorStrategy: SupervisorStrategy = {
     OneForOneStrategy(maxNrOfRetries = 10, withinTimeRange = 1 minute) {
-      case e: IllegalStateException ⇒ println(s"==> SupervisorStrategy: ${e.getClass.getSimpleName}"); Restart
-      case e: ActorKilledException ⇒ println(s"==> SupervisorStrategy: ${e.getClass.getSimpleName}"); Restart
-      case e ⇒ println(s"==> SupervisorStrategy: ${e.getClass.getSimpleName}"); Stop
+      case e: IllegalStateException => println(s"==> SupervisorStrategy: ${e.getClass.getSimpleName}"); Restart
+      case e: ActorKilledException => println(s"==> SupervisorStrategy: ${e.getClass.getSimpleName}"); Restart
+      case e => println(s"==> SupervisorStrategy: ${e.getClass.getSimpleName}"); Stop
     }
   }
 
   override def receive: Receive = {
-    case "errorChild" ⇒ child ! "error"
-    case "killChild" ⇒ child ! Kill
+    case "errorChild" => child ! "error"
+    case "killChild" => child ! Kill
 
       // Note: this stop/kill unconditionally, they do not cause supervisor strategy to be consulted.
-    case "stopChild" ⇒ context.stop(child)
-    case "poisonChild" ⇒ child ! PoisonPill
+    case "stopChild" => context.stop(child)
+    case "poisonChild" => child ! PoisonPill
 
-    case "queryChild" ⇒
+    case "queryChild" =>
       child.forward("query")
   }
 }

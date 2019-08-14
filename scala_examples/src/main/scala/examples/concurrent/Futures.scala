@@ -2,7 +2,6 @@ package examples.concurrent
 
 import scala.concurrent._
 import scala.concurrent.duration._
-import scala.language.postfixOps
 import scala.util.{Failure, Success, Try}
 
 object Futures extends App {

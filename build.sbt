@@ -2,7 +2,7 @@
 ThisBuild / organization := "com.github.bruno-medeiros"
 ThisBuild / version      := "0.1.0-SNAPSHOT"
 
-ThisBuild / scalaVersion := "2.12.8"
+ThisBuild / scalaVersion := "2.13.0"
 ThisBuild / scalacOptions ++= Seq(
   "-encoding", "UTF-8",   // source files are in UTF-8
   "-deprecation",         // warn about use of deprecated APIs
@@ -16,14 +16,14 @@ ThisBuild / scalacOptions ++= Seq(
 )
 
 
-lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.0.5"
+lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.0.8"
 lazy val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.14.0"
 
 lazy val scala_examples = (project in file("scala_examples"))
   .settings(
     libraryDependencies += scalaTest,
     libraryDependencies += scalaCheck % Test,
-    libraryDependencies += "org.typelevel" %% "cats-effect" % "1.3.0",
+//    libraryDependencies += "org.typelevel" %% "cats-effect" % "2.0.0-M3",
     scalacOptions := scalacOptions.value
       .filterNot(_ == "-Xfatal-warnings") 
       ++ Seq("-Ywarn-unused:-implicits,-locals,-privates")
@@ -32,7 +32,7 @@ lazy val scala_examples = (project in file("scala_examples"))
   )
 
 
-lazy val akkaVersion = "2.6.0-M1"
+lazy val akkaVersion = "2.5.24"
 
 lazy val akka_examples = (project in file("akka_examples"))
   .settings(
@@ -53,7 +53,7 @@ lazy val akka_examples = (project in file("akka_examples"))
 
 // -------------------- Demo App
 
-val circeVersion = "0.10.0"
+val circeVersion = "0.12.0-RC2"
 val circeLibs = Seq(
   "io.circe" %% "circe-core",
   "io.circe" %% "circe-generic",

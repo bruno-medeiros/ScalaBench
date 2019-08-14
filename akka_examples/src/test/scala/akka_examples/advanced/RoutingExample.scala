@@ -1,7 +1,8 @@
 package akka_examples.advanced
 
-import akka.actor.{Actor, ActorRef, Props}
-import akka.routing.{FromConfig, RoundRobinGroup}
+import akka.actor.Actor
+import akka.actor.ActorRef
+import akka.routing.RoundRobinGroup
 import akka_examples.common.AkkaExample
 
 object RoutingExample {

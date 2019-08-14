@@ -15,7 +15,6 @@ import org.scalatest.OneInstancePerTest
 import scala.concurrent.Await
 import scala.concurrent.Future
 import scala.concurrent.duration._
-import scala.language.postfixOps
 
 
 class FuturesExampleActor extends Actor with ActorLogging {

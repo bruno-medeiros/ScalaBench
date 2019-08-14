@@ -3,9 +3,9 @@ import demo_app.workspaces.WorkspaceRegistry
 
 trait DemoAppApi {
 
-  def listElements(expectedEntity: String)
+  def listElements(expectedEntity: String): Unit
 
-  def createElement(createReq: WorkspaceRegistry.CreateWorkspaceInfo)
+  def createElement(createReq: WorkspaceRegistry.CreateWorkspaceInfo): Unit
 
   def deleteWorkspace(nameId: String): Any
 

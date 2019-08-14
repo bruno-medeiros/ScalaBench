@@ -10,7 +10,7 @@ class ConfigExample extends AkkaExample {
 
   "Config example" in {
 
-    val config: Config = ConfigFactory.load()
+    val _: Config = ConfigFactory.load()
 
 //    println(s"${config.root().render()}")
 

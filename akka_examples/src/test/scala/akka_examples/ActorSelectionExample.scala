@@ -5,7 +5,7 @@ import akka_examples.common.AkkaExample
 
 private class StdoutEchoActor extends Actor {
   override def receive: PartialFunction[Any, Unit] = {
-    case message ⇒ println(s"$message")
+    case message => println(s"$message")
   }
 }
 
