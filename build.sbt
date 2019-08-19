@@ -11,8 +11,7 @@ ThisBuild / scalacOptions ++= Seq(
   "-language:postfixOps",
   "-language:higherKinds",// allow higher kinded types without `import scala.language.higherKinds`
   "-Xlint:_,-adapted-args",    // enable handy linter warnings
-//  "-Xfatal-warnings",     // turn compiler warnings into errors
-//  "-Ypartial-unification", // allow the compiler to unify type constructors of different arities
+//  "-Werror",     // turn compiler warnings into errors
 )
 
 

@@ -1,21 +1,20 @@
 package examples.libraries
 
-import org.scalactic._
-import TypeCheckedTripleEquals._
 
-object ScalacticExample {
+object ScalacticExample extends App {
 
+  val fooInt: Int = 1
+  val fooLong: Int = 1
 
-  def cmp(a: Int, b: Long): Int = {
-    import TripleEquals._
-    if (a === b) 0       // This line won't compile
-    else if (a < b) -1
-    else 1
+  {
+    import org.scalactic.TypeCheckedTripleEquals._
+    assert(fooInt === fooLong)
   }
 
-  def cmp(s: String, t: String): Int = {
-    if (s === s) 0
-    else if (s < t) -1
-    else 1
+  {
+    import org.scalactic.TripleEquals._
+    // This line won't compile without the import above,
+    // because types don't match
+    assert(fooInt === fooLong)
   }
 }

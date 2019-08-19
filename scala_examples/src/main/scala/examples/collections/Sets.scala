@@ -30,8 +30,7 @@ object Sets extends App with Matchers {
   // Remove another collection:
   assert(Set(1, 2, 3) -- Set(2, 3, 4) === Set(1))
 
-
-  val setA_StringAppended: String = setAB + "c" // + plus comes from any2stringadd
+  // + plus comes from any2stringadd
   assert(setAB + "c" === "Set(a, b)c")
 
 
