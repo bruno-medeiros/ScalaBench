@@ -1,6 +1,6 @@
 package examples.types
 
-object SingletonTypes {
+object SingletonTypes extends App {
 
   case class Residue[M <: Int](n: Int) extends AnyVal {
     def +(rhs: Residue[M])(implicit m: ValueOf[M]): Residue[M] =
@@ -18,4 +18,15 @@ object SingletonTypes {
 
 //  fiveModTen + Residue[11](4)  // ERROR
 
+
+  (1: Any) match {
+    case _: 1L => assert(true)
+    case _: 1F => assert(true)
+    case _ => assert(false)
+  }
+
+  assert(1.isInstanceOf[1])
+  assert(1L.isInstanceOf[1] == false)
+  assert(1L.isInstanceOf[1L] == true)
+  assert((1: Short).isInstanceOf[1] == false)
 }

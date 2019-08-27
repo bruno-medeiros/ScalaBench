@@ -1,5 +1,7 @@
 package examples.types
 
+import examples.types.TypeContextBounds.MyBox
+
 import scala.reflect.runtime.universe._
 
 
@@ -16,5 +18,15 @@ object Param_PartialApplication extends App {
 
   // Question: is this specific to Function literals only?
   // looks like that is the case
+
+  class MyBox[A, B](a: A, b: B)
+  val box = MyBox(123, "asd")
+  // foo instantiated with F := [A]MyBox[Int, A]
+  foo2(box)
+
+  def foo2[F[_], A](fa: F[A])(implicit ev: TypeTag[F[Float]]): String = {
+    println(typeOf[F[Float]])
+    "blah"
+  }
 
 }

@@ -4,10 +4,28 @@ import examples.MiscUtil.getTypeTag
 import org.scalatest.Assertions
 
 
+object PathDependentTypes_SingletonTypes extends App {
+
+  // Simplest example:
+  val foo = "123"
+  val foo2 = foo
+  val bar: foo.type = foo
+  // Following does not compile, since foo2's type is just String
+  //  val bar2: foo.type = foo2
+
+  // Notice return type, it's path-dependant
+  def identity(obj: Object): obj.type = obj
+
+  // Path-dependent type:
+  val x1: String = identity("abc")
+  val x2: Integer = identity(Integer.valueOf(123))
+
+}
+
 object PathDependentTypes extends App with Assertions {
 
   class Foo {
-    class Bar{}
+    class Bar {}
 
     def foo(bar: Bar): Unit = {}
     def foo_alt(bar: Foo#Bar): Unit = {}
@@ -25,17 +43,4 @@ object PathDependentTypes extends App with Assertions {
 
   // But this works (foo_alt):
   f2.foo_alt(new f1.Bar)
-}
-
-
-// TODO: find correct name for this (path-dependent methods?)
-object SpecialPathDependentTypesExample extends App {
-
-  // Notice return type, it's path-dependant
-  def identity(obj: Object): obj.type = obj
-
-  // Path-dependent type:
-  val x1: String = identity("abc")
-  val x2: Integer = identity(Integer.valueOf(123))
-
 }
