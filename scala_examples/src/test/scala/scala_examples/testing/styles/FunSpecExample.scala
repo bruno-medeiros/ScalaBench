@@ -1,7 +1,7 @@
-package scala_examples.styles
+package scala_examples.testing.styles
 
 import org.scalatest.{FunSpec, path}
-import scala_examples.FailureExamples
+import scala_examples.testing.FailureExamples
 
 class FunSpecExample extends FunSpec {
 

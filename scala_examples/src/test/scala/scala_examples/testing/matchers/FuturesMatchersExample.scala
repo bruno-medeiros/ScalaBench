@@ -1,4 +1,4 @@
-package scala_examples.matchers
+package scala_examples.testing.matchers
 
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.{FunSuite, Matchers}

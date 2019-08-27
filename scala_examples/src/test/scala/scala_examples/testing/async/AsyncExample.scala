@@ -1,4 +1,4 @@
-package scala_examples.async
+package scala_examples.testing.async
 
 
 import org.scalatest.AsyncFlatSpec

@@ -1,9 +1,9 @@
-package scala_examples.async
+package scala_examples.testing.async
 
 import java.io.File
 
 import org.scalatest._
-import scala_examples.FailureExamples
+import scala_examples.testing.FailureExamples
 
 import scala.concurrent.Future
 

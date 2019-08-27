@@ -1,7 +1,7 @@
-package scala_examples.styles
+package scala_examples.testing.styles
 
 import org.scalatest.{FunSuite, Matchers}
-import scala_examples.FailureExamples
+import scala_examples.testing.FailureExamples
 
 class FunSuiteExample extends FunSuite with Matchers {
 

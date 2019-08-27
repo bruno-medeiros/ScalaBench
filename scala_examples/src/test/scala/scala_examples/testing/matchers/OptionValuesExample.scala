@@ -1,8 +1,8 @@
-package scala_examples.matchers
+package scala_examples.testing.matchers
 
 import org.scalatest.FunSuite
 import org.scalatest.OptionValues
-import scala_examples.FailureExamples
+import scala_examples.testing.FailureExamples
 
 class OptionValuesExample extends FunSuite with OptionValues {
 

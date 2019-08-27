@@ -1,4 +1,4 @@
-package scala_examples.styles
+package scala_examples.testing.styles
 
 import org.scalatest.tagobjects.Slow
 import org.scalatest.{FlatSpec, _}

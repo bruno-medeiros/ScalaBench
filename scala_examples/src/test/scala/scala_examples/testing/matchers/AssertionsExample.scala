@@ -1,7 +1,7 @@
-package scala_examples.matchers
+package scala_examples.testing.matchers
 
 import org.scalatest.FunSuite
-import scala_examples.FailureExamples
+import scala_examples.testing.FailureExamples
 
 class AssertionsExample extends FunSuite {
 

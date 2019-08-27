@@ -1,4 +1,4 @@
-package scala_examples.fixture
+package scala_examples.testing.fixture
 
 
 import java.util.concurrent.ConcurrentHashMap

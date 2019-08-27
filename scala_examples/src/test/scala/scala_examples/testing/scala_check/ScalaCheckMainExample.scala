@@ -1,4 +1,4 @@
-package scala_examples.scala_check
+package scala_examples.testing.scala_check
 
 import org.scalacheck.Prop._
 import org.scalacheck.Properties

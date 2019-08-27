@@ -1,4 +1,4 @@
-package scala_examples.fixture
+package scala_examples.testing.fixture
 
 import org.scalatest.BeforeAndAfter
 import org.scalatest.FunSuite
