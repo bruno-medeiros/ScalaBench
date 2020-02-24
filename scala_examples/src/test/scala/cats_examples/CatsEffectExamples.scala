@@ -46,7 +46,11 @@ class CatsEffectExamples extends FreeSpec {
       }
     }
 
-    eff2.unsafeRunSync()
+    try {
+      eff2.unsafeRunSync()
+    } catch {
+      case _: Throwable =>
+    }
   }
 
   def sampleTask(id: String) = IO {
