@@ -1,0 +1,59 @@
+root = true
+
+# The .scalafmt.conf config is the primary source of formatting configuration, however,
+# scalafmt cannot format code ranges, only whole file.
+# As such, this config file is used if 'use IntelliJ formatter for code range formatting' option is enabled.
+# The configuration here should aim to match .scalafmt.conf settings, if not exactly,
+# to at least have the formatting converge (ie, not conflict with one another).[
+# The corresponding scalafmt property settings are annotated below in comments.
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+
+# = maxColumn
+max_line_length = 120
+
+# These are related to continuationIndent.callSite and continuationIndent.defnSite,
+# but unfortunately there is no consistent mapping:
+# ij_continuation_indent_size will match continuationIndent.defnSite but also infix operator indentation
+indent_size = 2
+ij_continuation_indent_size = 2
+
+
+[*.scala]
+# = spaces.inImportCurlyBraces
+ij_scala_spaces_in_imports = true
+
+# set if (docstrings == ScalaDoc)
+ij_scala_use_scaladoc2_formatting = true
+
+# = !align.openParenDefnSite
+ij_any_method_parameters_new_line_after_left_paren = true
+
+ij_any_method_parameters_right_paren_on_new_line = true
+ij_any_method_parameters_wrap = on_every_item
+ij_any_align_multiline_parameters = false
+
+# = !align.openParenCallSite
+ij_any_call_parameters_new_line_after_left_paren = true
+
+ij_any_call_parameters_right_paren_on_new_line = true
+ij_any_call_parameters_wrap = on_every_item
+ij_any_align_multiline_parameters_in_calls = false
+
+ij_scala_call_parameters_new_line_after_lparen = 2 # Newline if multi-line arguments
+
+
+# = scalafmt / align
+ij_any_align_group_field_declarations = false
+
+
+ij_any_keep_simple_blocks_in_one_line = true
+ij_scala_insert_whitespaces_in_simple_one_line_method = true
+ij_scala_spaces_in_one_line_blocks = true
+
+ij_scala_extends_keyword_wrap = on_every_item
+ij_scala_extends_list_wrap = on_every_item
+ij_scala_wrap_before_with_keyword = true

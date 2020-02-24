@@ -47,4 +47,21 @@ object Parameterization extends App {
     val _: MyMap[String, Int] = ReadBox[String MyMap Int](null).get()
   }
 
+  // Wildcards
+  {
+    trait Foo[T] {
+      def something() = "123"
+    }
+    val foo: Foo[_] = new Foo[Int] {}
+    foo.something()
+  }
+  type T[_]
+  {
+    trait Foo2[F[_]] {
+      def something() = "123"
+    }
+    // Doesn't work
+//    val foo2: Foo2[_] = new Foo2[Option] {}
+  }
+
 }

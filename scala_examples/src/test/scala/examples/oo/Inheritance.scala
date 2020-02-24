@@ -21,7 +21,7 @@ object Inheritance extends App {
 
   class Sub1 extends TopClass("TopParam:Sub1") {
     // Implementing
-    def method1(x: Int): Int = {
+    override def method1(x: Int): Int = {
       println("Method 1")
       11
     }
