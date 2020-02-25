@@ -15,7 +15,7 @@ class CatsEffectExamples extends FreeSpec {
     _ => { throw new Exception("thrown") }
   )
 
-  s"thrown exception" in {
+  s"thrown exception" ignore {
     throwingTask.unsafeRunSync()
   }
 
