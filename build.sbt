@@ -101,6 +101,7 @@ lazy val demo_app = (project in file("demo-app"))
       "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion % Test,
     ),
     mainClass in Compile := Some("demo_app.rest_server.DemoAppMain"),
+    Test / fork := true,
     packageName in Docker := "dockerised-demo-app",
     dockerBaseImage := "openjdk:8-jre-alpine",
     dockerExposedPorts ++= Seq(9000, 9000),

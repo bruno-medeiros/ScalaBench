@@ -13,7 +13,6 @@ object Sequences extends App with Matchers {
   val atoz: NumericRange[Char] = 'a' to 'z'
   val oneToTen: Range = 1 until 10
 
-
   // ----------------------------------
   // Queries
 
@@ -74,26 +73,25 @@ object Sequences extends App with Matchers {
     assert(buf == List(10, 1, 2))
   }
 
-
   // ----------------------------------
   // HOFs - Transformations (create new collections):
 
   // .map
-  assert(List(1, 2, 3).map{ _ + 10} == List(11, 12, 13))
+  assert(List(1, 2, 3).map { _ + 10 } == List(11, 12, 13))
 
   // .transform for sequences (must map to same element type)
   assert(Array(1, 2, 3).mapInPlace(_ + 10).sameElements(Seq(11, 12, 13)))
 
   // Take a sequence, create a map from it using elements as keys
-  assert(List(1, 2, 1, 4).map(a => (a, a  + 100)).toMap
-    == Map(1 -> 101, 2 -> 102, 4 -> 104))
-
+  assert(
+    List(1, 2, 1, 4).map(a => (a, a + 100)).toMap
+      == Map(1 -> 101, 2 -> 102, 4 -> 104)
+  )
 
   // Collection builder type is maintained even if concrete type is upcast
   // This is called Uniform Return Type Principle
   val upcastList: immutable.Iterable[Int] = List(1, 2, 3)
-  assert(upcastList.map{ _ + 10}.isInstanceOf[List[_]])
-
+  assert(upcastList.map { _ + 10 }.isInstanceOf[List[_]])
 
   // ----------------------------------
   // HOFs - Accessors (create single value):
@@ -111,18 +109,20 @@ object Sequences extends App with Matchers {
   // .aggregate (only applicable to parallel collections, not sequential ones)
 //  assert(List("foo", "bar", "xpto").aggregate(0)((acc, s) => acc + s.length, _ + _) == 10)
 
-
   // ----------------------------------
   // List sliding
-  List(1, 2, 30, 40, 5).sliding(2, 2).foreach(e => {
-    print(s"$e || ")
-  })
+  List(1, 2, 30, 40, 5)
+    .sliding(2, 2)
+    .foreach(e => {
+      print(s"$e || ")
+    })
   println("---")
-  List(1, 2, 30, 40, 5).sliding(2).foreach(e => {
-    print(s"$e || ")
-  })
+  List(1, 2, 30, 40, 5)
+    .sliding(2)
+    .foreach(e => {
+      print(s"$e || ")
+    })
   println
-
 
   // -- Other
   val res: Seq[String] = Vector("one", "two", "three", "four")
