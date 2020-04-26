@@ -1,8 +1,8 @@
 package scala_examples.testing
 
-import org.scalatest.FunSuite
-import org.scalatest.Matchers
 import org.scalatest.OneInstancePerTest
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should
 
 class PrintDelayExample extends AnyFunSuite with should.Matchers with OneInstancePerTest {
 
