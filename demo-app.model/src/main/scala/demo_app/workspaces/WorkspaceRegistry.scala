@@ -1,15 +1,16 @@
 package demo_app.workspaces
 
+import scala.util.Failure
+import scala.util.Success
+import scala.util.Try
+
 import akka.actor.typed.ActorRef
 import akka.actor.typed.Behavior
 import akka.actor.typed.ExtensibleBehavior
 import akka.actor.typed.Signal
 import akka.actor.typed.TypedActorContext
+import akka.actor.typed.scaladsl.Behaviors
 import demo_app.workspaces.WorkspaceRegistry._
-
-import scala.util.Failure
-import scala.util.Success
-import scala.util.Try
 
 object WorkspaceRegistry {
 
@@ -22,7 +23,6 @@ object WorkspaceRegistry {
 
   case class CreateWorkspaceInfo(nameId: String, data: Option[String] = None, other: Int)
 }
-
 
 class WorkspaceRegistry extends ExtensibleBehavior[Msg] {
 
@@ -62,11 +62,11 @@ class WorkspaceRegistry extends ExtensibleBehavior[Msg] {
         }
 
     }
-    Behavior.same
+    Behaviors.same
   }
 
   override def receiveSignal(
     ctx: TypedActorContext[Msg],
     msg: Signal
-  ): Behavior[Msg] = Behavior.same
+  ): Behavior[Msg] = Behaviors.same
 }

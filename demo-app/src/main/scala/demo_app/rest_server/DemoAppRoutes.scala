@@ -12,20 +12,18 @@ import akka.util.Timeout
 import demo_app.workspaces.Workspace
 import demo_app.workspaces.WorkspaceRegistry
 import demo_app.workspaces.WorkspaceRegistry.CreateWorkspaceInfo
-
 import scala.concurrent.duration._
 import scala.util.Try
 
-
+import akka.actor.Scheduler
 
 class DemoAppRoutes(system: ActorSystem, workspaceRegistry: ActorRef[WorkspaceRegistry.Msg])
-  extends DemoAppJsonSupport
-{
+    extends DemoAppJsonSupport {
 
   val log = Logging(system, classOf[DemoAppRoutes])
 
   implicit lazy val timeout = Timeout(5.seconds) // usually we'd obtain the timeout from the system's configuration
-  implicit val scheduler = system.scheduler
+  implicit val scheduler: Scheduler = system.scheduler
   implicit val dispatcher = system.dispatcher
 
   val routes: Route = concat(
@@ -53,30 +51,29 @@ class DemoAppRoutes(system: ActorSystem, workspaceRegistry: ActorRef[WorkspaceRe
             }
           },
         },
+        path(Segment) {
+          name =>
+            concat(
+              get {
+                log.info(s"GetWorkspace: $name")
 
-        path(Segment) { name =>
-          concat(
-            get {
-              log.info(s"GetWorkspace: $name")
+                val result = workspaceRegistry.ask[Option[Workspace]](WorkspaceRegistry.GetWorkspace(name, _))
 
-              val result = workspaceRegistry.ask[Option[Workspace]](WorkspaceRegistry.GetWorkspace(name, _))
+                rejectEmptyResponse {
+                  complete(result.map(_.map(wks => s"GetWorkspace result: " + wks.name)))
+                }
+              },
+              delete {
+                log.info(s"DeleteWorkspace: $name")
 
-              rejectEmptyResponse {
-                complete(result.map(_.map(wks => s"GetWorkspace result: " + wks.name)))
-              }
-            },
-            delete {
-              log.info(s"DeleteWorkspace: $name")
+                val result = workspaceRegistry.ask[Try[Unit]](WorkspaceRegistry.DeleteWorkspace(name, _))
 
-              val result = workspaceRegistry.ask[Try[Unit]](WorkspaceRegistry.DeleteWorkspace(name, _))
-
-              complete(result.map(_ => "Success"))
-            },
-          )
+                complete(result.map(_ => "Success"))
+              },
+            )
         },
       )
     },
-
   )
 
 }
