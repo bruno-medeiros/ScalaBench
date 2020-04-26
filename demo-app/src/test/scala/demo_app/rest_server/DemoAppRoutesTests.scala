@@ -10,18 +10,13 @@ import akka.http.scaladsl.testkit.RouteTest
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import demo_app.workspaces.WorkspaceRegistry
 import demo_app.workspaces.WorkspaceRegistry.CreateWorkspaceInfo
-import org.scalatest.Matchers
 import org.scalatest.OneInstancePerTest
 import org.scalatest.Outcome
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.fixture
+import org.scalatest.funsuite.FixtureAnyFunSuiteLike
+import org.scalatest.matchers.should
 
-
-
-trait DemoAppApiBaseTests extends Object
-  with fixture.FunSuiteLike
-  with OneInstancePerTest
-{
+trait DemoAppApiBaseTests extends Object with FixtureAnyFunSuiteLike with OneInstancePerTest {
 
   override type FixtureParam = DemoAppApi
 
@@ -67,22 +62,25 @@ trait DemoAppApiBaseTests extends Object
 
 }
 
-class DemoAppRoutesTests extends DemoAppApiBaseTests
-  with DemoAppRoutesHelper with ScalatestRouteTest with OneInstancePerTest
-{
+class DemoAppRoutesTests
+    extends DemoAppApiBaseTests
+    with DemoAppRoutesHelper
+    with ScalatestRouteTest
+    with OneInstancePerTest {
 
   override protected def withFixture(test: OneArgTest): Outcome = {
     try {
       withFixture(test.toNoArgTest(this))
-    } finally {
-    }
+    } finally {}
   }
 }
 
-trait DemoAppRoutesHelper extends RouteTest
-  with Matchers with ScalaFutures with DemoAppJsonSupport
-  with DemoAppApi
-{
+trait DemoAppRoutesHelper
+    extends RouteTest
+    with should.Matchers
+    with ScalaFutures
+    with DemoAppJsonSupport
+    with DemoAppApi {
   this: ScalatestRouteTest =>
 
   val workspaceRegistry = new WorkspaceRegistry
@@ -110,7 +108,7 @@ trait DemoAppRoutesHelper extends RouteTest
       contentType should ===(ContentTypes.`text/plain(UTF-8)`)
 
       entityAs[String] should include(createReq.nameId)
-      workspaceRegistry.workspaces.get(createReq.nameId).isDefined shouldBe true
+      workspaceRegistry.workspaces.contains(createReq.nameId) shouldBe true
     }
   }
 
@@ -122,12 +120,12 @@ trait DemoAppRoutesHelper extends RouteTest
       contentType should ===(ContentTypes.`text/plain(UTF-8)`)
 
       entityAs[String] should ===("Success")
-      workspaceRegistry.workspaces.get(nameId).isDefined shouldBe false
+      workspaceRegistry.workspaces.contains(nameId) shouldBe false
     }
   }
 
   override def getElement(nameId: String): Any = {
-    workspaceRegistry.workspaces.get(nameId).isDefined shouldBe true
+    workspaceRegistry.workspaces.contains(nameId) shouldBe true
 
     val request = Get("/workspaces/" + nameId)
 

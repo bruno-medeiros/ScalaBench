@@ -1,23 +1,17 @@
 package demo_app.serde
 
-import demo_app.workspaces.WorkspaceRegistry.CreateWorkspaceInfo
-import org.scalatest.FunSuiteLike
-import org.scalatest.OneInstancePerTest
-import spray.json.DefaultJsonProtocol
-import spray.json.JsonFormat
-import spray.json.RootJsonFormat
-
 import scala.reflect.ClassTag
-import scala.reflect.classTag
+
+import demo_app.workspaces.WorkspaceRegistry.CreateWorkspaceInfo
+import org.scalatest.OneInstancePerTest
+import org.scalatest.funsuite.AnyFunSuiteLike
+import spray.json.DefaultJsonProtocol
+import spray.json.RootJsonFormat
 
 case class FooDto(name: String)
 case class FooDto2(name: String, age: Int)
 
-
-class JsonSerdeTests extends Object
-  with FunSuiteLike
-  with OneInstancePerTest
-{
+class JsonSerdeTests extends Object with AnyFunSuiteLike with OneInstancePerTest {
 
   val protocol = new DefaultJsonProtocol {}
   import protocol._
@@ -42,7 +36,7 @@ class JsonSerdeTests extends Object
       map += klass -> format
     }
 
-    def getEntry[T <: Product :ClassTag](klass: Class[T]): RootJsonFormat[T] = {
+    def getEntry[T <: Product : ClassTag](klass: Class[T]): RootJsonFormat[T] = {
       map.get(klass).map(_.asInstanceOf[RootJsonFormat[T]]).get
     }
   }
@@ -55,7 +49,7 @@ class JsonSerdeTests extends Object
     testReadWrite(CreateWorkspaceInfo("wk1", Some("myData"), 12))
     testReadWrite(FooDto("blah"))
 
-    def testReadWrite[T <: Product :ClassTag](obj: T) = {
+    def testReadWrite[T <: Product : ClassTag](obj: T) = {
       // FIXME: don't use Java's obj.getClass
       val format: RootJsonFormat[T] = dtoCache.getEntry(obj.getClass.asInstanceOf[Class[T]])
       val jsValue = format.write(obj)

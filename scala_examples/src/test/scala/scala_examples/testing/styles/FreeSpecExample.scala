@@ -1,14 +1,17 @@
 package scala_examples.testing.styles
 
-import org.scalatest.FreeSpec
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.should
 import scala_examples.testing.FailureExamples
 
-class FreeSpecExample extends FreeSpec {
+class FreeSpecExample extends AnyFreeSpec {
 
   "A Set" - {
     "when empty" - {
 
       "should have size 0" in {
+        println("PRINTLN should have size 0")
+//        Then("should have size 0")
         assert(Set.empty.size == 0)
       }
 
@@ -22,36 +25,30 @@ class FreeSpecExample extends FreeSpec {
     "when size 1" - {
 
       "should have size 1" taggedAs FailureExamples in {
+        println("PRINTLN should have size 1 (FAILURE)")
+//        Then("should have size 1 (FAILURE)")
         assert(Set.empty.size == 1)
       }
 
-//      assert(1 == 2)
     }
   }
 }
 
-import org.scalatest.{Matchers, path}
+import org.scalatest.path
 
-import scala.collection.mutable.ListBuffer
+class PathFreeSpecExample extends path.FreeSpec with should.Matchers {
 
-class PathFreeSpecExample extends path.FreeSpec with Matchers {
+  import scala.collection.mutable.ListBuffer
 
   "A ListBuffer" - {
 
     val buf = ListBuffer.empty[Int] // This implements "A ListBuffer"
 
-    "should be empty when created" in {
-      // This test sees:
-      //   val buf = ListBuffer.empty[Int]
-      // So buf is: ListBuffer()
-      buf should be (Symbol("empty"))
-    }
-
     "should have size 0 when created" in {
       // This test sees:
       //   val buf = ListBuffer.empty[Int]
       // So buf is: ListBuffer()
-      buf should have size 0
+      buf.size should equal(0)
     }
 
     "when 1 is appended" - {
@@ -64,9 +61,16 @@ class PathFreeSpecExample extends path.FreeSpec with Matchers {
         //   buf += 1
         // So buf is: ListBuffer(1)
 
-        buf.remove(0) should equal (1)
-        buf should be (Symbol("empty"))
+        buf.remove(0) should equal(1)
+        buf.isEmpty shouldBe true
       }
+
+      "should not contain 2" in {
+        buf.size shouldNot equal(0)
+      }
+
+      buf.clear()
+      println("Buf cleared")
     }
   }
 }

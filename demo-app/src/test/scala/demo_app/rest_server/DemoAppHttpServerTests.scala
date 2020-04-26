@@ -1,5 +1,8 @@
 package demo_app.rest_server
 
+import scala.concurrent.Future
+import scala.concurrent.duration._
+
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.marshalling.Marshal
@@ -13,21 +16,18 @@ import akka.http.scaladsl.model.StatusCodes
 import akka.stream.ActorMaterializer
 import akka.util.ByteString
 import demo_app.workspaces.WorkspaceRegistry
-import org.scalatest.Matchers
 import org.scalatest.OneInstancePerTest
 import org.scalatest.Outcome
 import org.scalatest.concurrent.PatienceConfiguration.Timeout
 import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.matchers.should
 
-import scala.concurrent.Future
-import scala.concurrent.duration._
-
-
-class DemoAppHttpServerTests extends DemoAppApiBaseTests
-  with OneInstancePerTest
-  with DemoAppJsonSupport
-  with Matchers with ScalaFutures
-{
+class DemoAppHttpServerTests
+    extends DemoAppApiBaseTests
+    with OneInstancePerTest
+    with DemoAppJsonSupport
+    with should.Matchers
+    with ScalaFutures {
 
   val host = "0.0.0.0"
   val port = 9000
@@ -35,7 +35,6 @@ class DemoAppHttpServerTests extends DemoAppApiBaseTests
   implicit val system: ActorSystem = ActorSystem("demo-app")
   implicit def executor = system.dispatcher
   implicit val materializer: ActorMaterializer = ActorMaterializer()(system)
-
 
   override protected def withFixture(test: OneArgTest): Outcome = {
     val fixture = new DemoAppHttpFixture
@@ -47,7 +46,7 @@ class DemoAppHttpServerTests extends DemoAppApiBaseTests
   }
 
   class DemoAppHttpFixture extends DemoAppApi with AutoCloseable {
-    val server : DemoAppServer = new DemoAppServer(host, port)
+    val server: DemoAppServer = new DemoAppServer(host, port)
     val bindingFt: Future[Http.ServerBinding] = server.serverBinding
     val binding: Http.ServerBinding = bindingFt.futureValue
 

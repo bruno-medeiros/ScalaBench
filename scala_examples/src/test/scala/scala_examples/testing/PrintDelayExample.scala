@@ -4,10 +4,7 @@ import org.scalatest.FunSuite
 import org.scalatest.Matchers
 import org.scalatest.OneInstancePerTest
 
-class PrintDelayExample extends FunSuite
-  with Matchers
-  with OneInstancePerTest
-{
+class PrintDelayExample extends AnyFunSuite with should.Matchers with OneInstancePerTest {
 
   test("Sleep A") {
     println("in SleepA")

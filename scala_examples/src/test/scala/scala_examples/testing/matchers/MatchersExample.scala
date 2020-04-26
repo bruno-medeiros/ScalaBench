@@ -1,19 +1,19 @@
 package scala_examples.testing.matchers
 
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should
 import scala_examples.testing.FailureExamples
 
-class MatchersExample extends FunSuite with Matchers {
+class MatchersExample extends AnyFunSuite with should.Matchers {
 
   test("should") {
     val result = 3
 
-    result should equal (3) // can customize equality
-    result should === (3)   // can customize equality and enforce type constraints
-    result should be (3)    // cannot customize equality, so fastest to compile
-    result shouldEqual 3    // can customize equality, no parentheses required
-    result shouldBe 3       // cannot customize equality, so fastest to compile, no parentheses required
-
+    result should equal(3) // can customize equality
+    result should ===(3) // can customize equality and enforce type constraints
+    result should be(3) // cannot customize equality, so fastest to compile
+    result shouldEqual 3 // can customize equality, no parentheses required
+    result shouldBe 3 // cannot customize equality, so fastest to compile, no parentheses required
 
     result shouldNot equal("abc")
   }
@@ -43,7 +43,7 @@ class MatchersExample extends FunSuite with Matchers {
     val option = Some("hi")
     option shouldEqual Some("hi")
     option shouldBe Some("hi")
-    option should === (Some("hi"))
+    option should ===(Some("hi"))
   }
   test("Options FAILURE - ===", FailureExamples) {
     //noinspection OptionEqualsSome
@@ -53,15 +53,14 @@ class MatchersExample extends FunSuite with Matchers {
     assert(Some(List(1, 2, 3)).contains(List(1, 2)))
   }
   test("Options FAILURE - should contain", FailureExamples) {
-    Some(List(1, 2, 3)) should contain (List(1, 2))
+    Some(List(1, 2, 3)) should contain(List(1, 2))
   }
 
   test("OptionValues .value") {
     import org.scalatest.OptionValues._
     val result: Option[_] = Some("hi")
-    result.value should be ("hi")
+    result.value should be("hi")
   }
-
 
   // ---- Containers / collections
 
@@ -74,7 +73,6 @@ class MatchersExample extends FunSuite with Matchers {
     result should contain theSameElementsInOrderAs List(1, 2, 3)
     result should contain inOrder (1, 3)
     result should contain inOrderOnly (1, 2, 3)
-
 
     // Using equal
     result.toSet shouldEqual Set(3, 2, 1)
@@ -135,7 +133,6 @@ class MatchersExample extends FunSuite with Matchers {
     set.loneElement should be(42)
   }
 
-
   // ---- Properties
 
   private case class Foo(value: Boolean) {
@@ -145,7 +142,7 @@ class MatchersExample extends FunSuite with Matchers {
 
   test("boolean property methods") {
     val result = Foo(true)
-    result shouldBe Symbol("foo")  // UGH, uses reflection
+    result shouldBe Symbol("foo") // UGH, uses reflection
   }
 
   // ----- Pattern matching
@@ -161,28 +158,33 @@ class MatchersExample extends FunSuite with Matchers {
     import org.scalatest.Inside
 
     new Inside {
-      inside(name) { case Name(first, "Q", _) =>
-        first should startWith("Ja")
+      inside(name) {
+        case Name(first, "Q", _) =>
+          first should startWith("Ja")
       }
     }
 
   }
 
   // ---- Exceptions
-  test("Exceptions - intercept") {
-    val thrown = intercept[IllegalArgumentException] {
-      throw new IllegalArgumentException
-    }
-    assert(thrown.getMessage eq null)
-  }
-
   test("Exceptions - should be thrownBy") {
-    a [NoSuchElementException] should be thrownBy { List().head }
+    a[NoSuchElementException] should be thrownBy {
+      List().head
+    }
   }
 
   test("Exceptions - thrownBy should ...") {
-    val thrown = the [IllegalStateException] thrownBy { throw new IllegalStateException("foo bar xxx") }
+    val thrown = the[IllegalStateException] thrownBy {
+      throw new IllegalStateException("foo bar xxx")
+    }
     thrown.getMessage should include("xxx")
+  }
+
+  test("Exceptions - intercept (not matchers)") {
+    val thrown = intercept[IllegalStateException] {
+      throw new IllegalStateException("foo bar xxx")
+    }
+    assert(thrown.getMessage.contains("xxx"))
   }
 
 }
