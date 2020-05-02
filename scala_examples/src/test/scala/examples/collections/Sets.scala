@@ -1,15 +1,15 @@
 package examples.collections
 
-import org.scalatest.Matchers
-
 import scala.collection.mutable
+
+import org.scalatest.matchers.should.Matchers
 
 //noinspection SimplifyBoolean
 object Sets extends App with Matchers {
 
   // Immutable sets: (uses hash trie)
 
-  val setAB: Set[Char] = Set('a','b')
+  val setAB: Set[Char] = Set('a', 'b')
   assert(setAB('a') === true)
   assert(setAB('z') === false)
 
@@ -32,7 +32,6 @@ object Sets extends App with Matchers {
 
   // + plus comes from any2stringadd
   assert(setAB + "c" === "Set(a, b)c")
-
 
   // mutable var
   {

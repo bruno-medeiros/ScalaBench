@@ -2,10 +2,10 @@ package scala_examples.testing.async
 
 import java.io.File
 
-import org.scalatest._
-import scala_examples.testing.FailureExamples
-
 import scala.concurrent.Future
+
+import org.scalatest.flatspec.AsyncFlatSpec
+import scala_examples.testing.FailureExamples
 
 class AsyncExample2 extends AsyncFlatSpec {
 
@@ -21,10 +21,14 @@ class AsyncExample2 extends AsyncFlatSpec {
   def addSoon(addends: Int*): Future[Int] = Future { addends.sum }
 
   "This test" should "succeed" in {
-    addSoon(1, 1) map { sum => assert(sum == 2) }
+    addSoon(1, 1) map { sum =>
+      assert(sum == 2)
+    }
   }
 
   it should "fail" taggedAs FailureExamples in {
-    addSoon(1, 1) map { sum => assert(sum == 3) }
+    addSoon(1, 1) map { sum =>
+      assert(sum == 3)
+    }
   }
 }

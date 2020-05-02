@@ -1,6 +1,6 @@
 package examples.functions
 
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 object PartialFunctions extends App with Matchers {
 

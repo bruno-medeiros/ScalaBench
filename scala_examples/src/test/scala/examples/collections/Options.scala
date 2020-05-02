@@ -1,8 +1,8 @@
 package examples.collections
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-class Options extends FunSuite {
+class Options extends AnyFunSuite {
 
   // Just an option
   val opt: Option[(String, Int)] = Some("abc", 123)

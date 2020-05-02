@@ -1,18 +1,20 @@
 package cats_examples
 
-import scala.concurrent.{ ExecutionContext, ExecutionContextExecutor }
+import scala.concurrent.ExecutionContext
+import scala.concurrent.ExecutionContextExecutor
 
-import cats.effect.{ Blocker, IO }
-import doobie._
+import cats.effect.Blocker
+import cats.effect.IO
 import doobie.implicits._
 import doobie.util.transactor.Transactor
 import doobie.util.transactor.Transactor.Aux
 import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.{ FreeSpec, Matchers }
+import org.scalatest.freespec.AnyFreeSpec
+import org.scalatest.matchers.should.Matchers
 
 case class Foo(num: Int, name: String)
 
-class DoobieExample extends FreeSpec with Matchers with ScalaFutures {
+class DoobieExample extends AnyFreeSpec with Matchers with ScalaFutures {
 
   implicit val ec: ExecutionContextExecutor = ExecutionContext.global
 

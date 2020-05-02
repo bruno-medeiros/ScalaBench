@@ -1,19 +1,20 @@
 package akka_examples.common
 
+import scala.concurrent.Await
+import scala.concurrent.Future
+import scala.concurrent.duration._
+
 import akka.actor.ActorSystem
 import akka.testkit.TestKit
-import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
-
-import scala.concurrent.duration._
-import scala.concurrent.{Await, Future}
-
+import org.scalatest.BeforeAndAfterAll
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpecLike
 
 abstract class AkkaExample(_system: ActorSystem)
-  extends TestKit(_system)
-  with Matchers
-  with WordSpecLike
-  with BeforeAndAfterAll {
-
+    extends TestKit(_system)
+    with Matchers
+    with AnyWordSpecLike
+    with BeforeAndAfterAll {
 
   def this() = this(ActorSystem("AkkaTest"))
 

@@ -1,10 +1,11 @@
 package scala_examples.testing.matchers
 
 import org.scalactic.TypeCheckedTripleEquals
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 import scala_examples.testing.FailureExamples
 
-class NumericChecks extends FunSuite with Matchers with TypeCheckedTripleEquals {
+class NumericChecks extends AnyFunSuite with Matchers with TypeCheckedTripleEquals {
 
   test("double compare - FAIL", FailureExamples) {
     val num = 2.00000001

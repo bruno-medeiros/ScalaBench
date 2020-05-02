@@ -1,8 +1,8 @@
 package scala_examples.testing.async
 
-
-import org.scalatest.AsyncFlatSpec
 import scala.concurrent.Future
+
+import org.scalatest.flatspec.AsyncFlatSpec
 
 class AsyncExample extends AsyncFlatSpec {
 
@@ -14,7 +14,9 @@ class AsyncExample extends AsyncFlatSpec {
     val futureSum: Future[Int] = addSoon(1, 2)
     // You can map assertions onto a Future, then return
     // the resulting Future[Assertion] to ScalaTest:
-    futureSum map { sum => assert(sum == 3) }
+    futureSum map { sum =>
+      assert(sum == 3)
+    }
   }
 
   it should "test exception" in {

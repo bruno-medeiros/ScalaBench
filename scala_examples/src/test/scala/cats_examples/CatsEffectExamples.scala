@@ -4,12 +4,14 @@ import java.util.concurrent.Executors
 
 import scala.concurrent.ExecutionContext
 
-import cats.effect.{ ContextShift, Fiber, IO }
+import cats.effect.ContextShift
+import cats.effect.Fiber
+import cats.effect.IO
 import cats.implicits._
-import org.scalatest.FreeSpec
+import org.scalatest.freespec.AnyFreeSpec
 
 // These are kinda redundant now since we are testing just Circe now...
-class CatsEffectExamples extends FreeSpec {
+class CatsEffectExamples extends AnyFreeSpec {
 
   val throwingTask = IO.async[String](
     _ => { throw new Exception("thrown") }

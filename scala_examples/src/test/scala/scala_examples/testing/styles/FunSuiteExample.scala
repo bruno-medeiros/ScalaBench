@@ -1,9 +1,10 @@
 package scala_examples.testing.styles
 
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 import scala_examples.testing.FailureExamples
 
-class FunSuiteExample extends FunSuite with Matchers {
+class FunSuiteExample extends AnyFunSuite with Matchers {
 
   test("testAddAll 1") {
     assert(List(10, 1, 2).sum == 13)

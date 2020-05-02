@@ -1,19 +1,12 @@
 package scala_examples.testing.fixture
 
-import org.scalatest.BeforeAndAfter
-import org.scalatest.FunSuite
-import org.scalatest.OneInstancePerTest
-import org.scalatest.Outcome
-import org.scalatest.fixture
-import scala_examples.common.Composable
-import scala_examples.common.SingletonResource
-
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.{ BeforeAndAfter, OneInstancePerTest, Outcome, funsuite }
+import scala_examples.common.{ Composable, SingletonResource }
 
 // BeforeAfterAndAll doesn't work well with OneInstancePerTest
 // because all instances are created beforehand, before afterAll is invoked
-class InstancePerTestExample extends FunSuite
-  with OneInstancePerTest with BeforeAndAfter
-{
+class InstancePerTestExample extends AnyFunSuite with OneInstancePerTest with BeforeAndAfter {
   val enabled = false
   if (enabled) {
 
@@ -27,12 +20,11 @@ class InstancePerTestExample extends FunSuite
   }
 }
 
-
 /**
   * Example with ComposableTest.
   * More flexible in that allows any fixture per test, but is more verbose
   */
-class LoanPatternWithComposableExample extends FunSuite with ComposableTest {
+class LoanPatternWithComposableExample extends AnyFunSuite with ComposableTest {
 
   test("test 1") {
     val sr = new SingletonResource(testAfters)
@@ -54,7 +46,7 @@ class LoanPatternWithComposableExample extends FunSuite with ComposableTest {
 /**
   * One-Arg test fixture example. Preferred solution.
   */
-class WithFixtureArgExample extends fixture.FunSuiteLike {
+class WithFixtureArgExample extends funsuite.FixtureAnyFunSuiteLike {
 
   type FixtureParam = SingletonResource
 

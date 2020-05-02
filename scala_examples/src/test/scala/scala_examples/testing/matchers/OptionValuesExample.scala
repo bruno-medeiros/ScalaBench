@@ -1,10 +1,10 @@
 package scala_examples.testing.matchers
 
-import org.scalatest.FunSuite
 import org.scalatest.OptionValues
+import org.scalatest.funsuite.AnyFunSuite
 import scala_examples.testing.FailureExamples
 
-class OptionValuesExample extends FunSuite with OptionValues {
+class OptionValuesExample extends AnyFunSuite with OptionValues {
 
   val option: Option[String] = None
 

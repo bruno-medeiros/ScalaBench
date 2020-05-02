@@ -1,9 +1,9 @@
 package scala_examples.testing.matchers
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import scala_examples.testing.FailureExamples
 
-class AssertionsExample extends FunSuite {
+class AssertionsExample extends AnyFunSuite {
 
   test("assert") {
     assert(1 == 1)

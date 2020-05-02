@@ -1,15 +1,13 @@
 package scala_examples.testing.matchers
 
-import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.{FunSuite, Matchers}
-
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class FuturesMatchersExample extends FunSuite
-  with ScalaFutures
-  with Matchers
-{
+import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
+
+class FuturesMatchersExample extends AnyFunSuite with ScalaFutures with Matchers {
 
   test("future") {
     val f = Future { (42, "abc") }

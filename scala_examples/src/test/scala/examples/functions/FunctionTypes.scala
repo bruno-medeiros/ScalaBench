@@ -1,8 +1,8 @@
 package examples.functions
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-class FunctionTypes extends FunSuite {
+class FunctionTypes extends AnyFunSuite {
   import examples.MiscUtil.getTypeTag
 
   case class Dummy()

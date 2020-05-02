@@ -1,10 +1,11 @@
 package scala_examples.testing.fixture
 
+import scala.collection.mutable.ListBuffer
 
 import org.scalatest._
-import collection.mutable.ListBuffer
+import org.scalatest.flatspec.AnyFlatSpec
 
-class BeforeAndAfterExample extends FlatSpec with BeforeAndAfter {
+class BeforeAndAfterExample extends AnyFlatSpec with BeforeAndAfter {
 
   val builder = new StringBuilder
   val buffer = new ListBuffer[String]

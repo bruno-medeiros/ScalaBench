@@ -1,9 +1,11 @@
 package scala_examples.testing.styles
 
-import org.scalatest.{FunSpec, path}
+import org.scalatest.funspec
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 import scala_examples.testing.FailureExamples
 
-class FunSpecExample extends FunSpec {
+class FunSpecExample extends AnyFunSpec {
 
   describe("A Set") {
     describe("when empty") {
@@ -12,9 +14,8 @@ class FunSpecExample extends FunSpec {
       }
 
       it("cannot register after ready phase", FailureExamples) {
-        it("register fails") { } // Couldn't use describe either
+        it("register fails") {} // Couldn't use describe either
       }
-
 
       it("should produce NoSuchElementException when head is invoked") {
         assertThrows[NoSuchElementException] {
@@ -25,7 +26,7 @@ class FunSpecExample extends FunSpec {
   }
 }
 
-class PathFunSpecExample extends path.FunSpec {
+class PathFunSpecExample extends funspec.PathAnyFunSpec {
 
   describe("A Set") {
     describe("when empty") {
@@ -42,11 +43,9 @@ class PathFunSpecExample extends path.FunSpec {
   }
 }
 
-import org.scalatest.{Matchers, path}
-
 import scala.collection.mutable.ListBuffer
 
-class ExampleSpec extends path.FunSpec with Matchers {
+class ExampleSpec extends funspec.PathAnyFunSpec with Matchers {
 
   describe("A ListBuffer") {
 
@@ -56,7 +55,7 @@ class ExampleSpec extends path.FunSpec with Matchers {
       // This test sees:
       //   val buf = ListBuffer.empty[Int]
       // So buf is: ListBuffer()
-      buf should be (Symbol("empty"))
+      buf should be(Symbol("empty"))
     }
 
     it("should have size 0 when created") {
@@ -77,8 +76,8 @@ class ExampleSpec extends path.FunSpec with Matchers {
         //   buf += 1
         // So buf is: ListBuffer(1)
 
-        buf.remove(0) should equal (1)
-        buf should be (Symbol("empty"))
+        buf.remove(0) should equal(1)
+        buf should be(Symbol("empty"))
       }
 
       describe("when 2 is appended") {
@@ -93,9 +92,9 @@ class ExampleSpec extends path.FunSpec with Matchers {
           //   buf += 2
           // So buf is: ListBuffer(1, 2)
 
-          buf.remove(0) should equal (1)
-          buf.remove(0) should equal (2)
-          buf should be (Symbol("empty"))
+          buf.remove(0) should equal(1)
+          buf.remove(0) should equal(2)
+          buf should be(Symbol("empty"))
         }
 
       }

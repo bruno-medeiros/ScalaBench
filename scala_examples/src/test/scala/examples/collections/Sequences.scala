@@ -1,10 +1,10 @@
 package examples.collections
 
-import org.scalatest.Matchers
-
 import scala.collection.immutable
 import scala.collection.immutable.NumericRange
 import scala.collection.mutable
+
+import org.scalatest.matchers.should.Matchers
 
 //noinspection SimplifiableFoldOrReduce,SimplifyBoolean,CorrespondsUnsorted
 object Sequences extends App with Matchers {

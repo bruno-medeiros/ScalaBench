@@ -1,7 +1,7 @@
 ThisBuild / organization := "com.github.bruno-medeiros"
 ThisBuild / version := "0.1.0-SNAPSHOT"
 
-ThisBuild / scalaVersion := "2.13.0"
+ThisBuild / scalaVersion := "2.13.1"
 ThisBuild / scalacOptions ++= Seq(
   "-encoding",
   "UTF-8", // source files are in UTF-8

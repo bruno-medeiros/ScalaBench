@@ -1,30 +1,33 @@
 package examples.monads
 
-import scala.concurrent.{ ExecutionContext, Future }
-import scala.util.{ Failure, Success, Try }
+import scala.concurrent.{ExecutionContext, Future}
+import scala.util.{Failure, Success, Try}
 
-import cats.{ Monad, MonadError }
-import org.scalatest.FreeSpec
+import cats.{Monad, MonadError}
 import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.freespec.AnyFreeSpec
 
 //noinspection ScalaUnusedSymbol
-class MonadConversions extends FreeSpec with ScalaFutures {
+class MonadConversions extends AnyFreeSpec with ScalaFutures {
 
   "Future and throws " in {
     implicit val ec = ExecutionContext.global
 
-    Future.successful(123).map(throwException)
+    Future
+      .successful(123)
+      .map(throwException)
       .failed
       .futureValue
       .getMessage
       .assertEqual("Failed")
 
-    Future.failed(new Exception("xxx"))
-      .recover{ case e => throwException(111)}
-      .failed.futureValue
+    Future
+      .failed(new Exception("xxx"))
+      .recover { case e => throwException(111) }
+      .failed
+      .futureValue
       .getMessage
       .assertEqual("Failed")
-
 
     assertThrows[Exception] {
       // Fails because it's the first for clause
@@ -73,7 +76,7 @@ class MonadConversions extends FreeSpec with ScalaFutures {
     def convert(option: Option[Int]): Try[String] = {
       option match {
         case Some(value) => Success(value.toString)
-        case None => Failure(new Exception("value is missing!"))
+        case None        => Failure(new Exception("value is missing!"))
       }
     }
 

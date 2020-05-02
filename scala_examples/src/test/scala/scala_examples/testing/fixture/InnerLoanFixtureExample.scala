@@ -1,13 +1,14 @@
 package scala_examples.testing.fixture
 
-
 import java.util.concurrent.ConcurrentHashMap
+
+import org.scalatest.flatspec.AnyFlatSpec
 
 // Fixture example using HOFs wihout test framework interaction
 object InnerLoanFixtureExample {
 
   object DbServer { // Simulating a database server
-  type Db = StringBuffer
+    type Db = StringBuffer
     private val databases = new ConcurrentHashMap[String, Db]
     def createDb(name: String): Db = {
       val db = new StringBuffer
@@ -21,12 +22,12 @@ object InnerLoanFixtureExample {
 
 }
 
-import org.scalatest.FlatSpec
-import InnerLoanFixtureExample.DbServer._
-import java.util.UUID.randomUUID
 import java.io._
+import java.util.UUID.randomUUID
 
-class InnerLoanFixtureExample extends FlatSpec {
+import scala_examples.testing.fixture.InnerLoanFixtureExample.DbServer._
+
+class InnerLoanFixtureExample extends AnyFlatSpec {
 
   def withDatabase(testCode: Db => Any): Unit = {
     val dbName = randomUUID.toString
@@ -34,8 +35,7 @@ class InnerLoanFixtureExample extends FlatSpec {
     try {
       db.append("ScalaTest is ") // perform setup
       testCode(db) // "loan" the fixture to the test
-    }
-    finally removeDb(dbName) // clean up the fixture
+    } finally removeDb(dbName) // clean up the fixture
   }
 
   def withFile(testCode: (File, FileWriter) => Any): Unit = {
@@ -44,8 +44,7 @@ class InnerLoanFixtureExample extends FlatSpec {
     try {
       writer.write("ScalaTest is ") // set up the fixture
       testCode(file, writer) // "loan" the fixture to the test
-    }
-    finally writer.close() // clean up the fixture
+    } finally writer.close() // clean up the fixture
   }
 
   // This test needs the file fixture

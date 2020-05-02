@@ -1,8 +1,9 @@
 package scala_examples.testing.fixture
 
-import org.scalatest._
-import collection.mutable.ListBuffer
+import scala.collection.mutable.ListBuffer
 
+import org.scalatest._
+import org.scalatest.flatspec.AnyFlatSpec
 
 object BeforeAndAfterEachExample {
 
@@ -19,8 +20,7 @@ object BeforeAndAfterEachExample {
     override def afterEach() = {
       try {
         super.afterEach() // To be stackable, must call super.afterEach
-      }
-      finally {
+      } finally {
         builder.clear()
       }
     }
@@ -34,17 +34,16 @@ object BeforeAndAfterEachExample {
     override def afterEach() = {
       try {
         super.afterEach() // To be stackable, must call super.afterEach
-      }
-      finally {
+      } finally {
         buffer.clear()
       }
     }
   }
 }
 
-import BeforeAndAfterEachExample._
+import scala_examples.testing.fixture.BeforeAndAfterEachExample._
 
-class BeforeAndAfterEachExample extends FlatSpec with Builder with Buffer {
+class BeforeAndAfterEachExample extends AnyFlatSpec with Builder with Buffer {
 
   "Testing" should "be easy" in {
     builder.append("easy!")

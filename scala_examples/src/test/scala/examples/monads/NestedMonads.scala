@@ -2,11 +2,11 @@ package examples.monads
 
 import scala.concurrent.Future
 
-import org.scalatest.FreeSpec
 import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.freespec.AnyFreeSpec
 
 //noinspection OptionEqualsSome
-class NestedMonads extends FreeSpec with ScalaFutures {
+class NestedMonads extends AnyFreeSpec with ScalaFutures {
 
   import scala.concurrent.ExecutionContext.Implicits.global
 

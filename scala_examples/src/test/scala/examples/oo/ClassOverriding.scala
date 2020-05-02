@@ -1,8 +1,8 @@
 package examples.oo
 
-import org.scalatest.FreeSpec
+import org.scalatest.freespec.AnyFreeSpec
 
-class ClassOverriding extends FreeSpec {
+class ClassOverriding extends AnyFreeSpec {
 
   class Base() {
     val foo2 = "foo2"

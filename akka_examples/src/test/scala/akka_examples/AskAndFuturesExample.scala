@@ -1,5 +1,9 @@
 package akka_examples
 
+import scala.concurrent.Await
+import scala.concurrent.Future
+import scala.concurrent.duration._
+
 import akka.actor.Actor
 import akka.actor.ActorLogging
 import akka.actor.Props
@@ -9,13 +13,8 @@ import akka.pattern.ask
 import akka.testkit.TestProbe
 import akka.util.Timeout
 import akka_examples.common.AkkaExample
-import org.scalatest.Matchers
 import org.scalatest.OneInstancePerTest
-
-import scala.concurrent.Await
-import scala.concurrent.Future
-import scala.concurrent.duration._
-
+import org.scalatest.matchers.should.Matchers
 
 class FuturesExampleActor extends Actor with ActorLogging {
 
@@ -38,10 +37,7 @@ class FuturesExampleActor extends Actor with ActorLogging {
   }
 }
 
-class AskAndFuturesExample extends AkkaExample
-  with OneInstancePerTest
-  with Matchers
-{
+class AskAndFuturesExample extends AkkaExample with OneInstancePerTest with Matchers {
 
   val questionActor = system.actorOf(Props[FuturesExampleActor])
   val probe = TestProbe()
@@ -80,7 +76,6 @@ class AskAndFuturesExample extends AkkaExample
 
     probe.expectMsg(">>> reply one")
   }
-
 
   "ask from probe actor - failure" in {
     val future: Future[_] = ask(questionActor, "error reply", probe.ref)

@@ -1,5 +1,6 @@
 package scala_examples.testing.styles
 
+import org.scalatest.freespec
 import org.scalatest.freespec.AnyFreeSpec
 import org.scalatest.matchers.should
 import scala_examples.testing.FailureExamples
@@ -34,9 +35,7 @@ class FreeSpecExample extends AnyFreeSpec {
   }
 }
 
-import org.scalatest.path
-
-class PathFreeSpecExample extends path.FreeSpec with should.Matchers {
+class PathFreeSpecExample extends freespec.PathAnyFreeSpec with should.Matchers {
 
   import scala.collection.mutable.ListBuffer
 
