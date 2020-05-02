@@ -1,21 +1,23 @@
 package demo_app.rest_server
 
-import akka.actor.ActorSystem
-import akka.stream.ActorMaterializer
-
 import scala.concurrent.ExecutionContext
-import scala.util.Failure
-import scala.util.Success
+import scala.util.{ Failure, Success }
+
+import akka.actor.typed.ActorSystem
+import akka.actor.{ ActorSystem => UntypedActorSystem }
+import demo_app.workspaces.WorkspaceRegistry
 
 object DemoAppMain extends App {
 
   val host = "0.0.0.0"
   val port = 9000
 
-  implicit val system: ActorSystem = ActorSystem("demo-app")
-  implicit val materializer: ActorMaterializer = ActorMaterializer()(system)
+  implicit val system: UntypedActorSystem = UntypedActorSystem("demo-app")
 
-  private val server = new DemoAppServer(host, port)
+  implicit val workspaceRegistrySystem: ActorSystem[WorkspaceRegistry.Msg] =
+    ActorSystem[WorkspaceRegistry.Msg](new WorkspaceRegistry(), "iot-system")
+
+  private val server = new DemoAppServer(workspaceRegistrySystem, host, port)
 
   implicit val executor: ExecutionContext = system.dispatcher
 

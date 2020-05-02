@@ -42,7 +42,7 @@ lazy val scala_examples = commonProject("scala_examples", file("scala_examples")
     testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-l", "FailureExamples"),
   )
 
-lazy val akkaVersion = "2.5.24"
+lazy val akkaVersion = "2.6.4"
 
 lazy val akka_examples = commonProject("akka_examples", file("akka_examples"))
   .settings(
@@ -76,7 +76,7 @@ lazy val demo_app_model_dtos = commonProject("demo-app_model_dtos", file("demo-a
     libraryDependencies ++= circeLibs,
   )
 
-val akkaHttpVersion = "10.1.8"
+val akkaHttpVersion = "10.1.11"
 val akkaDeps = Seq(
   "com.typesafe.akka" %% "akka-stream" % akkaVersion,
   "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion,

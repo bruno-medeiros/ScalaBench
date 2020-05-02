@@ -3,24 +3,17 @@ package demo_app.rest_server
 import scala.concurrent.Future
 import scala.concurrent.duration._
 
-import akka.actor.ActorSystem
+import akka.actor.{ ActorSystem, typed }
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.marshalling.Marshal
-import akka.http.scaladsl.model.HttpEntity
-import akka.http.scaladsl.model.HttpMethod
-import akka.http.scaladsl.model.HttpMethods
-import akka.http.scaladsl.model.HttpRequest
-import akka.http.scaladsl.model.HttpResponse
-import akka.http.scaladsl.model.MessageEntity
-import akka.http.scaladsl.model.StatusCodes
+import akka.http.scaladsl.model._
 import akka.stream.ActorMaterializer
 import akka.util.ByteString
 import demo_app.workspaces.WorkspaceRegistry
-import org.scalatest.OneInstancePerTest
-import org.scalatest.Outcome
 import org.scalatest.concurrent.PatienceConfiguration.Timeout
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.matchers.should
+import org.scalatest.{ OneInstancePerTest, Outcome }
 
 class DemoAppHttpServerTests
     extends DemoAppApiBaseTests
@@ -32,9 +25,11 @@ class DemoAppHttpServerTests
   val host = "0.0.0.0"
   val port = 9000
 
+  implicit val workspaceRegistrySystem: typed.ActorSystem[WorkspaceRegistry.Msg] =
+    typed.ActorSystem[WorkspaceRegistry.Msg](new WorkspaceRegistry(), "iot-system")
+
   implicit val system: ActorSystem = ActorSystem("demo-app")
   implicit def executor = system.dispatcher
-  implicit val materializer: ActorMaterializer = ActorMaterializer()(system)
 
   override protected def withFixture(test: OneArgTest): Outcome = {
     val fixture = new DemoAppHttpFixture
@@ -46,7 +41,7 @@ class DemoAppHttpServerTests
   }
 
   class DemoAppHttpFixture extends DemoAppApi with AutoCloseable {
-    val server: DemoAppServer = new DemoAppServer(host, port)
+    val server: DemoAppServer = new DemoAppServer(workspaceRegistrySystem, host, port)
     val bindingFt: Future[Http.ServerBinding] = server.serverBinding
     val binding: Http.ServerBinding = bindingFt.futureValue
 
@@ -62,7 +57,7 @@ class DemoAppHttpServerTests
       val response: HttpResponse = Http().singleRequest(request).futureValue(Timeout(1 seconds))
       response.status should ===(StatusCodes.OK)
 
-      val byteString = response.entity.dataBytes.runFold(ByteString(""))(_ ++ _).futureValue
+      val byteString = response.entity.dataBytes.runFold(ByteString(""))(_ ++ _)(ActorMaterializer()).futureValue
       byteString.utf8String
     }
 

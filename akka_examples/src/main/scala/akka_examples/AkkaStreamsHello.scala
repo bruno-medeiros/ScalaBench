@@ -3,19 +3,12 @@ package akka_examples
 import java.nio.file.Paths
 
 import akka.actor.ActorSystem
-//import akka.stream.scaladsl.
-import akka.stream.scaladsl.FileIO
-import akka.stream.scaladsl.Flow
-import akka.stream.scaladsl.Keep
-import akka.stream.scaladsl.Sink
-import akka.stream.scaladsl.Source
-import akka.stream.ActorMaterializer
-import akka.stream.IOResult
-import akka.util.ByteString
-import akka.Done
-import akka.NotUsed
-
 import scala.concurrent.Future
+
+import akka.{ Done, NotUsed }
+import akka.stream.IOResult
+import akka.stream.scaladsl.{ FileIO, Flow, Keep, Sink, Source }
+import akka.util.ByteString
 
 object AkkaStreamsHello extends App {
 
@@ -24,9 +17,8 @@ object AkkaStreamsHello extends App {
   //#run-source
 
   implicit val system = ActorSystem("StreamsHello")
-  implicit val materializer = ActorMaterializer()
 
-  val done: Future[Done] = source.runForeach(i => println(i))(materializer)
+  val done: Future[Done] = source.runForeach(i => println(i))
 
   implicit val ec = system.dispatcher
   done.onComplete(_ => system.terminate())
@@ -39,9 +31,8 @@ object AkkaStreamsFactorialApp extends App {
   //#run-source
 
   implicit val system = ActorSystem("StreamsHello")
-  implicit val materializer = ActorMaterializer()
 
-  val printSourceFt: Future[Done] = source.runForeach(i => println(i))(materializer)
+  val printSourceFt: Future[Done] = source.runForeach(i => println(i))
 
   val factorials = source.scan(BigInt(1))((acc, next) => acc * next)
 
@@ -54,7 +45,6 @@ object AkkaStreamsFactorialApp extends App {
   printSourceFt.zipWith(factorialsFileWriteFt)((_, _)).onComplete(_ => system.terminate())
 
 }
-
 
 object Misc {
   def lineSink(filename: String): Sink[String, Future[IOResult]] = {

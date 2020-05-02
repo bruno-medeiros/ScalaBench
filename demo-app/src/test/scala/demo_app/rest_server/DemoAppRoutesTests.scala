@@ -1,20 +1,15 @@
 package demo_app.rest_server
 
-import akka.actor.typed.scaladsl.adapter._
+import akka.actor.typed
 import akka.http.scaladsl.marshalling.Marshal
-import akka.http.scaladsl.model.ContentTypes
-import akka.http.scaladsl.model.HttpRequest
-import akka.http.scaladsl.model.MessageEntity
-import akka.http.scaladsl.model.StatusCodes
-import akka.http.scaladsl.testkit.RouteTest
-import akka.http.scaladsl.testkit.ScalatestRouteTest
+import akka.http.scaladsl.model.{ ContentTypes, HttpRequest, MessageEntity, StatusCodes }
+import akka.http.scaladsl.testkit.{ RouteTest, ScalatestRouteTest }
 import demo_app.workspaces.WorkspaceRegistry
 import demo_app.workspaces.WorkspaceRegistry.CreateWorkspaceInfo
-import org.scalatest.OneInstancePerTest
-import org.scalatest.Outcome
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.funsuite.FixtureAnyFunSuiteLike
 import org.scalatest.matchers.should
+import org.scalatest.{ OneInstancePerTest, Outcome }
 
 trait DemoAppApiBaseTests extends Object with FixtureAnyFunSuiteLike with OneInstancePerTest {
 
@@ -83,9 +78,12 @@ trait DemoAppRoutesHelper
     with DemoAppApi {
   this: ScalatestRouteTest =>
 
-  val workspaceRegistry = new WorkspaceRegistry
-  val behavior = system.spawn(workspaceRegistry, "wks")
-  val routes = new DemoAppRoutes(system, behavior).routes
+  private val workspaceRegistry = new WorkspaceRegistry()
+
+  implicit val workspaceRegistrySystem: typed.ActorSystem[WorkspaceRegistry.Msg] =
+    typed.ActorSystem[WorkspaceRegistry.Msg](workspaceRegistry, "iot-system")
+
+  val routes = new DemoAppRoutes(workspaceRegistrySystem) (workspaceRegistrySystem).routes
 
   override def listElements(expectedEntity: String) = {
     val request = HttpRequest(uri = "/workspaces")

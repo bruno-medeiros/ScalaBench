@@ -1,22 +1,15 @@
 package demo_app
 
+import scala.concurrent.{ ExecutionContext, Future }
+import scala.util.{ Failure, Success }
+
 import akka.NotUsed
 import akka.actor.ActorSystem
-import akka.http.scaladsl.Http
-import akka.http.scaladsl.HttpExt
-import akka.http.scaladsl.model.HttpRequest
-import akka.http.scaladsl.model.HttpResponse
-import akka.stream.ActorMaterializer
-
-import scala.concurrent.ExecutionContext
+import akka.http.scaladsl.model.{ HttpRequest, HttpResponse }
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
+import akka.http.scaladsl.{ Http, HttpExt }
 import akka.stream.scaladsl.Flow
-
-import scala.concurrent.Future
-import scala.util.Failure
-import scala.util.Success
-
 
 object AkkaHttpHelloServer extends App {
 
@@ -25,7 +18,6 @@ object AkkaHttpHelloServer extends App {
 
   implicit val system: ActorSystem = ActorSystem("helloworld")
   implicit val executor: ExecutionContext = system.dispatcher
-  implicit val materializer: ActorMaterializer = ActorMaterializer()(system)
 
   def routes: Route = path("hello") {
     get {
@@ -35,7 +27,6 @@ object AkkaHttpHelloServer extends App {
 
   private val httpExt: HttpExt = Http()(system)
   private val handler: Flow[HttpRequest, HttpResponse, NotUsed] = routes
-
 
   val serverBinding: Future[Http.ServerBinding] = httpExt.bindAndHandle(handler, host, port)
 

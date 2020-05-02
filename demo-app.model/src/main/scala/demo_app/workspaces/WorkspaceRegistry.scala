@@ -24,7 +24,7 @@ object WorkspaceRegistry {
   case class CreateWorkspaceInfo(nameId: String, data: Option[String] = None, other: Int)
 }
 
-class WorkspaceRegistry extends ExtensibleBehavior[Msg] {
+class WorkspaceRegistry() extends ExtensibleBehavior[Msg] {
 
   var workspaces: Map[String, Workspace] = Map.empty
 
