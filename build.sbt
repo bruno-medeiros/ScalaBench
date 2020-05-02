@@ -21,7 +21,12 @@ lazy val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.14.0"
 
 val doobieVersion = "0.8.6"
 
-lazy val scala_examples = (project in file("scala_examples"))
+def commonProject(id: String, base: java.io.File) =
+  sbt
+    .Project(id, base)
+    .settings()
+
+lazy val scala_examples = commonProject("scala_examples", file("scala_examples"))
   .settings(
     libraryDependencies += scalaTest,
     libraryDependencies += scalaCheck % Test,
@@ -39,7 +44,7 @@ lazy val scala_examples = (project in file("scala_examples"))
 
 lazy val akkaVersion = "2.5.24"
 
-lazy val akka_examples = (project in file("akka_examples"))
+lazy val akka_examples = commonProject("akka_examples", file("akka_examples"))
   .settings(
     libraryDependencies += scalaTest % Test,
     libraryDependencies += scalaCheck % Test,
@@ -63,7 +68,7 @@ val circeLibs = Seq(
   "io.circe" %% "circe-parser"
 ).map(_ % circeVersion)
 
-lazy val demo_app_model_dtos = (project in file("demo-app.model.dtos"))
+lazy val demo_app_model_dtos = commonProject("demo-app_model_dtos", file("demo-app.model.dtos"))
   .settings(
     name := "demo-app.model.dtos",
     libraryDependencies += scalaTest % Test,
@@ -81,7 +86,7 @@ val akkaDeps = Seq(
   "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion % Test,
 )
 
-lazy val demo_app_model = (project in file("demo-app.model"))
+lazy val demo_app_model = commonProject("demo-app_model", file("demo-app.model"))
   .settings(
     name := "demo-app.model",
     libraryDependencies += scalaTest % Test,
@@ -92,7 +97,7 @@ lazy val demo_app_model = (project in file("demo-app.model"))
 
 // See: https://www.codemunity.io/tutorials/dockerising-akka-http/
 
-lazy val demo_app = (project in file("demo-app"))
+lazy val demo_app = commonProject("demo-app", file("demo-app"))
   .enablePlugins(JavaAppPackaging, AshScriptPlugin)
   .settings(
     name := "demo-app",
