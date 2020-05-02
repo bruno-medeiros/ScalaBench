@@ -1,18 +1,14 @@
 package demo_app.workspaces
 
-import akka.actor.testkit.typed.scaladsl.BehaviorTestKit
-import akka.actor.testkit.typed.scaladsl.TestInbox
-import demo_app.workspaces.WorkspaceRegistry.CreateWorkspaceInfo
-import org.scalatest.FunSuite
-import org.scalatest.Matchers
-import org.scalatest.OneInstancePerTest
-
 import scala.util.Try
 
-class WorkspaceRegistryTests extends FunSuite
-  with Matchers
-  with OneInstancePerTest
-{
+import akka.actor.testkit.typed.scaladsl.{ BehaviorTestKit, TestInbox }
+import demo_app.workspaces.WorkspaceRegistry.CreateWorkspaceInfo
+import org.scalatest.OneInstancePerTest
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should
+
+class WorkspaceRegistryTests extends AnyFunSuite with should.Matchers with OneInstancePerTest {
 
   val registryReg = new WorkspaceRegistry
   val testKit = BehaviorTestKit(registryReg)

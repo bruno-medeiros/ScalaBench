@@ -2,7 +2,6 @@ package examples.types
 
 import examples.collections.ArrayExamples
 
-
 object Parameterization extends App {
 
   abstract class TopClass(var topParam: String) {}
@@ -17,7 +16,6 @@ object Parameterization extends App {
     def get(obj: T) = { print(obj) }
   }
   val contravariant: WriteBox[SubClass] = WriteBox[TopClass]()
-
 
   val intrbox = ReadBox[Int](123)
 
@@ -55,7 +53,7 @@ object Parameterization extends App {
     val foo: Foo[_] = new Foo[Int] {}
     foo.something()
   }
-  type T[_]
+
   {
     trait Foo2[F[_]] {
       def something() = "123"
