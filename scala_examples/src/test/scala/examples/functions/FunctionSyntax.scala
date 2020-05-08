@@ -10,20 +10,17 @@ object FunctionSyntax extends App {
   // Shorthand for def returning Unit
   def unitReturnFunc(a: String) = { println(a) }
 
-
   // Empty parens:
   def empty1(): Int = { println("Empty1"); 1 }
   def empty2: Int = { println("Empty2"); 2 }
   empty1()
-  empty1  // Warning: should be called with parenthesis
-  empty2  // Error if parenthesis add, it's a no-parens method
-
+  empty1 // Warning: should be called with parenthesis
+  empty2 // Error if parenthesis add, it's a no-parens method
 
   // Currying:
   def curryAdd(x: Int)(y: Int): Int = x + y
-  val _ = curryAdd(1) _ // Must use underscore, or:
-  val x: Int => Int = curryAdd(1) // explicit type parameter
-
+  val x1 = curryAdd(1) _ // Must use underscore, or:
+  val x2: Int => Int = curryAdd(1) // explicit type parameter
 
   // Reference lambda from function def:
   def foo(a: Int): Int = a * 2
@@ -31,7 +28,6 @@ object FunctionSyntax extends App {
   val fooLambda1 = foo _
   // If target type is present, `_` is not required:
   val fooLambda2: Int => Int = foo
-
 
   // ========== Interaction with tuples:
   def bar(a: Int, b: Int): Int = a + b
@@ -44,7 +40,7 @@ object FunctionSyntax extends App {
 
   // Another example:
   private val tuples: List[(String, Int)] = List(("one", 1), ("two", 2))
-  tuples.map{ case (a, b) => a.length + b}
+  tuples.map { case (a, b) => a.length + b }
   tuples.map(t => t._1.length + t._2)
   tuples.map(((a: String, b: Int) => a.length + b).tupled)
 //  tuples.map(((a, b) => a.length + b).tupled)

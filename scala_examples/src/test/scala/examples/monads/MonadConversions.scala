@@ -1,13 +1,15 @@
 package examples.monads
 
-import scala.concurrent.{ExecutionContext, Future}
-import scala.util.{Failure, Success, Try}
+import scala.annotation.nowarn
+import scala.concurrent.{ ExecutionContext, Future }
+import scala.util.{ Failure, Success, Try }
 
-import cats.{Monad, MonadError}
+import cats.{ Monad, MonadError }
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.freespec.AnyFreeSpec
 
 //noinspection ScalaUnusedSymbol
+@nowarn("cat=unused")
 class MonadConversions extends AnyFreeSpec with ScalaFutures {
 
   "Future and throws " in {

@@ -18,7 +18,7 @@ abstract class AkkaExample(_system: ActorSystem)
 
   def this() = this(ActorSystem("AkkaTest"))
 
-  override def afterAll: Unit = {
+  override def afterAll(): Unit = {
     // Invokes TestKit.shutdownActorSystem with dilated duration
     shutdown(system)
   }

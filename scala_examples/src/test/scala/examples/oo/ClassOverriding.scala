@@ -8,7 +8,7 @@ class ClassOverriding extends AnyFreeSpec {
     val foo2 = "foo2"
     println(foo2)
 
-    val (x, y) = ({ println("IN xx"); "xx"}, 11)
+    val (x, y) = ({ println("IN xx"); "xx" }, 11)
 
     println(s"x: $x , y: $y")
     println(toString)
@@ -31,7 +31,7 @@ class ClassOverriding extends AnyFreeSpec {
       override val foo2: String = "foo2_XXX"
       override val x: String = "xx_2"
 
-      override val example = new Integer(123)
+      override val example = Integer.valueOf(123)
 
       // is null because of vall
       assert(exampleToString == null)

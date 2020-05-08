@@ -1,5 +1,6 @@
 package demo_app.rest_server
 
+import scala.annotation.nowarn
 import scala.concurrent.Future
 import scala.concurrent.duration._
 
@@ -57,6 +58,7 @@ class DemoAppHttpServerTests
       val response: HttpResponse = Http().singleRequest(request).futureValue(Timeout(1 seconds))
       response.status should ===(StatusCodes.OK)
 
+      @nowarn("cat=deprecation")
       val byteString = response.entity.dataBytes.runFold(ByteString(""))(_ ++ _)(ActorMaterializer()).futureValue
       byteString.utf8String
     }

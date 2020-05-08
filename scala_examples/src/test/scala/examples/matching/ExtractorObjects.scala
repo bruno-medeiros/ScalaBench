@@ -1,5 +1,7 @@
 package examples.matching
 
+import scala.annotation.nowarn
+
 object ExtractorObjects extends App {
 
   object MyExtractor {
@@ -15,7 +17,7 @@ object ExtractorObjects extends App {
   object MyExtractor2 {
     def unapply(arg: String): Option[(String, Int)] = arg match {
       case _ if arg.length > 4 => Some(arg.substring(0, 4), arg.length)
-      case _ => None
+      case _                   => None
     }
   }
 
@@ -34,19 +36,17 @@ object ExtractorObjects extends App {
   }
   println("MyExtractor done")
 
-
   {
     // :: Is a case class for List
     assert(::(1, ::(2, Nil)) == List(1, 2))
 
-    val a :: b = List(1, 2)
+    val a :: b = List(1, 2): @nowarn
     assert(b == List(2))
     println(s"ListExtractor: $a  $b")
   }
 
-
   object ComplexExtractor {
-    def unapplySeq(arg: String) : Option[Seq[String]] = {
+    def unapplySeq(arg: String): Option[Seq[String]] = {
       if (arg.length > 5) {
         Some(arg.split("-").toVector)
       } else {

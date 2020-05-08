@@ -1,13 +1,12 @@
 package examples.oo
 
-
 object ClassConstruction extends App {
 
   // Private constructor:
-  class MyPrivate private(strField: String) {
+  class MyPrivate private (strField: String) {
 
     // with public constructor
-    def this(num: Integer) {
+    def this(num: Integer) = {
       this("with number")
       println("In private constructor")
     }

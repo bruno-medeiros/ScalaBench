@@ -1,5 +1,6 @@
 package examples.collections
 
+import scala.annotation.nowarn
 import scala.collection.mutable
 
 import org.scalatest.matchers.should.Matchers
@@ -31,7 +32,7 @@ object Sets extends App with Matchers {
   assert(Set(1, 2, 3) -- Set(2, 3, 4) === Set(1))
 
   // + plus comes from any2stringadd
-  assert(setAB + "c" === "Set(a, b)c")
+  assert(setAB + "c" === "Set(a, b)c"): @nowarn
 
   // mutable var
   {

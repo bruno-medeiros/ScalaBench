@@ -1,17 +1,19 @@
 ThisBuild / organization := "com.github.bruno-medeiros"
 ThisBuild / version := "0.1.0-SNAPSHOT"
 
-ThisBuild / scalaVersion := "2.13.1"
-ThisBuild / scalacOptions ++= Seq(
+ThisBuild / scalaVersion := "2.13.2"
+ThisBuild / scalacOptions := Seq(
   "-encoding",
   "UTF-8", // source files are in UTF-8
+  "-language:postfixOps",
+  "-language:higherKinds", // allow higher kinded types without `import scala.language.higherKinds`
   "-deprecation", // warn about use of deprecated APIs
   "-unchecked", // warn about unchecked type parameters
   "-feature", // warn about misused language features
-  "-language:postfixOps",
-  "-language:higherKinds", // allow higher kinded types without `import scala.language.higherKinds`
+  "-Xfatal-warnings",
+//  "-Wconf:cat=lint-unit-specialization:warning-verbose",
+//  "-Wconf:any:warning-verbose",
   "-Xlint:_,-adapted-args", // enable handy linter warnings
-//  "-Werror",     // turn compiler warnings into errors
 )
 
 ThisBuild / Test / logBuffered := false
@@ -36,9 +38,6 @@ lazy val scala_examples = commonProject("scala_examples", file("scala_examples")
       "org.tpolecat" %% "doobie-postgres" % doobieVersion,
       "org.tpolecat" %% "doobie-h2" % doobieVersion % Test,
     ),
-    scalacOptions := scalacOptions.value
-      .filterNot(_ == "-Xfatal-warnings")
-      ++ Seq("-Ywarn-unused:-implicits,-locals,-privates"),
     testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-l", "FailureExamples"),
   )
 
@@ -55,8 +54,6 @@ lazy val akka_examples = commonProject("akka_examples", file("akka_examples"))
       "com.typesafe.akka" %% "akka-testkit" % akkaVersion % Test,
     ),
     libraryDependencies += "com.typesafe.akka" %% "akka-persistence" % akkaVersion,
-    scalacOptions := scalacOptions.value
-      .filterNot(_ == "-Xfatal-warnings"),
   )
 
 // -------------------- Demo App

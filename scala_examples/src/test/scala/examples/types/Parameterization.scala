@@ -1,7 +1,10 @@
 package examples.types
 
+import scala.annotation.nowarn
+
 import examples.collections.ArrayExamples
 
+@nowarn("cat=unused")
 object Parameterization extends App {
 
   abstract class TopClass(var topParam: String) {}
@@ -59,7 +62,7 @@ object Parameterization extends App {
       def something() = "123"
     }
     // Doesn't work
-//    val foo2: Foo2[_] = new Foo2[Option] {}
+    val foo2: Foo2[Option] = new Foo2[Option] {}
   }
 
 }

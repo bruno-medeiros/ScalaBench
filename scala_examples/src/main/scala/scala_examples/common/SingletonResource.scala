@@ -14,7 +14,7 @@ object SingletonResource {
 class SingletonResource(addDisposeListener: (() => Unit) => Unit) {
   import SingletonResource.resourceCount
 
-  def this(composable: ComposableLike) {
+  def this(composable: ComposableLike) = {
     this(composable.addDisposeListener _)
   }
 
@@ -34,4 +34,3 @@ class SingletonResource(addDisposeListener: (() => Unit) => Unit) {
     SingletonResource.resourceCount.decrementAndGet()
   }
 }
-

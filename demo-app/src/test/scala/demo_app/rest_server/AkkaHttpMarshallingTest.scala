@@ -1,5 +1,6 @@
 package demo_app.rest_server
 
+import scala.annotation.nowarn
 import scala.concurrent.Future
 import scala.concurrent.duration._
 
@@ -44,6 +45,7 @@ class AkkaHttpMarshallingTest extends AnyFreeSpecLike with ScalaFutures {
     assert(marshallToBody(Future { "123" }) == "123")
 //    assert(marshallToBody[Future[Unit]](Future { () }) == "")
 
+    @nowarn
     val failedFutureUnit = Future[Unit] { throw new Exception }
 //    val response: HttpResponse = Marshal(failedFutureUnit).to[HttpResponse].futureValue
 //
