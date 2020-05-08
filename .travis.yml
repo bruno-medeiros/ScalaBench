@@ -21,5 +21,5 @@ cache:
 
 
 script:
-  - sbt ++$TRAVIS_SCALA_VERSION compile test:compile
+  - sbt ++$TRAVIS_SCALA_VERSION test:compile
   - sbt ++$TRAVIS_SCALA_VERSION -Dakka.test.timefactor=1.5 test

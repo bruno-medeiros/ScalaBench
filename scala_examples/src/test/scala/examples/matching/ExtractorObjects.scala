@@ -1,7 +1,5 @@
 package examples.matching
 
-import scala.annotation.nowarn
-
 object ExtractorObjects extends App {
 
   object MyExtractor {
@@ -40,7 +38,7 @@ object ExtractorObjects extends App {
     // :: Is a case class for List
     assert(::(1, ::(2, Nil)) == List(1, 2))
 
-    val a :: b = List(1, 2): @nowarn
+    val a :: b = List(1, 2)
     assert(b == List(2))
     println(s"ListExtractor: $a  $b")
   }

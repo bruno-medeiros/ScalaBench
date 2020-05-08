@@ -2,7 +2,8 @@ ThisBuild / organization := "com.github.bruno-medeiros"
 ThisBuild / version := "0.1.0-SNAPSHOT"
 
 ThisBuild / scalaVersion := "2.13.2"
-ThisBuild / scalacOptions := Seq(
+
+ThisBuild / scalacOptions ++= Seq(
   "-encoding",
   "UTF-8", // source files are in UTF-8
   "-language:postfixOps",
@@ -10,11 +11,14 @@ ThisBuild / scalacOptions := Seq(
   "-deprecation", // warn about use of deprecated APIs
   "-unchecked", // warn about unchecked type parameters
   "-feature", // warn about misused language features
-  "-Xfatal-warnings",
 //  "-Wconf:cat=lint-unit-specialization:warning-verbose",
-//  "-Wconf:any:warning-verbose",
   "-Xlint:_,-adapted-args", // enable handy linter warnings
 )
+ThisBuild / scalacOptions ++= {
+  if (System.getProperty("STRICT_COMPILE") != null) {
+    Seq("-Xfatal-warnings")
+  } else Seq()
+}
 
 ThisBuild / Test / logBuffered := false
 
