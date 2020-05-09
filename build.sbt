@@ -15,9 +15,7 @@ ThisBuild / scalacOptions ++= Seq(
   "-Xlint:_,-adapted-args", // enable handy linter warnings
 )
 ThisBuild / scalacOptions ++= {
-  if (System.getProperty("STRICT_COMPILE") != null) {
-    Seq("-Xfatal-warnings")
-  } else Seq()
+  if (System.getProperty("STRICT_COMPILE") != null) Seq("-Xfatal-warnings") else Seq()
 }
 
 ThisBuild / Test / logBuffered := false

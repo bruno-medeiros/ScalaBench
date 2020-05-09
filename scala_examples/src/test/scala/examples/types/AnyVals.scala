@@ -16,7 +16,7 @@ object AnyVals extends App {
   println("----2")
 
   StdIn.readLine()
-  println(s"${id1.name.hashCode} vs ${id1.hashCode()}" )
+  println(s"${id1.name.hashCode} vs ${id1.hashCode()}")
   println("----3")
 
   StdIn.readLine()
@@ -30,7 +30,7 @@ object AnyVals extends App {
 
 }
 
-object Foo {
+object AnyVals2 {
   type @@[A, B] = A with B
 
   implicit class TaggingExtensions[A](val a: A) extends AnyVal {
