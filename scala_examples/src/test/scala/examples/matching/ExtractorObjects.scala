@@ -38,9 +38,17 @@ object ExtractorObjects extends App {
     // :: Is a case class for List
     assert(::(1, ::(2, Nil)) == List(1, 2))
 
-    val a :: b = List(1, 2)
-    assert(b == List(2))
-    println(s"ListExtractor: $a  $b")
+    @scala.annotation.nowarn
+    val _x = {
+      val a :: b = List(1, 2)
+
+      assert(b == List(2))
+      println(s"ListExtractor: $a  $b")
+    }
+  }
+  {
+    val List(a, b) = List(1, 2)
+    assert(a == 1 && b == 2)
   }
 
   object ComplexExtractor {

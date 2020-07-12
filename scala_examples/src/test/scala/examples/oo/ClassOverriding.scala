@@ -1,5 +1,7 @@
 package examples.oo
 
+import scala.annotation.nowarn
+
 import org.scalatest.freespec.AnyFreeSpec
 
 class ClassOverriding extends AnyFreeSpec {
@@ -38,6 +40,7 @@ class ClassOverriding extends AnyFreeSpec {
       // is 123
       assert(exampleToString2 == 123)
 
+      @nowarn("msg=resolves to enclosing")
       override implicit val anImplicit: ImplicitOps = implicitly // This is crap because it's self-referencing...
       assert(anImplicit == null)
     }

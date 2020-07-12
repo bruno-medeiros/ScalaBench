@@ -2,10 +2,10 @@ package examples.types
 
 object TypeContextBounds extends App {
 
-  case class MyBox[T](obj: T) { }
+  case class MyBox[T](obj: T) {}
 
   // Context bound here - contrain type T such than an implicit MyBox[T] exists
-  def foo[T: MyBox](): String = {
+  def foo[T : MyBox](): String = {
     implicitly[MyBox[T]].toString
   }
   // Equivalent to:
@@ -19,7 +19,6 @@ object TypeContextBounds extends App {
 
   foo()
   foo2()
-
 
   // TODO: generalized type constraints: <:< =:=
 

@@ -3,7 +3,6 @@ package examples.types
 import examples.MiscUtil.getTypeTag
 import org.scalatest.Assertions
 
-
 object PathDependentTypes_SingletonTypes extends App {
 
   // Simplest example:
@@ -18,7 +17,7 @@ object PathDependentTypes_SingletonTypes extends App {
 
   // Path-dependent type:
   val x1: String = identity("abc")
-  val x2: Integer = identity(Integer.valueOf(123))
+  val x2: List[Int] = identity(List(123))
 
 }
 

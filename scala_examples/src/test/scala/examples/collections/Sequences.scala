@@ -122,7 +122,7 @@ object Sequences extends App with Matchers {
     .foreach(e => {
       print(s"$e || ")
     })
-  println
+  println()
 
   // -- Other
   val res: Seq[String] = Vector("one", "two", "three", "four")

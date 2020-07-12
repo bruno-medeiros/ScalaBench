@@ -1,21 +1,28 @@
 ThisBuild / organization := "com.github.bruno-medeiros"
 ThisBuild / version := "0.1.0-SNAPSHOT"
 
-ThisBuild / scalaVersion := "2.13.2"
+ThisBuild / scalaVersion := "2.13.3"
 
 ThisBuild / scalacOptions ++= Seq(
   "-encoding",
   "UTF-8", // source files are in UTF-8
   "-language:postfixOps",
   "-language:higherKinds", // allow higher kinded types without `import scala.language.higherKinds`
-  "-deprecation", // warn about use of deprecated APIs
-  "-unchecked", // warn about unchecked type parameters
-  "-feature", // warn about misused language features
-//  "-Wconf:cat=lint-unit-specialization:warning-verbose",
   "-Xlint:_,-adapted-args", // enable handy linter warnings
+  "-Wconf:any:error",
+//  "-Wconf:cat=lint-unit-specialization:warning-verbose",
+  "-Wconf:msg=Auto-application:warning",
+  "-Wconf:msg=Block result was adapted:warning", // TODO investigate
+  // This is so it doesn't mess up with incremental compilation:
+  "-Wconf:msg=annotation does not suppress any warnings:warning",
+  "-Wconf:msg=multiarg infix syntax looks like a tuple:warning",
 )
+
 ThisBuild / scalacOptions ++= {
-  if (System.getProperty("STRICT_COMPILE") != null) Seq("-Xfatal-warnings") else Seq()
+  if (System.getProperty("STRICT_COMPILE") != null)
+    Seq() // No change
+  else
+    Seq("-Wconf:cat=unused:warning") // Allow unused for IDEs
 }
 
 ThisBuild / Test / logBuffered := false
@@ -60,7 +67,7 @@ lazy val akka_examples = commonProject("akka_examples", file("akka_examples"))
 
 // -------------------- Demo App
 
-val circeVersion = "0.12.0-RC2"
+val circeVersion = "0.12.3"
 val circeLibs = Seq(
   "io.circe" %% "circe-core",
   "io.circe" %% "circe-generic",

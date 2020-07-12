@@ -1,9 +1,8 @@
 package examples.concurrent
 
 import scala.concurrent._
-import scala.concurrent.duration.{Duration, FiniteDuration}
-import scala.util.{Failure, Try}
-
+import scala.concurrent.duration.{ Duration, FiniteDuration }
+import scala.util.{ Failure, Try }
 
 // Timed-out future
 class TimeoutFuture(timeout: FiniteDuration) extends Future[Nothing] {
@@ -13,8 +12,7 @@ class TimeoutFuture(timeout: FiniteDuration) extends Future[Nothing] {
 
   val timelimit = timeout.fromNow
 
-  override def onComplete[U](f: Try[Nothing] => U)(implicit executor: ExecutionContext): Unit = {
-  }
+  override def onComplete[U](f: Try[Nothing] => U)(implicit executor: ExecutionContext): Unit = {}
 
   override def isCompleted: Boolean = {
     if (p.isCompleted) {
